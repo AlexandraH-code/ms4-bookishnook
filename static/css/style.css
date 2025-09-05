@@ -1,0 +1,68 @@
+/* Fonter */
+body { font-family: 'Lato', sans-serif; color: #333333; background-color: #FFF8F0; }
+h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', serif; }
+
+/* Palett */
+.bn-brown { background-color: #5A3825; }
+.bn-cream { background-color: #FFF8F0; }
+.bn-sage  { background-color: #A3B18A; }
+.bn-rose  { background-color: #D8A7B1; }
+.bn-text  { color: #333333; }
+
+/* Buttons */
+.bn-btn-primary {
+  background-color: #5A3825;
+  border: none;
+  color: #FFF8F0;
+}
+.bn-btn-primary:hover { background-color: #A3B18A; color: #fff; }
+
+/* Hero */
+.bn-hero {
+  background: url('https://images.unsplash.com/photo-1606813902891-572c9dc6258a') center/cover no-repeat;
+  height: 400px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bn-hero-overlay {
+  background: rgba(0,0,0,0.45);
+  padding: 2rem;
+  border-radius: 8px;
+}
+.bn-hero-title { font-weight: 700; }
+
+/* Cards / kategorier */
+.bn-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.bn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+.bn-card-img {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Titel i navbarens mitt */
+.bn-title { font-size: 1.4rem; font-weight: 700;}
+
+/* träffar just branden i den ljusa (övre) navbaren */
+.navbar-light .navbar-brand.bn-title {
+  color: #5A3825 !important;
+  font-size: 1.6rem;   /* valfritt */
+  font-weight: 700;
+}
+
+/* om du vill ändra hover också */
+.navbar-light .navbar-brand.bn-title:hover {
+  color: #A3B18A !important;
+}
