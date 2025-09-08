@@ -17,20 +17,44 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 .bn-btn-primary:hover { background-color: #A3B18A; color: #fff; }
 
-/* Hero */
+/* Hero container*/
 .bn-hero {
-  background: url('https://images.unsplash.com/photo-1606813902891-572c9dc6258a') center/cover no-repeat;
-  height: 400px;
-  margin-bottom: 0;
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.bn-hero-overlay {
-  background: rgba(0,0,0,0.45);
-  padding: 2rem;
   border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: url("/static/images/hero.jpg") center/cover no-repeat; /* dev-server */
 }
+
+/* Mörk overlay som gör texten tydlig oavsett bild */
+.bn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)
+  );
+}
+
+/* Textlådan ovanpå overlayn */
+.bn-hero__overlay {
+  position: relative; /* hamnar över ::before */
+  color: #FFF8F0;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Justera rubriken om du vill */
+.bn-hero__overlay h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
 .bn-hero-title { font-weight: 700; }
 
 /* Cards / kategorier */
@@ -55,10 +79,19 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 /* Titel i navbarens mitt */
 .bn-title { font-size: 1.4rem; font-weight: 700;}
 
+
+/* Grid-layout för övre navbar-raden */
+.navbar-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* vänster | mitten | höger */
+  align-items: center;
+  gap: .5rem;
+}
+
 /* träffar just branden i den ljusa (övre) navbaren */
 .navbar-light .navbar-brand.bn-title {
   color: #5A3825 !important;
-  font-size: 1.6rem;   /* valfritt */
+  font-size: 1.6rem;
   font-weight: 700;
 }
 
@@ -66,3 +99,40 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 .navbar-light .navbar-brand.bn-title:hover {
   color: #A3B18A !important;
 }
+
+/* Lite spacing runt ikonerna så de inte “krockar” med brand */
+.navbar .btn-link i,
+.navbar a i {
+  font-size: 1.1rem;
+}
+.navbar .btn-link { padding-left: .25rem; padding-right: .25rem; }
+
+/* Mörk meny (nedre raden) – dropdown i samma färg som navbaren */
+.bn-brown { background-color: #5A3825; }
+.navbar-dark .navbar-nav .nav-link { color: #FFF8F0; }
+.navbar-dark .navbar-nav .nav-link:hover { color: #A3B18A; }
+
+/* Dropdowns: matcha mörk meny */
+.navbar-dark .dropdown-menu.bn-dropdown {
+  background-color: #4a2f21;   /* lite mörkare än .bn-brown ger lager-effekt */
+  border: 0;
+  min-width: 12rem;
+}
+.navbar-dark .dropdown-menu.bn-dropdown .dropdown-item {
+  color: #FFF8F0;
+}
+.navbar-dark .dropdown-menu.bn-dropdown .dropdown-item:hover,
+.navbar-dark .dropdown-menu.bn-dropdown .dropdown-item:focus {
+  background-color: #5A3825;
+  color: #FFFFFF;
+}
+.navbar-dark .dropdown-menu.bn-dropdown .dropdown-divider {
+  border-top-color: rgba(255, 248, 240, 0.2);
+}
+
+/* Aktiv länk-markering */
+.navbar-dark .nav-link.active {
+  color: #A3B18A;
+  font-weight: 700;
+}
+

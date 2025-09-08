@@ -4,39 +4,38 @@
   <a href="#" class="text-light mx-2"><i class="fab fa-facebook"></i> Facebook</a>
 </div>
 
-<!-- ÖVRE RAD: Sök vänster, brand centrerad, varukorg höger -->
-<nav class="navbar navbar-light bg-light border-bottom py-2">
-  <div class="container navbar-grid">
+<!-- ÖVRE RAD: Sök-ikon (vänster), centrerad brand, varukorg (höger) -->
+<nav class="navbar navbar-light bg-light border-bottom py-2 position-relative">
+  <!-- Vänster: Sök-ikon (mobil + desktop) -->
+  <div class="d-flex align-items-center">
+    <!-- Mobil: togglar fällbart sökfält -->
+    <button class="btn btn-link d-md-none text-dark pr-2" type="button"
+            data-toggle="collapse" data-target="#mobileSearch"
+            aria-controls="mobileSearch" aria-expanded="false" aria-label="Toggle search">
+      <i class="fas fa-search"></i>
+    </button>
 
-    <!-- Vänster: mobil-ikon + desktop-sök -->
-    <div class="d-flex align-items-center">
-      <!-- Mobil: togglar fällbart sökfält -->
-      <button class="btn btn-link d-md-none text-dark pr-2" type="button"
-              data-toggle="collapse" data-target="#mobileSearch"
-              aria-controls="mobileSearch" aria-expanded="false" aria-label="Toggle search">
-        <i class="fas fa-search"></i>
-      </button>
+    <!-- Desktop: direkt sökfält -->
+    <form class="form-inline d-none d-md-flex">
+      <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
+      <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
 
-      <!-- Desktop: synligt sökfält -->
-      <form class="form-inline d-none d-md-flex">
-        <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
+  <!-- Mitten: Brand (alltid centrerad mot hela raden) -->
+  <a class="navbar-brand bn-title mx-auto font-weight-bold position-absolute w-100 text-center"
+     href="/" style="left:0; top:0;">
+    Bookish Nook
+  </a>
 
-    <!-- Mitten: Brand (ingen absolute, ingen w-100) -->
-    <a class="navbar-brand bn-title text-center mx-0" href="/">Bookish Nook</a>
-
-    <!-- Höger: Varukorg -->
-    <div class="d-flex align-items-center justify-content-end">
-      <a href="#" class="text-dark position-relative" title="Cart">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">
-          {{ cart_count|default:0 }}
-        </span>
-      </a>
-    </div>
-
+  <!-- Höger: Varukorg -->
+  <div class="d-flex align-items-center ml-auto">
+    <a href="{% url 'cart:view' %}" class="text-dark position-relative" title="Cart" style="padding-left:.5rem;">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">
+        {{ cart_count|default:0 }}
+      </span>
+    </a>
   </div>
 </nav>
 
