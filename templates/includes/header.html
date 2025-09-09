@@ -10,15 +10,15 @@
 
     <!-- Vänster: mobil-ikon + desktop-sök -->
     <div class="d-flex align-items-center">
-      <!-- Mobil: togglar fällbart sökfält -->
-      <button class="btn btn-link d-md-none text-dark pr-2" type="button"
+      <!-- Mobil och tablet: togglar fällbart sökfält -->
+      <button class="btn btn-link d-lg-none text-dark pr-2" type="button"
               data-toggle="collapse" data-target="#mobileSearch"
               aria-controls="mobileSearch" aria-expanded="false" aria-label="Toggle search">
         <i class="fas fa-search"></i>
       </button>
 
       <!-- Desktop: synligt sökfält -->
-      <form class="form-inline d-none d-md-flex">
+      <form class="form-inline d-none d-lg-flex">
         <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </form>
@@ -29,6 +29,11 @@
 
     <!-- Höger: Varukorg -->
     <div class="d-flex align-items-center justify-content-end">
+      <!-- Visa konto-ikon på md+ -->
+      <a href="#" class="text-dark mr-3 d-none d-md-inline" title="My Account">
+        <i class="far fa-user"></i>
+      </a>
+
       <a href="#" class="text-dark position-relative" title="Cart">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">
@@ -41,7 +46,7 @@
 </nav>
 
 <!-- Fällbart sökfält på mobil -->
-<div class="collapse bg-light border-bottom d-md-none" id="mobileSearch">
+<div class="collapse bg-light border-bottom d-lg-none" id="mobileSearch">
   <form class="p-2">
     <div class="input-group">
       <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
