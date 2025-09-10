@@ -24,8 +24,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
     path('products/', include('products.urls')),
-    path("cart/", include(("cart.urls", "cart"), namespace="cart")),  # <— viktigt
     # path("products/", include("products.urls", namespace="products")),
+    path("cart/", include(("cart.urls", "cart"), namespace="cart")),  # <— viktigt
+    path("checkout/", include(("checkout.urls", "checkout"), namespace="checkout")),
     path("accounts/", include("allauth.urls")),
 ]
 if settings.DEBUG:

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load static price_filters %}
+
 {% block title %}Products – Bookish Nook{% endblock %}
+
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h1 class="bn-section-title mb-0">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
@@ -35,7 +38,7 @@
       {% endif %}
       <h5 class="mt-2">{{ p.name }}</h5>
       <div class="text-muted mb-2">{{ p.category.name }}</div>
-      <div class="font-weight-bold mb-2">{{ p.price }} kr</div>
+      <div class="font-weight-bold mb-2">{{ p.price|currency }} kr</div>
       <a href="{{ p.get_absolute_url }}" class="btn bn-btn-primary btn-sm">View</a>
     </div>
   </div>
