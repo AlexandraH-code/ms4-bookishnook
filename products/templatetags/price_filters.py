@@ -1,4 +1,5 @@
 from django import template
+from decimal import Decimal, InvalidOperation
 
 register = template.Library()
 
@@ -6,13 +7,17 @@ register = template.Library()
 @register.filter
 def currency(value):
     """
-    Format Decimal/float till pris med två decimaler + ' kr'.
+    Format Decimal/float till pris med tusentalsavgränsning + ' kr'.
     Exempel:
-        {{ product.price|currency }}
-    Output:
-        129.00 kr
+        {{ 1299.5|currency }}  -> '1 299.50 kr'
     """
     try:
-        return f"{value:.2f} kr"
-    except (ValueError, TypeError):
+        dec = Decimal(value)
+    except (InvalidOperation, TypeError, ValueError):
         return f"{value} kr"
+
+    # Format: tusentalsavgränsning med mellanslag och två decimaler
+    formatted = f"{dec:,.2f}".replace(",", " ").replace(".", ",")
+    # Byt tillbaka punkt som decimaltecken om du vill (svenska brukar ha komma):
+    # formatted = f"{dec:,.2f}".replace(",", " ").replace(".", ",")
+    return f"{formatted} kr"

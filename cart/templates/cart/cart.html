@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load price_filters %}
+
 {% block title %}Your Cart – Bookish Nook{% endblock %}
 
 {% block content %}
@@ -20,8 +22,8 @@
           <button class="btn btn-sm bn-btn-primary">Update</button>
         </form>
       </td>
-      <td>{{ it.product.price }} kr</td>
-      <td>{{ it.subtotal }} kr</td>
+      <td>{{ it.product.price|currency }}</td>
+      <td>{{ it.subtotal|currency }}</td>
       <td>
         <form method="post" action="{% url 'cart:remove' it.product.id %}">
           {% csrf_token %}
@@ -33,7 +35,7 @@
   </tbody>
 </table>
 
-<div class="text-right h5">Total: {{ total }} kr</div>
+<div class="text-right h5">Total: {{ total|currency }}</div>
 <!--<a href="#" class="btn bn-btn-primary mt-3">Checkout</a>-->
 <a href="{% url 'checkout:start' %}" class="btn bn-btn-primary mt-3">Checkout</a>
 {% else %}

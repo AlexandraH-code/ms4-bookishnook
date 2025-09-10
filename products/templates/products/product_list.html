@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
 {% load static price_filters %}
 
 {% block title %}Products – Bookish Nook{% endblock %}
@@ -38,7 +37,7 @@
       {% endif %}
       <h5 class="mt-2">{{ p.name }}</h5>
       <div class="text-muted mb-2">{{ p.category.name }}</div>
-      <div class="font-weight-bold mb-2">{{ p.price|currency }} kr</div>
+      <div class="font-weight-bold mb-2">{{ p.price|currency }}</div>
       <a href="{{ p.get_absolute_url }}" class="btn bn-btn-primary btn-sm">View</a>
     </div>
   </div>

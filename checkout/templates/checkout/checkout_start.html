@@ -19,8 +19,8 @@
           <tr>
             <td><a href="{{ it.product.get_absolute_url }}">{{ it.product.name }}</a></td>
             <td class="text-center">{{ it.qty }}</td>
-            <td class="text-right">{{ it.product.price }} kr</td>
-            <td class="text-right">{{ it.subtotal }} kr</td>
+            <td class="text-right">{{ it.product.price|currency }}</td>
+            <td class="text-right">{{ it.subtotal|currency }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -56,18 +56,18 @@
     <div class="bn-card p-3">
       <h5 class="mb-3">Order Summary</h5>
       <div class="d-flex justify-content-between">
-        <span>Subtotal</span><strong>{{ total }} kr</strong>
+        <span>Subtotal</span><strong>{{ total|currency }}</strong>
       </div>
       <div class="d-flex justify-content-between">
-        <span>Tax (example)</span><strong>{{ tax_amount }} kr</strong>
+        <span>Tax (example)</span><strong>{{ tax_amount|currency }}</strong>
       </div>
       <div class="d-flex justify-content-between">
         <span>Shipping</span>
-        <strong>{% if shipping == 0 %}Free{% else %}{{ shipping }} kr{% endif %}</strong>
+        <strong>{% if shipping == 0 %}Free{% else %}{{ shipping|currency }}{% endif %}</strong>
       </div>
       <hr>
       <div class="d-flex justify-content-between h5">
-        <span>Total</span><strong>{{ grand_total }} kr</strong>
+        <span>Total</span><strong>{{ grand_total|currency }}</strong>
       </div>
 
       <form action="{% url 'checkout:create_session' %}" method="post" class="mt-3">
