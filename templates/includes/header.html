@@ -34,7 +34,7 @@
         <i class="far fa-user"></i>
       </a>
 
-      <a href="#" class="text-dark position-relative" title="Cart">
+      <a href="{% url 'cart:view' %}" class="text-dark position-relative" title="Cart">
         <i class="fas fa-shopping-cart"></i>
         <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">
           {{ cart_count|default:0 }}

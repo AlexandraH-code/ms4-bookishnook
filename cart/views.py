@@ -5,7 +5,7 @@ from products.models import Product
 
 # Create your views here.
 def _get_cart(session):
-    return session.setdefault("cart", {})
+    return session.setdefault("cart", {})  # { "product_id": qty, ... }
 
 
 def view_cart(request):
@@ -20,8 +20,10 @@ def view_cart(request):
 
 
 def add_to_cart(request, product_id):
+    if request.method != "POST":
+        return redirect("cart:view")
     product = get_object_or_404(Product, id=product_id, is_active=True)
-    qty = int(request.POST.get("qty", 1))
+    qty = max(1, int(request.POST.get("qty", 1)))
     cart = _get_cart(request.session)
     cart[str(product_id)] = cart.get(str(product_id), 0) + qty
     request.session.modified = True
@@ -38,11 +40,12 @@ def remove_from_cart(request, product_id):
 
 
 def update_cart(request, product_id):
-    qty = int(request.POST.get("qty", 1))
-    cart = _get_cart(request.session)
-    if qty <= 0:
-        cart.pop(str(product_id), None)
-    else:
-        cart[str(product_id)] = qty
-    request.session.modified = True
+    if request.method == "POST":
+        qty = int(request.POST.get("qty", 1))
+        cart = _get_cart(request.session)
+        if qty <= 0:
+            cart.pop(str(product_id), None)
+        else:
+            cart[str(product_id)] = qty
+        request.session.modified = True
     return redirect("cart:view")
