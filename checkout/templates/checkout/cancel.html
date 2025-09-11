@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Payment Canceled – Bookish Nook{% endblock %}
+{% block content %}
+  <div class="text-center py-5">
+    <h1 class="bn-section-title mb-3">Payment canceled</h1>
+    <p>No worries—your cart is still here.</p>
+    <a href="{% url 'cart:view' %}" class="btn bn-btn-primary mt-3">Back to cart</a>
+  </div>
+{% endblock %}
