@@ -8,4 +8,5 @@ urlpatterns = [
     path("create-session/", views.create_checkout_session, name="create_session"),  # placeholder för Stripe
     path("success/", views.success, name="success"),
     path("cancel/", views.cancel, name="cancel"),
+    path("webhook/", views.stripe_webhook, name="webhook"),
 ]
