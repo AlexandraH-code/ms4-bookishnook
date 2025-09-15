@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
+from orders.utils import send_order_confirmation
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product
 from orders.models import Order, OrderItem
@@ -89,7 +90,7 @@ def create_checkout_session(request):
             subtotal=p.price * qty
         )
 
-     # 2) Bygg Stripe line_items
+    # 2) Bygg Stripe line_items
     line_items = []
     for it in items:
         p = it["product"]
@@ -133,9 +134,10 @@ def create_checkout_session(request):
         success_url=success_url,
         cancel_url=cancel_url,
         allow_promotion_codes=True,
-        billing_address_collection="auto",
+        billing_address_collection="required", # <— lägg till
         shipping_address_collection={"allowed_countries": ["SE", "NO", "DK", "FI", "DE"]},
         # automatic_tax={"enabled": True},  # aktivera om du konfigurerat Stripe Tax
+        customer_creation="always", # <— lägg till
         metadata={"order_id": str(order.id)},
     )
 
@@ -203,31 +205,64 @@ def stripe_webhook(request):
     event_type = event.get("type") if isinstance(event, dict) else event["type"]
 
     if event_type == "checkout.session.completed":
-        session = event.get("data", {}).get("object", {}) if isinstance(event, dict) else event["data"]["object"]
+        session = event["data"]["object"]
+
+        # 1) Hitta ordern
         order_id = (session.get("metadata") or {}).get("order_id")
-        logger.info(f"checkout.session.completed for order_id={order_id}")
+        if not order_id:
+            return HttpResponse(status=200)
 
-        if order_id:
-            try:
-                order = Order.objects.get(id=order_id)
-            except Order.DoesNotExist:
-                logger.error(f"Order {order_id} not found")
-                return HttpResponse(status=200)
+        order = Order.objects.filter(id=order_id).first()
+        if not order:
+            return HttpResponse(status=200)
 
-            if order.status != "paid":
-                order.status = "paid"
-                order.save(update_fields=["status"])
-                # dra lager
-                for item in order.items.select_related("product"):
-                    p: Product = item.product
-                    new_stock = max(0, p.stock - item.qty)
-                    p.stock = new_stock
-                    if new_stock == 0:
-                        p.is_active = False
-                    p.save(update_fields=["stock", "is_active"])
+        # 2) Läs ut e-post, shipping & billing från sessionen
+        cust = session.get("customer_details") or {}       # billing info & email
+        ship = session.get("shipping_details") or {}       # shipping info
+        baddr = (cust.get("address") or {})                 # billing address
+        saddr = (ship.get("address") or {})                 # shipping address
 
-                # TODO: e-postkvitto här om du vill
+        # Låt Stripe-e-post vinna över tidigare (t.ex. inloggad användare)
+        stripe_email = cust.get("email")
+        if stripe_email and stripe_email != order.email:
+            order.email = stripe_email
 
+        # Shipping: namn/telefon/adress (om de finns)
+        full_name = ship.get("name") or cust.get("name")
+        phone = ship.get("phone") or cust.get("phone")
+
+        order.full_name = full_name or order.full_name
+        order.phone = phone or order.phone
+        order.address_line1 = saddr.get("line1") or order.address_line1
+        order.address_line2 = saddr.get("line2") or order.address_line2
+        order.postal_code = saddr.get("postal_code") or order.postal_code
+        order.city = saddr.get("city") or order.city
+        order.country = saddr.get("country") or order.country
+
+        # Billing: spara separat
+        order.billing_name = cust.get("name") or order.billing_name
+        order.billing_line1 = baddr.get("line1") or order.billing_line1
+        order.billing_line2 = baddr.get("line2") or order.billing_line2
+        order.billing_postal = baddr.get("postal_code") or order.billing_postal
+        order.billing_city = baddr.get("city") or order.billing_city
+        order.billing_country = baddr.get("country") or order.billing_country
+
+        order.save()
+
+        # 3) Markera betald & dra lager (din befintliga logik)
+        if order.status != "paid":
+            order.status = "paid"
+            order.save(update_fields=["status"])
+            for item in order.items.select_related("product"):
+                p: Product = item.product
+                new_stock = max(0, p.stock - item.qty)
+                p.stock = new_stock
+                if new_stock == 0:
+                    p.is_active = False
+                p.save(update_fields=["stock", "is_active"])
+
+        # 4) Skicka orderbekräftelse till kundens e-post
+        send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
     else:
         logger.info(f"Unhandled Stripe event type: {event_type}")
 

@@ -19,6 +19,26 @@ class Order(models.Model):
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     stripe_session_id = models.CharField(max_length=255, blank=True, null=True)
+    
+    # Kunduppgifter (från Stripe)
+    full_name = models.CharField(max_length=200, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)  # redan hos dig
+    phone = models.CharField(max_length=50, blank=True, null=True)
+
+    # Leveransadress
+    address_line1 = models.CharField(max_length=200, blank=True, null=True)
+    address_line2 = models.CharField(max_length=200, blank=True, null=True)
+    postal_code = models.CharField(max_length=20, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=2, blank=True, null=True)  # ISO 2 (SE, NO, ...)
+    
+    # NEW: Billing address
+    billing_name = models.CharField(max_length=200, blank=True, null=True)
+    billing_line1 = models.CharField(max_length=200, blank=True, null=True)
+    billing_line2 = models.CharField(max_length=200, blank=True, null=True)
+    billing_postal = models.CharField(max_length=20, blank=True, null=True)
+    billing_city = models.CharField(max_length=100, blank=True, null=True)
+    billing_country = models.CharField(max_length=2, blank=True, null=True)
 
     def __str__(self):
         return f"Order #{self.id} ({self.status})"

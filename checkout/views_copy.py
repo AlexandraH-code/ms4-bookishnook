@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
+from orders.utils import send_order_confirmation
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product
 from orders.models import Order, OrderItem
 from decimal import Decimal, ROUND_HALF_UP
 import stripe
+import logging
+import json
 
+logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -170,41 +174,77 @@ def cancel(request):
 def stripe_webhook(request):
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+    secret = getattr(settings, "STRIPE_WEBHOOK_SECRET", "")
 
-    if not endpoint_secret:
-        return HttpResponseBadRequest("Webhook secret not configured")
+    event = None
 
-    try:
-        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-    except ValueError:
-        return HttpResponseBadRequest("Invalid payload")
-    except stripe.error.SignatureVerificationError:
-        return HttpResponseBadRequest("Invalid signature")
+    # 1) SÄKER VÄG: verifiera signatur om secret finns
+    if secret:
+        try:
+            event = stripe.Webhook.construct_event(payload, sig_header, secret)
+        except ValueError:
+            logger.exception("Stripe webhook: invalid JSON payload")
+            return HttpResponseBadRequest("Invalid payload")
+        except stripe.error.SignatureVerificationError:
+            logger.exception("Stripe webhook: invalid signature")
+            return HttpResponseBadRequest("Invalid signature")
+    else:
+        # 2) DEV-FALLBACK (frivilligt): tillåt osignerat i DEBUG
+        if settings.DEBUG:
+            try:
+                event = json.loads(payload.decode("utf-8"))
+            except Exception:
+                logger.exception("DEV webhook: JSON parse error")
+                return HttpResponseBadRequest("Invalid payload (dev)")
+        else:
+            # i produktion kräver vi secret
+            logger.error("Stripe webhook: missing secret in production")
+            return HttpResponseBadRequest("Webhook secret not configured")
 
-    # Vi bryr oss främst om checkout.session.completed
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        order_id = session.get("metadata", {}).get("order_id")
+    event_type = event.get("type") if isinstance(event, dict) else event["type"]
+
+    if event_type == "checkout.session.completed":
+        session = event.get("data", {}).get("object", {}) if isinstance(event, dict) else event["data"]["object"]
+        order_id = (session.get("metadata") or {}).get("order_id")
+        logger.info(f"checkout.session.completed for order_id={order_id}")
+
         if order_id:
             try:
                 order = Order.objects.get(id=order_id)
             except Order.DoesNotExist:
+                logger.error(f"Order {order_id} not found")
                 return HttpResponse(status=200)
-            # Markera betald om inte redan
+
             if order.status != "paid":
                 order.status = "paid"
                 order.save(update_fields=["status"])
-                # Dra lager
+                # dra lager
                 for item in order.items.select_related("product"):
                     p: Product = item.product
-                    if p.stock >= item.qty:
-                        p.stock -= item.qty
-                        p.save(update_fields=["stock"])
-                    else:
-                        # Om lagret inte räcker – markera inaktiv eller logga (enkelt exempel)
-                        p.stock = 0
+                    new_stock = max(0, p.stock - item.qty)
+                    p.stock = new_stock
+                    if new_stock == 0:
                         p.is_active = False
-                        p.save(update_fields=["stock", "is_active"])
-                # TODO: skicka kvitto-mail här om du vill
+                    p.save(update_fields=["stock", "is_active"])
+
+                # TODO: e-postkvitto här om du vill
+                # Försök fylla e-post från Stripe Session om order.email saknas
+                customer_details = session.get("customer_details") or {}
+                email_from_stripe = customer_details.get("email")
+
+                if not order.email and email_from_stripe:
+                    order.email = email_from_stripe
+                    order.save(update_fields=["email"])
+
+                # Kundnamn (om finns i session)
+                customer_name = None
+                if customer_details:
+                    name = customer_details.get("name")
+                    customer_name = name
+
+                # Skicka mail (om vi har en e-post)
+                send_order_confirmation(order, customer_email=order.email, customer_name=customer_name)
+    else:
+        logger.info(f"Unhandled Stripe event type: {event_type}")
+
     return HttpResponse(status=200)

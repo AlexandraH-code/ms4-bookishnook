@@ -1,0 +1,1 @@
+Your Bookish Nook order #{{ order.id }} is confirmed

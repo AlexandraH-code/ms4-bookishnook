@@ -1,11 +1,30 @@
 {% extends "base.html" %}
+{% load address_filters %}
 {% block title %}Payment Successful – Bookish Nook{% endblock %}
 {% block content %}
+  {% if order %}
+    <div class="mt-4 text-left" style="max-width:420px;margin:0 auto;">
+      <h5>Shipping to</h5>
+      <div>
+        {% if order.full_name %}<div>{{ order.full_name }}</div>{% endif %}
+        {% if order.address_line1 %}<div>{{ order.address_line1 }}</div>{% endif %}
+        {% if order.address_line2 %}<div>{{ order.address_line2 }}</div>{% endif %}
+        <div>
+          {% if order.postal_code %}{{ order.postal_code }} {% endif %}
+          {% if order.city %}{{ order.city }}{% endif %}
+        </div>
+        {% if order.country %}<div>{{ order.country|country_name }}</div>{% endif %}
+        {% if order.phone %}<div>Phone: {{ order.phone }}</div>{% endif %}
+      </div>
+    </div>
+  {% endif %}
+
   <div class="text-center py-5">
     <h1 class="bn-section-title mb-3">Thank you!</h1>
     <p>Your payment was successful.</p>
+    <p>A confirmation email {% if order and order.email %}has been sent to <strong>{{ order.email }}</strong>.{% else %}will be sent shortly.{% endif %}</p>
     {% if order %}
-      <p class="mt-3">Order number: <strong>#{{ order.id }}</strong></p>
+      <p class="mt-2">Order number: <strong>#{{ order.id }}</strong></p>
     {% endif %}
     <a href="{% url 'products:list' %}" class="btn bn-btn-primary mt-3">Continue shopping</a>
   </div>
