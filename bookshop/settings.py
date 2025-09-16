@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p_qa3ob$#gp(g%(nk@)8bz3!=ocir_%iskiryy_aio=*_)jt+0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1',
                  'localhost'
@@ -108,7 +108,8 @@ TEMPLATES = [
                 'django.template.context_processors.request', # Required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'bookshop.context_processors.cart_count', # For the cart app
+                'bookshop.context_processors.cart_count',  # For the cart app
+                'bookshop.context_processors.nav_categories',  # For subcategories in navbar         
             ],
         },
     },
