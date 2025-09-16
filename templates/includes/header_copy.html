@@ -4,59 +4,101 @@
   <a href="#" class="text-light mx-2"><i class="fab fa-facebook"></i> Facebook</a>
 </div>
 
-<!-- Övre rad: sök + titel + ikoner -->
-<nav class="navbar navbar-light bg-light border-bottom py-2 position-relative">
-  <!-- Sökfält (desktop) -->  
-  <form class="form-inline d-none d-md-flex">
-    <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
-    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
-  </form>
+<!-- ÖVRE RAD: Sök vänster, brand centrerad, varukorg höger -->
+<nav class="navbar navbar-light bg-light border-bottom py-2">
+  <div class="container navbar-grid">
 
-  <!-- Centrera loggan oberoende av vänster/höger innehåll -->
-  <a class="navbar-brand bn-title mx-auto font-weight-bold position-absolute w-100 text-center" href="/" style="left:0; top:0;">
-    <i class="fas fa-book-open"></i>Bookish Nook
-  </a>
+    <!-- Vänster: mobil-ikon + desktop-sök -->
+    <div class="d-flex align-items-center">
+      <!-- Mobil och tablet: togglar fällbart sökfält -->
+      <button class="btn btn-link d-lg-none text-dark pr-2" type="button"
+              data-toggle="collapse" data-target="#mobileSearch"
+              aria-controls="mobileSearch" aria-expanded="false" aria-label="Toggle search">
+        <i class="fas fa-search"></i>
+      </button>
 
-  <!-- Ikoner -->
-  <div class="d-flex align-items-center ml-auto">
-    <!-- Sök ikon på mobil -->
-    <a href="#" class="text-dark mr-3" title="My Account"><i class="far fa-user"></i></a>
-    <a href="#" class="text-dark position-relative" title="Cart">
-      <i class="fas fa-shopping-cart"></i>
-      <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">0</span>
-    </a>
+      <!-- Desktop: synligt sökfält -->
+      <form class="form-inline d-none d-lg-flex">
+        <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+    <!-- Mitten: Brand (ingen absolute, ingen w-100) -->
+    <a class="navbar-brand bn-title text-center mx-0" href="/">Bookish Nook</a>
+
+    <!-- Höger: Varukorg -->
+    <div class="d-flex align-items-center justify-content-end">
+      <!-- Visa konto-ikon på md+ -->
+      <a href="#" class="text-dark mr-3 d-none d-md-inline" title="My Account">
+        <i class="far fa-user"></i>
+      </a>
+
+      <a href="{% url 'cart:view' %}" class="text-dark position-relative" title="Cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="badge badge-pill badge-danger position-absolute" style="top:-8px; right:-10px;">
+          {{ cart_count|default:0 }}
+        </span>
+      </a>
+    </div>
+
   </div>
 </nav>
 
-<!-- Nedre rad: kategorilänkar -->
+<!-- Fällbart sökfält på mobil -->
+<div class="collapse bg-light border-bottom d-lg-none" id="mobileSearch">
+  <form class="p-2">
+    <div class="input-group">
+      <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- NEDRE RAD: Huvudmeny + dropdowns. My Account längst ner på mobil -->
 <nav class="navbar navbar-expand-lg navbar-dark bn-brown">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+          aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse justify-content-center" id="mainNav">
     <ul class="navbar-nav">
       <li class="nav-item"><a class="nav-link" href="#">News</a></li>
+
+      <!-- Exempel: Bookmarks med underkategorier -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="{{ cat.get_absolute_url }}" id="navBookmarks" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Bookmarks
         </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Magnetic Bookmarks</a>
-          <a class="dropdown-item" href="#">Bookmark With Tassel</a>
-          <a class="dropdown-item" href="#">Bookmark With Elastic Band</a>
-          <a class="dropdown-item" href="#">Metal Bookmark</a>
-          <a class="dropdown-item" href="#">Wooden Bookmark</a>
-          <a class="dropdown-item" href="#">Fabric Bookmark</a>
-          <a class="dropdown-item" href="#">Bookmark In Vegan Leather</a>
-        </div>
+        <div class="dropdown-menu bn-dropdown" aria-labelledby="navBookmarks">
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Magnetic Bookmarks</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Bookmark With Tassel</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Bookmark With Elastic Band</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Metal Bookmark</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Wooden Bookmark</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Fabric Bookmark</a>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">Bookmark In Vegan Leather</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ cat.get_absolute_url }}">All Bookmarks</a>
       </li>
-      <li class="nav-item"><a class="nav-link" href="#">Book Boxes</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Book Sleeves</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Reading Lights</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Pens & Notebooks</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Bookends & other things for the bookshelf</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Stickers</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Book Sleeves</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Reading Lights</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Pens & Notebooks</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Bookends</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Stickers & Sticky Tabs</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ cat.get_absolute_url }}">Sale</a></li>
+    </ul>
+
+    <!-- My Account längst ned i menyn på mobil (syns bara i collapse) -->
+    <ul class="navbar-nav d-lg-none w-100 mt-2 pt-2 border-top">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="#" title="My Account">
+          <i class="far fa-user mr-2"></i> My Account
+        </a>
+      </li>
     </ul>
   </div>
 </nav>

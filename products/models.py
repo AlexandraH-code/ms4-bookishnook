@@ -5,24 +5,53 @@ from django.utils.text import slugify
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=120, unique=True, blank=True)
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=110, unique=False)
+    parent = models.ForeignKey(
+        "self", null=True, blank=True,
+        related_name="children", on_delete=models.CASCADE
+    )
+    is_active = models.BooleanField(default=True)
+
     description = models.TextField(blank=True)
 
     class Meta:
-        verbose_name_plural = "Categories"
-        ordering = ["name"]
+        unique_together = ("parent", "slug")  # samma slug kan finnas under olika föräldrar
+        ordering = ["parent__id", "name"]
+
+    def __str__(self):
+        return self.full_name
+
+    @property
+    def full_name(self):
+        parts, c = [], self
+        while c:
+            parts.append(c.name)
+            c = c.parent
+        return " / ".join(reversed(parts))
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.name
+    @property
+    def slug_path(self):
+        # t.ex. "bookmarks/leather"
+        parts, c = [], self
+        while c:
+            parts.append(c.slug)
+            c = c.parent
+        return "/".join(reversed(parts))
 
     def get_absolute_url(self):
-        return reverse("products:category", args=[self.slug])
+        return f"/products/category/{self.slug_path}/"
+
+    def descendant_ids(self):
+        ids = [self.id]
+        for child in self.children.all():
+            ids.extend(child.descendant_ids())
+        return ids
 
 
 class Product(models.Model):
