@@ -149,3 +149,32 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
   justify-self: center;                       /* centrerar inom kolumnen */
   margin: 0;                                  /* ingen auto-marginal från Bootstrap */
 }
+
+
+/* Ge “chipsen” (kategori-knappar) snygg wrap + mellanrum */
+.bn-chipwrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;                 /* funkar i moderna browsers */
+}
+
+/* Om du vill stilsätta knapparna lite varmare – annars ta bort dessa två regler */
+.bn-chip {
+  background: #F3E9E1;
+  color: #5A3825;
+  border: 1px solid #E3D6CE;
+  padding: .375rem .75rem;
+  line-height: 1.2;
+}
+.bn-chip:hover { background: #EADFD7; color: #3E2A20; }
+
+/* Extra luft på små skärmar för inputs/knappar så de inte "klistrar" ihop sig */
+@media (max-width: 767.98px) {
+  .form-inline .form-control,
+  .form-inline .btn,
+  .input-group,
+  .form-control {
+    margin-bottom: .5rem !important;
+  }
+}
+
