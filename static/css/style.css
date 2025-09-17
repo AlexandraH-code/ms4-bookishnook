@@ -179,14 +179,16 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 
 /* Cards on the startpage */
-.bn-card h5 a,
+.bn-card .bn-link,
 .bn-card h5,
-.bn-link {
-  color: #5A3825;       /* din temafärg */
+.bn-card h5 a {
+  color: #5A3825;
   text-decoration: none;
 }
-.bn-card h5 a:hover,
-.bn-link:hover {
+.bn-card .bn-link:hover {
   color: #3E2A20;
   text-decoration: underline;
-}
+}}
+
+
+
