@@ -18,9 +18,16 @@
       </button>
 
       <!-- Desktop: synligt sökfält -->
-      <form class="form-inline d-none d-lg-flex">
-        <input class="form-control mr-2" type="search" placeholder="Search products..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+      <form action="{% url 'products:list' %}" method="get" class="form-inline d-none d-lg-flex">
+        <input class="form-control mr-2" 
+          type="search"
+          name="q" 
+          placeholder="Search products..." 
+          aria-label="Search"
+          value="{{ request.GET.q|default:'' }}">
+        <button class="btn btn-outline-success" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
       </form>
     </div>
 
@@ -47,11 +54,18 @@
 
 <!-- Fällbart sökfält på mobil -->
 <div class="collapse bg-light border-bottom d-lg-none" id="mobileSearch">
-  <form class="p-2">
+  <form action="{% url 'products:list' %}" method="get" class="p-2">
     <div class="input-group">
-      <input class="form-control" type="search" placeholder="Search products..." aria-label="Search">
+      <input class="form-control" 
+        type="search" 
+        name="q"
+        placeholder="Search products..." 
+        aria-label="Search"
+        value="{{ request.GET.q|default:'' }}">
       <div class="input-group-append">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+        <button class="btn btn-outline-success" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
     </div>
   </form>
