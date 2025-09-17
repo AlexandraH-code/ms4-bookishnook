@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Bookish Nook – Cozy Reading Accessories{% endblock %}
+
+{% block content %}
+<section class="bn-hero">
+  <div class="bn-hero__overlay">
+    <h1>Welcome to Your Bookish Nook</h1>
+    <p>Everything you need for cozy reading moments</p>
+    <a href="{% url 'products:list' %}" class="btn bn-btn-primary btn-lg mt-2">See All Products</a>
+  </div>
+</section>
+
+<!-- Categories -->
+<div class="container mb-5">
+  <h2 class="text-center mt-4 mb-4 bn-section-title">Explore Our Categories</h2>
+  <div class="row">
+    <!-- Bookmarks -->
+    <div class="col-md-3 col-6 mb-4">
+      <a href="{% url 'products:category' slug_path='bookmarks' %}" class="bn-card d-block text-center">
+        <img src="{% static 'images/bookmarks.jpg' %}" class="img-fluid bn-card-img" alt="Bookmarks">
+        <h5 class="mt-2 bn-link">Bookmarks</h5>
+      </a>
+    </div>
+
+    <!-- Book Sleeves -->
+    <div class="col-md-3 col-6 mb-4">
+      <a href="{% url 'products:category' slug_path='book-sleeves' %}" class="bn-card d-block text-center">
+        <img src="{% static 'images/book_sleeve.jpg' %}" class="img-fluid bn-card-img" alt="Book Sleeves">
+        <h5 class="mt-2 bn-link">Book Sleeves</h5>
+      </a>
+    </div>
+
+    <!-- Pens & Notebooks -->
+    <div class="col-md-3 col-6 mb-4">
+      <a href="{% url 'products:category' slug_path='pens-notebooks' %}" class="bn-card d-block text-center">
+        <img src="{% static 'images/pen_and_notebook.jpg' %}" class="img-fluid bn-card-img" alt="Pens & Notebooks">
+        <h5 class="mt-2 bn-link">Pens & Notebooks</h5>
+      </a>
+    </div>
+
+    <!-- Stickers & Sticky Tabs -->
+    <div class="col-md-3 col-6 mb-4">
+      <a href="{% url 'products:category' slug_path='stickers' %}" class="bn-card d-block text-center">
+        <img src="{% static 'images/sticker.jpg' %}" class="img-fluid bn-card-img" alt="Stickers">
+        <h5 class="mt-2 bn-link">Stickers & Sticky Tabs</h5>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

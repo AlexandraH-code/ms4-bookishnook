@@ -22,7 +22,7 @@ from home.views import index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index, name="home"),
+    path("", include("home.urls")),
     path('products/', include('products.urls')),
     # path("products/", include("products.urls", namespace="products")),
     path("cart/", include(("cart.urls", "cart"), namespace="cart")),  # <— viktigt

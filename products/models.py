@@ -12,8 +12,10 @@ class Category(models.Model):
         related_name="children", on_delete=models.CASCADE
     )
     is_active = models.BooleanField(default=True)
-
+    is_featured = models.BooleanField(default=False, help_text="Show on homepage")
+    featured_order = models.PositiveIntegerField(default=0, help_text="Order on homepage (low first)")
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to="category_images/", blank=True, null=True)
 
     class Meta:
         unique_together = ("parent", "slug")  # samma slug kan finnas under olika föräldrar
