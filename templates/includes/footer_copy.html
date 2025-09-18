@@ -4,27 +4,25 @@
       <!-- Quick links -->
       <div class="col-md-4 mb-3">
         <h5 class="bn-h5">Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="{% url 'about' %}" class="text-light">About Us</a></li>
-          <li><a href="{% url 'contact' %}" class="text-light">Contact</a></li>
-          <li><a href="{% url 'faq' %}" class="text-light">FAQ</a></li>
-          <li><a href="{% url 'reviews' %}" class="text-light">Reviews</a></li>
-        </ul>
+          <ul class="list-unstyled">
+            <li><a href="{% url 'about' %}" class="text-light">About Us</a></li>
+            <li><a href="{% url 'contact' %}" class="text-light">Contact</a></li>
+            <li><a href="{% url 'faq' %}" class="text-light">FAQ</a></li>
+            <li><a href="{% url 'reviews' %}" class="text-light">Reviews</a></li>
+          </ul>
       </div>
 
       <!-- Newsletter -->
       <div class="col-md-4 mb-3">
         <h5 class="bn-h5">Newsletter</h5>
-        <form id="footerNewsletterForm" action="{% url 'newsletter_subscribe' %}" method="post" class="mt-2" novalidate>
-          {% csrf_token %}
+        <form>
           <div class="input-group">
-            <input type="email" name="email" class="form-control" placeholder="Enter email">
+            <input type="email" class="form-control" placeholder="Enter email">
             <div class="input-group-append">
               <button class="btn bn-btn-primary" type="submit">→</button>
             </div>
           </div>
         </form>
-        <div id="footerNewsletterMsg" class="small mt-2"></div>
       </div>
 
       <!-- Social media links -->

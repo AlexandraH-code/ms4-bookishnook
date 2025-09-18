@@ -29,6 +29,33 @@
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  {% block extra_js %}{% endblock %}
+  {% block extra_js %}
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("footerNewsletterForm");
+    const msg  = document.getElementById("footerNewsletterMsg");
+    if (!form) return;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.textContent = "Subscribing…";
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: {"X-Requested-With": "XMLHttpRequest"},
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        msg.className = "small mt-2 text-success";
+        msg.textContent = data.created ? "You're subscribed! 💌" : "You’re already on the list. 😊";
+        form.reset();
+      } else {
+        const data = await res.json().catch(()=>({error:"Please enter a valid email."}));
+        msg.className = "small mt-2 text-danger";
+        msg.textContent = data.error || "Please enter a valid email.";
+      }
+    });
+  });
+  </script>
+  {% endblock %}
 </body>
 </html>

@@ -17,6 +17,9 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 .bn-btn-primary:hover { background-color: #A3B18A; color: #fff; }
 
+
+/* Hero image */ 
+
 /* Hero container*/
 .bn-hero {
   min-height: 500px;
@@ -57,6 +60,9 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 
 .bn-hero-title { font-weight: 700; }
 
+
+/* Cards startpage */ 
+
 /* Cards / kategorier */
 .bn-card {
   background: #fff;
@@ -65,10 +71,12 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   transition: transform .15s ease, box-shadow .15s ease;
 }
+
 .bn-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.12);
 }
+
 .bn-card-img {
   height: 180px;
   width: 100%;
@@ -76,9 +84,11 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
   border-radius: 8px;
 }
 
+
+/* Navbar */
+
 /* Titel i navbarens mitt */
 .bn-title { font-size: 1.4rem; font-weight: 700;}
-
 
 /* Grid-layout för övre navbar-raden */
 .navbar-grid {
@@ -151,6 +161,42 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 
 
+/* Start page */
+
+
+/* Cards on the startpage */
+.bn-card .bn-link,
+.bn-card h5,
+.bn-card h5 a {
+  color: #5A3825;
+  text-decoration: none;
+}
+.bn-card .bn-link:hover {
+  color: #3E2A20;
+  text-decoration: underline;
+}}
+
+/* Footer */
+footer .input-group { border:1px solid rgba(255,255,255,.3); border-radius:.25rem; background:rgba(0,0,0,.06); }
+footer .input-group .form-control, footer .input-group .btn { border:none; }
+footer .bn-h5 { margin-bottom:.5rem; }
+
+
+/* Newsletter Form - Footer  */
+.bn-newsletter {
+  background: #F8F3EF;           /* ljus mys-brun/rosa bakgrund */
+  border: 1px solid #E8DCD3;
+}
+.bn-newsletter .form-control { min-width: 240px; }
+@media (max-width: 767.98px) {
+  #newsletterForm { display: flex; width: 100%; }
+  #newsletterForm .form-control { flex: 1; }
+  #newsletterForm .btn { margin-left: .5rem; }
+}
+
+
+/* Buttons product_list */ 
+
 /* Ge “chipsen” (kategori-knappar) snygg wrap + mellanrum */
 .bn-chipwrap {
   display: flex;
@@ -168,6 +214,9 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 .bn-chip:hover { background: #EADFD7; color: #3E2A20; }
 
+
+/* Media queries */ 
+
 /* Extra luft på små skärmar för inputs/knappar så de inte "klistrar" ihop sig */
 @media (max-width: 767.98px) {
   .form-inline .form-control,
@@ -177,18 +226,5 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
     margin-bottom: .5rem !important;
   }
 }
-
-/* Cards on the startpage */
-.bn-card .bn-link,
-.bn-card h5,
-.bn-card h5 a {
-  color: #5A3825;
-  text-decoration: none;
-}
-.bn-card .bn-link:hover {
-  color: #3E2A20;
-  text-decoration: underline;
-}}
-
 
 
