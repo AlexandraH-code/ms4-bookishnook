@@ -8,4 +8,6 @@ urlpatterns = [
     path("faq/", views.faq, name="faq"),
     path("reviews/", views.reviews, name="reviews"),
     path("newsletter/subscribe/", views.subscribe_newsletter, name="newsletter_subscribe"),
+    path("newsletter/confirm/<str:token>/", views.newsletter_confirm, name="newsletter_confirm"),
+    path("newsletter/unsubscribe/<str:token>/", views.newsletter_unsubscribe, name="newsletter_unsubscribe"),
 ]

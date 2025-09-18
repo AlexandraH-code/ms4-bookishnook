@@ -1,0 +1,11 @@
+Hi,
+
+Please confirm your subscription to the Bookish Nook newsletter by clicking the link below:
+
+{{ confirm_url }}
+
+If you didn’t request this, you can ignore this email or unsubscribe here:
+{{ unsubscribe_url }}
+
+Warm reads,
+Bookish Nook

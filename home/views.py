@@ -1,13 +1,15 @@
 from django.http import JsonResponse
+from django.utils import timezone
 from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from django.shortcuts import render, redirect
+# from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.conf import settings
 from .forms import NewsletterForm, ContactForm
 from .models import NewsletterSubscriber
 from products.models import Category
+from .utils import send_newsletter_confirmation
 
 
 # Create your views here.
@@ -78,18 +80,40 @@ def reviews(request):
 def subscribe_newsletter(request):
     form = NewsletterForm(request.POST)
     if not form.is_valid():
-        # eget, vänligt fel
         return JsonResponse({"ok": False, "error": "Please enter a valid email."}, status=400)
 
     email = form.cleaned_data["email"]
     sub, created = NewsletterSubscriber.objects.get_or_create(email=email)
-    # Markera confirmed=True om du kör enkla varianten:
+    # Återaktivera om de tidigare avregistrerat sig
+    if sub.unsubscribed:
+        sub.unsubscribed = False
+        sub.confirmed = False
+
+    # Tokens + skicka bekräftelse om ej confirmed
+    sub.ensure_tokens(save=True)
+    if not sub.confirmed:
+        send_newsletter_confirmation(sub, request)
+        sub.confirm_sent_at = timezone.now()
+        sub.save(update_fields=["confirm_sent_at", "unsubscribed", "confirmed"])
+        return JsonResponse({"ok": True, "created": created, "requires_confirmation": True})
+
+    # Redan klar sedan tidigare
+    return JsonResponse({"ok": True, "created": False, "already_confirmed": True})
+
+
+def newsletter_confirm(request, token):
+    sub = get_object_or_404(NewsletterSubscriber, confirm_token=token, unsubscribed=False)
     if not sub.confirmed:
         sub.confirmed = True
-        sub.save(update_fields=["confirmed"])
+        sub.confirmed_at = timezone.now()
+        sub.save(update_fields=["confirmed", "confirmed_at"])
+    return render(request, "home/newsletter_confirmed.html", {"subscriber": sub})
 
-    return JsonResponse({
-        "ok": True,
-        "created": created,
-        "already_confirmed": not created
-    })
+
+def newsletter_unsubscribe(request, token):
+    sub = get_object_or_404(NewsletterSubscriber, unsubscribe_token=token)
+    if not sub.unsubscribed:
+        sub.unsubscribed = True
+        sub.confirmed = False
+        sub.save(update_fields=["unsubscribed", "confirmed"])
+    return render(request, "home/newsletter_unsubscribed.html", {"subscriber": sub})

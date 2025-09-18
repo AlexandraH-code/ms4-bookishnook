@@ -46,8 +46,14 @@
       if (res.ok) {
         const data = await res.json();
         msg.className = "small mt-2 text-success";
-        msg.textContent = data.created ? "You're subscribed! 💌" : "You’re already on the list. 😊";
-        form.reset();
+        if (data.requires_confirmation) {
+          msg.textContent = "Check your inbox for a confirmation link. 💌";
+        } else if (data.already_confirmed) {
+          msg.textContent = "You’re already on the list. 😊";
+        } else {
+          msg.textContent = "You're subscribed! 💌";
+        }
+      form.reset();
       } else {
         const data = await res.json().catch(()=>({error:"Please enter a valid email."}));
         msg.className = "small mt-2 text-danger";
