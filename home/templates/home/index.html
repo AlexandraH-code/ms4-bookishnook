@@ -2,37 +2,45 @@
 {% load static %}
 
 {% block content %}
-  <div class="container mb-5">
-    <h2 class="text-center mt-4 mb-4 bn-section-title">Explore Our Categories</h2>
-
-    <!--<p class="text-muted small">Featured count: {{ featured_categories|length }}</p>  {# <-- tillfällig debug #}-->
-
-    <div class="row">
-      {% for cat in featured_categories %}
-        <div class="col-md-3 col-6 mb-4">
-          <a href="{{ cat.get_absolute_url }}" class="bn-card d-block text-center">
-            {% if cat.image %}
-              <img src="{{ cat.image.url }}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-            {% else %}
-              {# Fallback till statisk bild baserat på slug (valfritt) #}
-              {% if cat.slug == "bookmarks" %}
-                <img src="{% static 'images/bookmarks.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-              {% elif cat.slug == "book-sleeves" %}
-                <img src="{% static 'images/book_sleeve.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-              {% elif cat.slug == "pens-notebooks" %}
-                <img src="{% static 'images/pen_and_notebook.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-              {% elif cat.slug == "stickers" %}
-                <img src="{% static 'images/sticker.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-              {% else %}
-                <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
-              {% endif %}
-            {% endif %}
-            <h5 class="mt-2 bn-link">{{ cat.name }}</h5>
-          </a>
-        </div>
-      {% empty %}
-        <div class="col-12 text-center text-muted">No featured categories yet.</div>
-      {% endfor %}
-    </div>
+<section class="bn-hero">
+  <div class="bn-hero__overlay">
+    <h1>Welcome to Your Bookish Nook</h1>
+    <p>Everything you need for cozy reading moments</p>
+    <a href="{% url 'products:list' %}" class="btn bn-btn-primary btn-lg mt-2">See All Products</a>
   </div>
+</section>
+
+<div class="container mb-5">
+  <h2 class="text-center mt-4 mb-4 bn-section-title">Explore Our Categories</h2>
+
+  <!--<p class="text-muted small">Featured count: {{ featured_categories|length }}</p>  {# <-- tillfällig debug #}-->
+
+  <div class="row">
+    {% for cat in featured_categories %}
+      <div class="col-md-3 col-6 mb-4">
+        <a href="{{ cat.get_absolute_url }}" class="bn-card d-block text-center">
+          {% if cat.image %}
+            <img src="{{ cat.image.url }}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+          {% else %}
+            {# Fallback till statisk bild baserat på slug (valfritt) #}
+            {% if cat.slug == "bookmarks" %}
+              <img src="{% static 'images/bookmarks.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            {% elif cat.slug == "book-sleeves" %}
+              <img src="{% static 'images/book_sleeve.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            {% elif cat.slug == "pens-notebooks" %}
+              <img src="{% static 'images/pen_and_notebook.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            {% elif cat.slug == "stickers" %}
+              <img src="{% static 'images/sticker.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            {% else %}
+              <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            {% endif %}
+          {% endif %}
+          <h5 class="mt-2 bn-link">{{ cat.name }}</h5>
+        </a>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted">No featured categories yet.</div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
