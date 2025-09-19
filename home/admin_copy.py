@@ -2,9 +2,6 @@ import csv
 from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib import admin, messages
-from django.shortcuts import redirect, get_object_or_404
-from django.urls import path, reverse
-from django.utils.html import format_html
 from .models import NewsletterSubscriber
 from .utils import send_newsletter_confirmation
 
@@ -70,15 +67,15 @@ def resend_confirmation(modeladmin, request, queryset):
 
 @admin.register(NewsletterSubscriber)
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
-    list_display = ("email", "confirmed", "unsubscribed", "created_at", "confirmed_at", "confirm_now_button")
+    list_display = ("email", "confirmed", "unsubscribed", "created_at", "confirmed_at")
     list_filter = ("confirmed", "unsubscribed", "created_at")
     search_fields = ("email",)
     ordering = ("-created_at",)
-    readonly_fields = ("confirm_token", "unsubscribe_token", "created_at", "confirm_sent_at", "confirmed_at", "confirm_now_button")
+    readonly_fields = ("confirm_token", "unsubscribe_token", "created_at", "confirm_sent_at", "confirmed_at")
 
     fieldsets = (
         (None, {
-            "fields": ("email", "confirmed", "unsubscribed", "confirm_now_button")
+            "fields": ("email", "confirmed", "unsubscribed")
         }),
         ("Tokens", {
             "fields": ("confirm_token", "unsubscribe_token"),
@@ -91,45 +88,3 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     )
     actions = [export_subscribers_csv, export_all_confirmed_csv, resend_confirmation]
 
-    # --- 1) Egna admin-URL:er för "confirm-now" ---
-    def get_urls(self):
-        urls = super().get_urls()
-        custom = [
-            path(
-                "<int:pk>/confirm-now/",
-                self.admin_site.admin_view(self.confirm_now_view),
-                name="home_newslettersubscriber_confirm_now",
-            ),
-        ]
-        return custom + urls
-
-    # --- 2) Själva bekräftelse-vyn ---
-    def confirm_now_view(self, request, pk: int):
-        sub = get_object_or_404(NewsletterSubscriber, pk=pk)
-        if sub.unsubscribed:
-            self.message_user(request, f"{sub.email} is unsubscribed. Set unsubscribed = False first.", level=messages.WARNING)
-            return redirect("admin:home_newslettersubscriber_change", pk)
-
-        if not sub.confirmed:
-            sub.confirmed = True
-            sub.confirmed_at = timezone.now()
-            sub.save(update_fields=["confirmed", "confirmed_at"])
-            self.message_user(request, f"{sub.email} marked as confirmed.", level=messages.SUCCESS)
-        else:
-            self.message_user(request, f"{sub.email} is already confirmed.", level=messages.INFO)
-
-        return redirect("admin:home_newslettersubscriber_change", pk)
-
-    # --- 3) Knapp i listvy + detaljvy ---
-    @admin.display(description="Confirm now")
-    def confirm_now_button(self, obj):
-        if obj.unsubscribed:
-            return format_html('<span style="color:#dc3545;">Unsubscribed</span>')
-        if obj.confirmed:
-            return format_html('<span style="color:#28a745;">Confirmed</span>')
-        url = reverse("admin:home_newslettersubscriber_confirm_now", args=[obj.pk])
-        return format_html('<a class="button" href="{}">Confirm now</a>', url)
-
-    class Media:
-        # Lite styling för att få länken att se ut som admin-knapp
-        css = {"all": ("admin/css/widgets.css",)}
