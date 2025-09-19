@@ -77,54 +77,54 @@
         </div>
       </div>
     </div>
-  <script>
-(function(){
-  function showModal(el){
-    if (window.bootstrap && bootstrap.Modal) { new bootstrap.Modal(el).show(); return; }
-    if (window.jQuery && jQuery.fn && jQuery.fn.modal) { jQuery(el).modal('show'); return; }
-    el.classList.add('show'); el.style.display='block'; el.removeAttribute('aria-hidden');
-  }
-
-  async function openAuthModal(url){
-    const modal = document.getElementById('authModal');
-    const body  = document.getElementById('authModalBody');
-    if (!modal || !body) { window.location.href = url; return; }
-
-    body.innerHTML = '<div class="p-4 text-center text-muted">Loading…</div>';
-    showModal(modal);
-
-    try {
-      const res  = await fetch(url, { credentials: 'same-origin' });
-      if (!res.ok) { window.location.href = url; return; }
-      const html = await res.text();
-      const doc  = new DOMParser().parseFromString(html, 'text/html');
-      const frag = doc.querySelector('#auth-fragment');
-
-      if (frag) {
-        body.innerHTML = frag.innerHTML;
-
-        // interna länkar till andra allauth-sidor öppnar också i modal
-        body.querySelectorAll('a[href^="/accounts/"]').forEach(a => {
-          a.setAttribute('data-auth-modal','1');
-        });
-      } else {
-        // om vi inte hittade fragmentet, öppna helsidan
-        window.location.href = url;
+    <script>
+    (function(){
+      function showModal(el){
+        // BS5
+        if (window.bootstrap && bootstrap.Modal) {
+          new bootstrap.Modal(el).show();
+          return;
+        }
+        // BS4 (kräver jQuery men inte AJAX)
+        if (window.jQuery && jQuery.fn && jQuery.fn.modal) {
+          jQuery(el).modal('show');
+          return;
+        }
+        // Fallback (utan Bootstrap JS)
+        el.classList.add('show'); el.style.display='block'; el.removeAttribute('aria-hidden');
       }
-    } catch (e) {
-      window.location.href = url;
-    }
-  }
 
-  document.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-auth-modal]');
-    if (!a) return;
-    e.preventDefault();
-    openAuthModal(a.getAttribute('href'));
-  });
-})();
-</script>
+      async function openAuthModal(url) {
+        const modal = document.getElementById('authModal');
+        const body  = document.getElementById('authModalBody');
+        if (!modal || !body) return;
 
+        body.innerHTML = '<div class="p-4 text-center text-muted">Loading…</div>';
+        showModal(modal);
 
+        try {
+          const res = await fetch(url, { credentials: 'same-origin' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const html = await res.text();
+          body.innerHTML = html;
+
+          // Låt interna allauth-länkar också öppna i modalen
+          body.querySelectorAll('a[href^="/accounts/"]').forEach(a => {
+            a.setAttribute('data-auth-modal','1');
+          });
+        } catch (e) {
+          body.innerHTML = '<div class="p-4 text-danger">Could not load form. Please try again.</div>';
+        }
+      }
+
+      // Triggers (i header + mobilmeny)
+      document.addEventListener('click', function(e){
+        const a = e.target.closest('a[data-auth-modal]');
+        if (!a) return;
+        e.preventDefault();
+        openAuthModal(a.getAttribute('href'));
+      });
+    })();
+    </script>
   </body>
 </html>
