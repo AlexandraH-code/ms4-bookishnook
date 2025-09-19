@@ -215,6 +215,11 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .bn-chip:hover { background: #EADFD7; color: #3E2A20; }
 
 
+/* Modals */
+#authModal .modal-content { border-radius: .75rem; overflow: hidden; }
+#authModal .close { position: absolute; right: .25rem; top: .25rem; z-index: 10; }
+
+
 /* Media queries */ 
 
 /* Extra luft på små skärmar för inputs/knappar så de inte "klistrar" ihop sig */
