@@ -51,32 +51,19 @@ def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            # rate limit (5 försök/10 min per IP)
-            ip = request.META.get("REMOTE_ADDR", "unknown")
-            key = f"contact_rate:{ip}"
-            count = cache.get(key, 0)
-            if count >= 5:
-                messages.error(request, "Too many messages, try again later.")
-                return redirect("contact")
-            cache.set(key, count+1, 600)
-
             body = (
                 f"From: {form.cleaned_data['name']} <{form.cleaned_data['email']}>\n\n"
                 f"{form.cleaned_data['message']}"
             )
-            email = EmailMessage(
-                subject="[Bookish Nook] Contact form",
+            EmailMessage(
+                subject="Contact form – Bookish Nook",
                 body=body,
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[settings.DEFAULT_FROM_EMAIL],
-                reply_to=[form.cleaned_data["email"]],
-            )
-            try:
-                email.send(fail_silently=False)
-                messages.success(request, "Thanks! We’ve received your message.")
-                return redirect("contact")
-            except Exception:
-                messages.error(request, "Oops, something went wrong. Please try again.")
+                to=[settings.DEFAULT_FROM_EMAIL],  # skicka till din inkorg
+                reply_to=[form.cleaned_data['email']],
+            ).send()
+            messages.success(request, "Thanks! We’ve received your message.")
+            return redirect("contact")
     else:
         form = ContactForm()
     return render(request, "home/contact.html", {"form": form})
