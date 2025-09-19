@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5" style="max-width:980px;">
+  <h1 class="bn-section-title mb-3">My Account</h1>
+
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Profile</h5>
+          <p class="mb-2">{{ request.user.profile.full_name|default:request.user.email }}</p>
+          <a class="btn btn-sm bn-btn-primary" href="{% url 'profiles:edit' %}">Edit profile</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Addresses</h5>
+          <p class="mb-2">{{ request.user.addresses.count }} saved</p>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'profiles:addresses' %}">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5>Orders</h5>
+          <p class="mb-2">Recent orders:</p>
+          <ul class="list-unstyled small">
+            {% for o in orders %}
+              <li><a href="{% url 'profiles:order_detail' o.id %}">#{{ o.id }}</a> – {{ o.status|capfirst }}</li>
+            {% empty %}<li>No recent orders.</li>{% endfor %}
+          </ul>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'profiles:orders' %}">View all</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
