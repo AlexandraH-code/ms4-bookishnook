@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5" style="max-width:980px;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="bn-section-title mb-0">My Addresses</h1>
+    <a class="btn bn-btn-primary" href="{% url 'profiles:address_create' %}">Add address</a>
+  </div>
+
+  <div class="row">
+    {% for a in addresses %}
+      <div class="col-md-6 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h5 class="mb-1">{{ a.get_kind_display }} {% if a.is_default %}<span class="badge badge-success">Default</span>{% endif %}</h5>
+              <div>
+                <a href="{% url 'profiles:address_edit' a.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="{% url 'profiles:address_delete' a.id %}" class="btn btn-sm btn-outline-danger"
+                   onclick="return confirm('Delete this address?')">Delete</a>
+              </div>
+            </div>
+            <div class="small mt-2">
+              {% if a.full_name %}{{ a.full_name }}<br>{% endif %}
+              {{ a.line1 }}{% if a.line2 %}, {{ a.line2 }}{% endif %}<br>
+              {{ a.postal_code }} {{ a.city }}<br>
+              {{ a.country }}
+              {% if a.phone %}<br>Phone: {{ a.phone }}{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-muted">No addresses yet.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

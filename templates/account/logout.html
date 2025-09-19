@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5" style="max-width:480px;">
+  <h1 class="bn-section-title mb-3">Log out</h1>
+  <form method="post" action="{% url 'account_logout' %}" class="card p-3">
+    {% csrf_token %}
+    <p>Are you sure you want to log out?</p>
+    <button class="btn bn-btn-primary">Log out</button>
+  </form>
+</div>
+{% endblock %}

@@ -25,9 +25,11 @@ urlpatterns = [
     path("", include("home.urls")),
     path('products/', include('products.urls')),
     # path("products/", include("products.urls", namespace="products")),
-    path("cart/", include(("cart.urls", "cart"), namespace="cart")),  # <— viktigt
+    path("cart/", include(("cart.urls", "cart"), namespace="cart")),
     path("checkout/", include(("checkout.urls", "checkout"), namespace="checkout")),
     path("accounts/", include("allauth.urls")),
+    path("profile/", include("profiles.urls")),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
