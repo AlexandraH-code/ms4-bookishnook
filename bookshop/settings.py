@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'checkout',
     'orders',
     'profiles',
+    'backoffice',
 ]
 
 # Crispy forms

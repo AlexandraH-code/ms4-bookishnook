@@ -1,0 +1,46 @@
+{% extends "backoffice/base_backoffice.html" %}
+{% load backoffice_extras %}
+{% block backoffice_content %}
+<form class="form-inline mb-3">
+  <input class="form-control mr-2" type="text" name="q" placeholder="Search id/email" value="{{ q }}">
+    <select name="status" class="form-control mr-2">
+    <option value="">All statuses</option>
+    {% for val,label in statuses %}
+        <option value="{{ val }}" {% if status == val %}selected{% endif %}>
+        {{ label }}
+        </option>
+    {% endfor %}
+    </select>
+
+  <button class="btn bn-btn-primary">Filter</button>
+</form>
+
+<div class="table-responsive">
+<table class="table table-sm table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th><th>Email</th><th>Status</th><th>Total</th><th>Created</th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in orders %}
+        <tr class="order-row-{{ o.status|lower }}">
+        <td>#{{ o.id }}</td>
+        <td>{{ o.email }}</td>
+        <td>
+            <span class="badge badge-{{ o.status|status_badge }}">{{ o.status|capfirst }}</span>
+        </td>
+        <td>{{ o.grand_total }}</td>
+        <td>{{ o.created|date:"Y-m-d H:i" }}</td>
+        <td>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
+        </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="text-muted">No matches.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a class="btn btn-sm btn-outline-secondary mb-3" href="{% url 'backoffice:orders_export_csv' %}">Export CSV</a>
+</div>
+{% endblock %}
