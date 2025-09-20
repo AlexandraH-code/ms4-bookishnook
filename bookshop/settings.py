@@ -39,7 +39,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1',
                  'localhost'
-                 '.herokuapp.com',]
+                 '.herokuapp.com',
+                 'https://bookish-nook-157d2cfc4403.herokuapp.com/']
 
 
 # Application definition
