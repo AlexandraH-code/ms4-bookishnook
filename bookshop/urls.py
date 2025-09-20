@@ -29,6 +29,7 @@ urlpatterns = [
     path("checkout/", include(("checkout.urls", "checkout"), namespace="checkout")),
     path("accounts/", include("allauth.urls")),
     path("profile/", include("profiles.urls")),
+    path("backoffice/", include("backoffice.urls")),  # the backoffice panel
 ]
 
 if settings.DEBUG:

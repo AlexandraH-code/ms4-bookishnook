@@ -40,6 +40,10 @@
 
     <!-- Höger: Varukorg -->
     <div class="d-flex align-items-center justify-content-end">
+      {% if request.user.is_staff %}
+        <a href="{% url 'backoffice:dashboard' %}" class="text-dark mr-3">Backoffice</a>
+      {% endif %}
+
       {% if request.user.is_authenticated %}
         <!-- Desktop: My Account + Logout -->
         <a href="{% url 'profiles:dashboard' %}" class="text-dark mr-3 d-none d-lg-inline" title="My Account">

@@ -220,6 +220,40 @@ footer .bn-h5 { margin-bottom:.5rem; }
 #authModal .close { position: absolute; right: .25rem; top: .25rem; z-index: 10; }
 
 
+/* Backoffice */
+.badge { border-radius: .5rem; padding: .35em .6em; font-weight: 600; }
+
+/* === Order detail card background by status === */
+.order-card-pending   { background-color: #f8f9fa; }   /* ljusgrå */
+.order-card-paid      { background-color: #f0fff4; }   /* svagt grönt */
+.order-card-processing{ background-color: #f0f8ff; }   /* svagt blått */
+.order-card-shipped   { background-color: #eef6ff; }   /* ljusblå */
+.order-card-refunded  { background-color: #fff5f5; }   /* svagt rött */
+.order-card-cancelled { background-color: #f7f7f7; color:#666; } /* dämpad grå */
+
+/* the header a little more visual feedback */
+.order-card-paid h5       { color: #155724; }  /* mörkgrön */
+.order-card-processing h5 { color: #004085; }  /* mörkblå */
+.order-card-shipped h5    { color: #004085; }
+.order-card-refunded h5   { color: #721c24; }  /* mörkröd */
+.order-card-cancelled h5  { color: #383d41; }  /* mörkgrå */
+
+
+/* === Order list row highlighting by status === */
+.order-row-pending   { background-color: #f8f9fa; }   /* ljusgrå */
+.order-row-paid      { background-color: #f0fff4; }   /* svagt grönt */
+.order-row-processing{ background-color: #f0f8ff; }   /* svagt blått */
+.order-row-shipped   { background-color: #eef6ff; }   /* ljusblå */
+.order-row-refunded  { background-color: #fff5f5; }   /* svagt rött */
+.order-row-cancelled { background-color: #f7f7f7; color: #666; } /* dämpad grå */
+
+/* tabellrader fortfarande ska markeras när man hovrar över dem (så det känns klickbart */ 
+.table-hover tbody tr:hover {
+  background-color: #eaeaea !important;
+}
+
+
+
 /* Media queries */ 
 
 /* Extra luft på små skärmar för inputs/knappar så de inte "klistrar" ihop sig */

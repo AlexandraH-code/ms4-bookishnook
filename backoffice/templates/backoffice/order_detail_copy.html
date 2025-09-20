@@ -1,0 +1,64 @@
+{% extends "backoffice/base_backoffice.html" %}
+{% load backoffice_extras %}
+{% block backoffice_content %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="mb-3">Order #{{ order.id }}</h5>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Customer</h6>
+        <p class="mb-2">
+          {{ order.full_name|default:"" }}<br>
+          {{ order.email }}<br>
+          {% if order.phone %}{{ order.phone }}{% endif %}
+        </p>
+
+        <h6>Shipping address</h6>
+        <p class="mb-2">
+          {{ order.address_line1 }}{% if order.address_line2 %}, {{ order.address_line2 }}{% endif %}<br>
+          {{ order.postal_code }} {{ order.city }}<br>
+          {{ order.country }}
+        </p>
+
+        <h6>Totals</h6>
+        <p class="mb-0">
+          Subtotal: {{ order.total }}<br>
+          Tax: {{ order.tax_amount }}<br>
+          Shipping: {{ order.shipping }}<br>
+          <strong>Grand total: {{ order.grand_total }}</strong>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <h6>Items</h6>
+        <ul class="mb-3">
+          {% for it in order.items.all %}
+            <li>{{ it.product.name }} × {{ it.qty }} — {{ it.price }}</li>
+          {% endfor %}
+        </ul>
+
+        <h6>Status</h6>
+        <p>Current: 
+              <span class="badge badge-{{ order.status|status_badge }}">
+                {{ order.status|capfirst }}
+            </span>
+        </p>
+
+        <form method="post" class="form-inline flex-wrap">
+        {% csrf_token %}
+        {% for val,label in statuses %}
+            {% if val != order.status %}
+            <button name="action" value="mark_{{ val }}" 
+                    class="btn btn-sm {% if val == 'refunded' or val == 'cancelled' %}btn-outline-danger{% else %}btn-outline-secondary{% endif %} mr-2 mb-2">
+                {{ label }}
+            </button>
+            {% endif %}
+        {% endfor %}
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
