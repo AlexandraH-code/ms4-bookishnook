@@ -15,14 +15,10 @@
         <h5>Recent orders</h5>
         <div class="list-group">
           {% for o in recent %}
-            <a class="list-group-item list-group-item-action d-flex flex-column flex-md-row justify-content-between"
-              href="{% url 'backoffice:order_detail' o.id %}">
-              <span class="text-truncate" style="max-width:100%;">
-                #{{ o.id }} — <span class="text-monospace">{{ o.email }}</span>
-              </span>
-              <span class="small text-muted mt-1 mt-md-0">
-                {{ o.status|capfirst }} · {{ o.created|date:"Y-m-d H:i" }}
-              </span>
+            <a class="list-group-item list-group-item-action d-flex justify-content-between"
+               href="{% url 'backoffice:order_detail' o.id %}">
+              <span>#{{ o.id }} — {{ o.email }}</span>
+              <span>{{ o.status|capfirst }} · {{ o.created|date:"Y-m-d H:i" }}</span>
             </a>
           {% empty %}
             <div class="text-muted">No orders yet.</div>

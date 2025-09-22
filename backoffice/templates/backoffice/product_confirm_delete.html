@@ -1,0 +1,12 @@
+{% extends "backoffice/base_backoffice.html" %}
+{% block backoffice_content %}
+<h2 class="mb-3">Delete Product</h2>
+<div class="card p-3">
+  <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">Yes, delete</button>
+    <a class="btn btn-outline-secondary ml-2" href="{% url 'backoffice:products_list' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

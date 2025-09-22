@@ -1,0 +1,92 @@
+{% extends "backoffice/base_backoffice.html" %}
+{% block backoffice_content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Products</h2>
+  <a href="{% url 'backoffice:product_create' %}" class="btn bn-btn-primary">New Product</a>
+</div>
+
+<form class="form-inline mb-3">
+  <input class="form-control mr-2" type="text" name="q" placeholder="Search name/slug/desc" value="{{ q }}">
+  <select name="active" class="form-control mr-2">
+    <option value="">All</option>
+    <option value="1" {% if active == "1" %}selected{% endif %}>Active</option>
+    <option value="0" {% if active == "0" %}selected{% endif %}>Inactive</option>
+  </select>
+  <button class="btn btn-outline-secondary">Filter</button>
+</form>
+
+{# Mobile cards #}
+<div class="d-md-none">
+  {% for p in products %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="mr-3" style="width:64px;">
+            {% if p.image %}
+              <img src="{{ p.image.url }}" alt="{{ p.name }}" style="width:64px;height:64px;object-fit:cover;">
+            {% else %}
+              <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="width:64px;height:64px;">—</div>
+            {% endif %}
+          </div>
+          <div class="flex-grow-1">
+            <div class="font-weight-bold">{{ p.name }}</div>
+            <div class="small text-muted">{{ p.category.name }} · {{ p.price }}</div>
+            <div class="small text-monospace text-truncate">{{ p.slug }}</div>
+            <div class="mt-2">
+              {% if p.is_active %}<span class="badge badge-success">Active</span>{% else %}<span class="badge badge-secondary">Inactive</span>{% endif %}
+            </div>
+            <div class="mt-2">
+              <a class="btn btn-sm btn-outline-secondary mr-2" href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="text-muted">No products found.</div>
+  {% endfor %}
+</div>
+
+
+
+<div class="table-responsive d-none d-md-block">
+<table class="table table-sm table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Active</th><th>Created</th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+      <tr>
+        <td style="width:70px;">
+          {% if p.image %}
+            <img src="{{ p.image.url }}" alt="{{ p.name }}" style="height:48px; width:auto;">
+          {% else %}
+            <div class="text-muted small">No image</div>
+          {% endif %}
+        </td>
+        <td>{{ p.name }}<br><small class="text-muted">{{ p.slug }}</small></td>
+        <td>{{ p.category.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>
+          {% if p.is_active %}
+            <span class="badge badge-success">Yes</span>
+          {% else %}
+            <span class="badge badge-secondary">No</span>
+          {% endif %}
+        </td>
+        <td>{{ p.created|date:"Y-m-d H:i" }}</td>
+        <td class="text-right">
+          <a class="btn btn-sm btn-outline-secondary mr-2" href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
+          <a class="btn btn-sm btn-outline-danger" href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="7" class="text-muted">No products found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

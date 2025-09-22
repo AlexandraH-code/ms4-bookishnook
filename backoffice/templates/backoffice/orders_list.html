@@ -1,72 +1,165 @@
 {% extends "backoffice/base_backoffice.html" %}
 {% load backoffice_extras %}
 {% block backoffice_content %}
-<form class="form-inline mb-3">
-  <input class="form-control mr-2" type="text" name="q" placeholder="Search id/email" value="{{ q }}">
-    <select name="status" class="form-control mr-2">
-    <option value="">All statuses</option>
-    {% for val,label in statuses %}
-        <option value="{{ val }}" {% if status == val %}selected{% endif %}>
-        {{ label }}
-        </option>
-    {% endfor %}
-    </select>
-
-  <button class="btn bn-btn-primary">Filter</button>
-</form>
+<div class="sticky-top" style="z-index: 1010;">
+  <div class="bg-white border rounded p-2 mb-2 shadow-sm">
+    <form class="form-inline mb-3">
+      <input class="form-control mr-2" type="text" name="q" placeholder="Search id/email" value="{{ q }}">
+        <select name="status" class="form-control mr-2">
+        <option value="">All statuses</option>
+        {% for val,label in statuses %}
+            <option value="{{ val }}" {% if status == val %}selected{% endif %}>
+            {{ label }}
+            </option>
+        {% endfor %}
+        </select>
+      <button class="btn bn-btn-primary">Filter</button>
+    </form>
+  </div>
+</div>
 
 <!-- Status legend -->
-<div class="mb-3 small">
-  <strong>Status legend:</strong>
-  <span class="badge badge-warning mr-1">
-    <i class="fas fa-clock"></i> Pending
-  </span>
-  <span class="badge badge-success mr-1">
-    <i class="fas fa-coins"></i> Paid
-  </span>
-  <span class="badge badge-info mr-1">
-    <i class="fas fa-magic"></i> Processing
-  </span>
-  <span class="badge badge-primary mr-1">
-    <i class="fas fa-box-open"></i> Shipped
-  </span>
-  <span class="badge badge-danger mr-1">
-    <i class="fas fa-hand-holding-usd"></i> Refunded
-  </span>
-  <span class="badge badge-secondary mr-1">
-    <i class="fas fa-ban"></i> Cancelled
-  </span>
+<div class="mb-3 small d-flex flex-wrap align-items-center">
+  <strong class="mr-2">Status legend:</strong>
+  <span class="badge badge-warning mr-2 mb-2"><i class="fas fa-clock"></i> Pending</span>
+  <span class="badge badge-success mr-2 mb-2"><i class="fas fa-coins"></i> Paid</span>
+  <span class="badge badge-info mr-2 mb-2"><i class="fas fa-magic"></i> Processing</span>
+  <span class="badge badge-primary mr-2 mb-2"><i class="fas fa-box-open"></i> Shipped</span>
+  <span class="badge badge-danger mr-2 mb-2"><i class="fas fa-hand-holding-usd"></i> Refunded</span>
+  <span class="badge badge-secondary mr-2 mb-2"><i class="fas fa-ban"></i> Cancelled</span>
 </div>
 
-<div class="table-responsive">
-<table class="table table-sm table-hover">
-  <thead class="thead-light">
-    <tr>
-      <th>ID</th><th>Email</th><th>Status</th><th>Total</th><th>Created</th><th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for o in orders %}
-        <tr class="order-row-{{ o.status|lower }}">
-        <td>#{{ o.id }}</td>
-        <td>{{ o.email }}</td>
-        <td>
-        <span class="badge badge-{{ o.status|status_badge }}">
-            <i class="{{ o.status|status_icon }}"></i>
-            {{ o.status|capfirst }}
-        </span>
-        </td>
-        <td>{{ o.grand_total }}</td>
-        <td>{{ o.created|date:"Y-m-d H:i" }}</td>
-        <td>
-            <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
-        </td>
-        </tr>
-    {% empty %}
-        <tr><td colspan="6" class="text-muted">No matches.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
-<a class="btn btn-sm btn-outline-secondary mb-3" href="{% url 'backoffice:orders_export_csv' %}">Export CSV</a>
+{# Mobile cards #}
+<div class="d-md-none">
+  {% for o in orders %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <strong>#{{ o.id }}</strong>
+          <span class="badge badge-{{ o.status|status_badge }}">
+            <i class="{{ o.status|status_icon }}"></i> {{ o.status|capfirst }}
+          </span>
+        </div>
+        <div class="small text-monospace mt-1">{{ o.email }}</div>
+        <div class="small text-muted">{{ o.created|date:"Y-m-d H:i" }}</div>
+        <div class="mt-2 d-flex justify-content-between align-items-center">
+          <div class="font-weight-bold">{{ o.grand_total }}</div>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="text-muted">No matches.</div>
+  {% endfor %}
 </div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Pagination" class="my-3">
+  <ul class="pagination pagination-sm flex-wrap">
+    {# Prev #}
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      {% if page_obj.has_previous %}
+        <a class="page-link"
+           href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.previous_page_number }}">‹</a>
+      {% else %}
+        <span class="page-link">‹</span>
+      {% endif %}
+    </li>
+
+    {# Numbers #}
+    {% for p in elided_range %}
+      {% if p == '…' or p == '...' %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% else %}
+        <li class="page-item {% if p == page_obj.number %}active{% endif %}">
+          <a class="page-link"
+             href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ p }}">{{ p }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {# Next #}
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      {% if page_obj.has_next %}
+        <a class="page-link"
+           href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.next_page_number }}">›</a>
+      {% else %}
+        <span class="page-link">›</span>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
+
+
+
+<div class="table-responsive d-none d-md-block">
+  <table class="table table-sm table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>ID</th><th>Email</th><th>Status</th><th>Total</th><th>Created</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for o in orders %}
+          <tr class="order-row-{{ o.status|lower }}">
+          <td>#{{ o.id }}</td>
+          <td>{{ o.email }}</td>
+          <td>
+          <span class="badge badge-{{ o.status|status_badge }}">
+              <i class="{{ o.status|status_icon }}"></i>
+              {{ o.status|capfirst }}
+          </span>
+          </td>
+          <td>{{ o.grand_total }}</td>
+          <td>{{ o.created|date:"Y-m-d H:i" }}</td>
+          <td>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
+          </td>
+          </tr>
+      {% empty %}
+          <tr><td colspan="6" class="text-muted">No matches.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-sm btn-outline-secondary mb-3" href="{% url 'backoffice:orders_export_csv' %}">Export CSV</a>
+</div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Pagination" class="my-3">
+  <ul class="pagination pagination-sm flex-wrap">
+    {# Prev #}
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      {% if page_obj.has_previous %}
+        <a class="page-link"
+           href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.previous_page_number }}">‹</a>
+      {% else %}
+        <span class="page-link">‹</span>
+      {% endif %}
+    </li>
+
+    {# Numbers #}
+    {% for p in elided_range %}
+      {% if p == '…' or p == '...' %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% else %}
+        <li class="page-item {% if p == page_obj.number %}active{% endif %}">
+          <a class="page-link"
+             href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ p }}">{{ p }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {# Next #}
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      {% if page_obj.has_next %}
+        <a class="page-link"
+           href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.next_page_number }}">›</a>
+      {% else %}
+        <span class="page-link">›</span>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
 {% endblock %}

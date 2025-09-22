@@ -40,9 +40,14 @@
 
     <!-- Höger: Varukorg -->
     <div class="d-flex align-items-center justify-content-end">
-      {% if request.user.is_staff %}
+      <!--{% if request.user.is_staff %}
         <a href="{% url 'backoffice:dashboard' %}" class="text-dark mr-3">Backoffice</a>
+      {% endif %}-->
+
+      {% if request.user.is_staff %}
+        <a href="{% url 'backoffice:dashboard' %}" class="text-dark mr-3 d-none d-lg-inline">Backoffice</a>
       {% endif %}
+
 
       {% if request.user.is_authenticated %}
         <!-- Desktop: My Account + Logout -->
@@ -123,6 +128,14 @@
 
     <!-- My Account / Auth länkar längst ner i mobilmenyn (syns bara i collapse) -->
     <ul class="navbar-nav d-lg-none w-100 mt-2 pt-2 border-top">
+      {% if request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{% url 'backoffice:dashboard' %}">
+            <i class="fas fa-tools mr-2"></i> Backoffice
+          </a>
+        </li>
+      {% endif %}
+
       {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{% url 'profiles:dashboard' %}">

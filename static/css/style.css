@@ -283,11 +283,33 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .status-sep { width:24px; height:2px; background:#e1e1e1; margin:0 .25rem .5rem; }
 .status-step small { color:#666; }
 
+/* Make table cells a little more airy */
+.table td, .table th { vertical-align: middle; }
+
+/* Break long words (slug/email) */
+.text-break { word-break: break-word; }
+.text-monospace { word-break: break-all; }
+
+/* Mobile product cards are centered and kept a little narrow */
+.product-card-mobile { max-width: 560px; }
+
+/* No side scrolling on small screens */
+html, body { overflow-x: hidden; }
+
+/* Table cells more readable */
+.table td, .table th { vertical-align: middle; }
+
+/* Extra space between actions on small screens (general) */
+.btn + .btn { margin-left: .5rem; }
+
+/* Small pagination links wrap nicely */
+.pagination { margin-bottom: 0; }
+
 
 
 /* Media queries */ 
 
-/* Extra air on small screens for inputs/buttons so they don't "stick" together*/
+/* Extra space on small screens for inputs/buttons so they don't "stick" together*/
 @media (max-width: 767.98px) {
   .form-inline .form-control,
   .form-inline .btn,
@@ -296,5 +318,17 @@ footer .bn-h5 { margin-bottom:.5rem; }
     margin-bottom: .5rem !important;
   }
 }
+
+/* Backoffice small fixes */
+@media (max-width: 767.98px) {
+  .bn-section-title { font-size: 1.5rem; }
+  .card .list-group-item { padding: .5rem .75rem; }
+}
+
+/* Less padding in backoffice on extra small screens*/
+@media (max-width: 575.98px) {
+  .container { padding-left: 12px; padding-right: 12px; }
+}
+
 
 

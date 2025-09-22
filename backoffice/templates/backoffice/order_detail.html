@@ -32,40 +32,19 @@
 </div>
 {% endwith %}
 
-
-
-
-
-
-
-
 <div class="card order-card-{{ order.status|lower }}">
   <div class="card-body">
     <h5 class="mb-3">Order #{{ order.id }}</h5>
 
     <!-- Status legend -->
-    <div class="order-detail">
-        <div class="mb-3 small">
-        <strong>Status legend:</strong>
-        <span class="badge badge-warning mr-1">
-            <i class="fas fa-clock"></i> Pending
-        </span>
-        <span class="badge badge-success mr-1">
-            <i class="fas fa-coins"></i> Paid
-        </span>
-        <span class="badge badge-info mr-1">
-            <i class="fas fa-magic"></i> Processing
-        </span>
-        <span class="badge badge-primary mr-1">
-            <i class="fas fa-box-open"></i> Shipped
-        </span>
-        <span class="badge badge-danger mr-1">
-            <i class="fas fa-hand-holding-usd"></i> Refunded
-        </span>
-        <span class="badge badge-secondary mr-1">
-            <i class="fas fa-ban"></i> Cancelled
-        </span>
-        </div>
+    <div class="mb-3 small d-flex flex-wrap align-items-center">
+      <strong class="mr-2">Status legend:</strong>
+      <span class="badge badge-warning mr-2 mb-2"><i class="fas fa-clock"></i> Pending</span>
+      <span class="badge badge-success mr-2 mb-2"><i class="fas fa-coins"></i> Paid</span>
+      <span class="badge badge-info mr-2 mb-2"><i class="fas fa-magic"></i> Processing</span>
+      <span class="badge badge-primary mr-2 mb-2"><i class="fas fa-box-open"></i> Shipped</span>
+      <span class="badge badge-danger mr-2 mb-2"><i class="fas fa-hand-holding-usd"></i> Refunded</span>
+      <span class="badge badge-secondary mr-2 mb-2"><i class="fas fa-ban"></i> Cancelled</span>
     </div>
 
     <div class="row">
