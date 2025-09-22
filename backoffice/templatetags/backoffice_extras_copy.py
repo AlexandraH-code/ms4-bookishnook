@@ -4,21 +4,21 @@ register = template.Library()
 
 # Bootstrap badge-färger per status
 STATUS_BADGES = {
-    "pending":   "warning",   # yellow
-    "paid":      "success",   # green
-    "processing":"info",      # blue
-    "shipped":   "primary",   # darkblue
-    "refunded":  "danger",    # red
-    "cancelled": "secondary", # grey
+    "pending":   "secondary",
+    "paid":      "success",
+    "processing": "info",
+    "shipped":   "primary",
+    "refunded":  "danger",
+    "cancelled": "dark",
 }
 
 STATUS_ICONS = {
-    "pending":   "fas fa-clock",             # 🕒 pending
-    "paid":      "fas fa-coins",             # 💰 paid
-    "processing": "fas fa-magic",             # ✨ processing
-    "shipped":   "fas fa-box-open",          # 📦 shipped
-    "refunded":  "fas fa-hand-holding-usd",  # 💸 refunded
-    "cancelled": "fas fa-ban",               # 🚫 cancelled
+    "pending":   "fas fa-hourglass-half",   # pending
+    "paid":      "fas fa-check-circle",     # paid
+    "processing": "fas fa-cogs",             # processing
+    "shipped":   "fas fa-truck",            # shipped
+    "refunded":  "fas fa-undo",             # refunded
+    "cancelled": "fas fa-times-circle",     # cancelled
 }
 
 
@@ -27,11 +27,9 @@ def status_badge(status: str) -> str:
     """Returnerar bootstrap badge-klass för en orderstatus."""
     return STATUS_BADGES.get((status or "").lower(), "secondary")
 
-
 @register.filter
 def capfirst(s: str) -> str:
     return (s or "").capitalize()
-
 
 @register.filter
 def status_icon(status: str) -> str:

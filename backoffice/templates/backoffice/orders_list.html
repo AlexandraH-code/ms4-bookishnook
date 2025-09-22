@@ -15,6 +15,29 @@
   <button class="btn bn-btn-primary">Filter</button>
 </form>
 
+<!-- Status legend -->
+<div class="mb-3 small">
+  <strong>Status legend:</strong>
+  <span class="badge badge-warning mr-1">
+    <i class="fas fa-clock"></i> Pending
+  </span>
+  <span class="badge badge-success mr-1">
+    <i class="fas fa-coins"></i> Paid
+  </span>
+  <span class="badge badge-info mr-1">
+    <i class="fas fa-magic"></i> Processing
+  </span>
+  <span class="badge badge-primary mr-1">
+    <i class="fas fa-box-open"></i> Shipped
+  </span>
+  <span class="badge badge-danger mr-1">
+    <i class="fas fa-hand-holding-usd"></i> Refunded
+  </span>
+  <span class="badge badge-secondary mr-1">
+    <i class="fas fa-ban"></i> Cancelled
+  </span>
+</div>
+
 <div class="table-responsive">
 <table class="table table-sm table-hover">
   <thead class="thead-light">
@@ -28,7 +51,10 @@
         <td>#{{ o.id }}</td>
         <td>{{ o.email }}</td>
         <td>
-            <span class="badge badge-{{ o.status|status_badge }}">{{ o.status|capfirst }}</span>
+        <span class="badge badge-{{ o.status|status_badge }}">
+            <i class="{{ o.status|status_icon }}"></i>
+            {{ o.status|capfirst }}
+        </span>
         </td>
         <td>{{ o.grand_total }}</td>
         <td>{{ o.created|date:"Y-m-d H:i" }}</td>

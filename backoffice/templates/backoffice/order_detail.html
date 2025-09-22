@@ -1,9 +1,72 @@
 {% extends "backoffice/base_backoffice.html" %}
 {% load backoffice_extras %}
 {% block backoffice_content %}
+
+{# simple ladder: Pending → Paid → Processing → Shipped (or Cancelled/Refunded as the final branch) #}
+{% with s=order.status %}
+<div class="status-steps" aria-label="Order status">
+  <div class="status-step {% if s in 'pending,paid,processing,shipped' %}done{% endif %}{% if s == 'pending' %} active{% endif %}">
+    <span class="dot"></span><small>Pending</small>
+  </div>
+  <div class="status-sep"></div>
+
+  <div class="status-step {% if s in 'paid,processing,shipped' %}done{% endif %}{% if s == 'paid' %} active{% endif %}">
+    <span class="dot"></span><small>Paid</small>
+  </div>
+  <div class="status-sep"></div>
+
+  <div class="status-step {% if s in 'processing,shipped' %}done{% endif %}{% if s == 'processing' %} active{% endif %}">
+    <span class="dot"></span><small>Processing</small>
+  </div>
+  <div class="status-sep"></div>
+
+  {% if s == 'shipped' %}
+    <div class="status-step active"><span class="dot"></span><small>Shipped</small></div>
+  {% elif s == 'cancelled' %}
+    <div class="status-step cancel active"><span class="dot"></span><small>Cancelled</small></div>
+  {% elif s == 'refunded' %}
+    <div class="status-step refund active"><span class="dot"></span><small>Refunded</small></div>
+  {% else %}
+    <div class="status-step"><span class="dot"></span><small>Shipped</small></div>
+  {% endif %}
+</div>
+{% endwith %}
+
+
+
+
+
+
+
+
 <div class="card order-card-{{ order.status|lower }}">
   <div class="card-body">
     <h5 class="mb-3">Order #{{ order.id }}</h5>
+
+    <!-- Status legend -->
+    <div class="order-detail">
+        <div class="mb-3 small">
+        <strong>Status legend:</strong>
+        <span class="badge badge-warning mr-1">
+            <i class="fas fa-clock"></i> Pending
+        </span>
+        <span class="badge badge-success mr-1">
+            <i class="fas fa-coins"></i> Paid
+        </span>
+        <span class="badge badge-info mr-1">
+            <i class="fas fa-magic"></i> Processing
+        </span>
+        <span class="badge badge-primary mr-1">
+            <i class="fas fa-box-open"></i> Shipped
+        </span>
+        <span class="badge badge-danger mr-1">
+            <i class="fas fa-hand-holding-usd"></i> Refunded
+        </span>
+        <span class="badge badge-secondary mr-1">
+            <i class="fas fa-ban"></i> Cancelled
+        </span>
+        </div>
+    </div>
 
     <div class="row">
       <div class="col-md-6">
@@ -39,10 +102,12 @@
         </ul>
 
         <h6>Status</h6>
-        <p>Current: 
-              <span class="badge badge-{{ order.status|status_badge }}">
-                {{ order.status|capfirst }}
-            </span>
+        <p>
+        Current:
+        <span class="badge badge-{{ order.status|status_badge }}">
+            <i class="{{ order.status|status_icon }}"></i>
+            {{ order.status|capfirst }}
+        </span>
         </p>
 
         <form method="post" class="form-inline flex-wrap">
@@ -50,10 +115,10 @@
         {% for val,label in statuses %}
             {% if val != order.status %}
             {# välj outline-färg baserat på status_badge #}
-            {% with color=val|status_badge %}
+            {% with color=val|status_badge icon=val|status_icon %}
                 <button name="action" value="mark_{{ val }}"
                         class="btn btn-sm btn-outline-{{ color }} mr-2 mb-2">
-                {{ label }}
+                    <i class="{{ icon }}"></i> {{ label }}
                 </button>
             {% endwith %}
             {% endif %}

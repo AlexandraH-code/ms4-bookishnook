@@ -1,7 +1,7 @@
 {% extends "backoffice/base_backoffice.html" %}
 {% load backoffice_extras %}
 {% block backoffice_content %}
-<div class="card">
+<div class="card order-card-{{ order.status|lower }}">
   <div class="card-body">
     <h5 class="mb-3">Order #{{ order.id }}</h5>
 
@@ -39,24 +39,34 @@
         </ul>
 
         <h6>Status</h6>
-        <p>Current: 
-              <span class="badge badge-{{ order.status|status_badge }}">
-                {{ order.status|capfirst }}
-            </span>
+        <p>
+        Current:
+        <span class="badge badge-{{ order.status|status_badge }}">
+            <i class="{{ order.status|status_icon }}"></i>
+            {{ order.status|capfirst }}
+        </span>
         </p>
 
         <form method="post" class="form-inline flex-wrap">
         {% csrf_token %}
         {% for val,label in statuses %}
             {% if val != order.status %}
-            <button name="action" value="mark_{{ val }}" 
-                    class="btn btn-sm {% if val == 'refunded' or val == 'cancelled' %}btn-outline-danger{% else %}btn-outline-secondary{% endif %} mr-2 mb-2">
+            {# välj outline-färg baserat på status_badge #}
+            <!--{% with color=val|status_badge %}
+                <button name="action" value="mark_{{ val }}"
+                        class="btn btn-sm btn-outline-{{ color }} mr-2 mb-2">
                 {{ label }}
-            </button>
+                </button>
+            {% endwith %}-->
+            {% with color=val|status_badge icon=val|status_icon %}
+                <button name="action" value="mark_{{ val }}"
+                        class="btn btn-sm btn-outline-{{ color }} mr-2 mb-2">
+                    <i class="{{ icon }}"></i> {{ label }}
+                </button>
+            {% endwith %}
             {% endif %}
         {% endfor %}
         </form>
-
       </div>
     </div>
   </div>
