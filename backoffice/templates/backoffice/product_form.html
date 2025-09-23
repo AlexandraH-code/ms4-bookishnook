@@ -1,7 +1,8 @@
 {% extends "backoffice/base_backoffice.html" %}
 {% load crispy_forms_tags %}
 {% block backoffice_content %}
-<h2 class="mb-3">{{ title }}</h2>
+<h2 class="page-title mb-3">{{ title }}</h2>
+
 <form method="post" enctype="multipart/form-data" class="card p-3">
   {% csrf_token %}
   {{ form|crispy }}

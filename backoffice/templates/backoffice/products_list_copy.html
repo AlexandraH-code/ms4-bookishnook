@@ -1,43 +1,76 @@
 {% extends "backoffice/base_backoffice.html" %}
 {% block backoffice_content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h2 class="mb-0">Products</h2>
-  <a href="{% url 'backoffice:product_create' %}" class="btn bn-btn-primary">New Product</a>
+<div class="row align-items-center mb-2 backoffice-head">
+  <div class="col-12 col-md-8 mb-2 mb-md-0">
+    <h2 class="bn-section-title h5 mb-0">Products</h2>
+  </div>
+  <div class="col-12 col-md-4 text-md-right right-actions">
+    <a href="{% url 'backoffice:product_create' %}" class="btn bn-btn-primary btn-block btn-md-auto">
+      New Product
+    </a>
+  </div>
 </div>
 
-<form class="form-inline mb-3">
-  <input class="form-control mr-2" type="text" name="q" placeholder="Search name/slug/desc" value="{{ q }}">
-  <select name="active" class="form-control mr-2">
-    <option value="">All</option>
-    <option value="1" {% if active == "1" %}selected{% endif %}>Active</option>
-    <option value="0" {% if active == "0" %}selected{% endif %}>Inactive</option>
-  </select>
-  <button class="btn btn-outline-secondary">Filter</button>
-</form>
+<div class="sticky-top bo-sticky">
+  <div class="bo-filter mb-2">
+    <form class="form-row">
+      <div class="col-12 col-md-6 mb-2 mb-md-0">
+        <input class="form-control form-control-sm" type="text" name="q"
+               placeholder="Search name / slug / description" value="{{ q }}">
+      </div>
+      <div class="col-8 col-md-3 mb-2 mb-md-0">
+        <select name="active" class="form-control form-control-sm">
+          <option value="">All</option>
+          <option value="1" {% if active == "1" %}selected{% endif %}>Active</option>
+          <option value="0" {% if active == "0" %}selected{% endif %}>Inactive</option>
+        </select>
+      </div>
+      <div class="col-4 col-md-3">
+        <button class="btn btn-outline-secondary btn-sm btn-block">Filter</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-{# Mobile cards #}
+
+{# Mobile cards (xs–sm) #}
 <div class="d-md-none">
   {% for p in products %}
-    <div class="card mb-2">
-      <div class="card-body">
+    <div class="card product-card-mobile mx-auto mb-2">
+      <div class="card-body py-2">
         <div class="d-flex">
-          <div class="mr-3" style="width:64px;">
+          <div class="mr-3 flex-shrink-0">
             {% if p.image %}
-              <img src="{{ p.image.url }}" alt="{{ p.name }}" style="width:64px;height:64px;object-fit:cover;">
+              <img src="{{ p.image.url }}" alt="{{ p.name }}"
+                   style="width:64px;height:64px;object-fit:cover;border-radius:.25rem;">
             {% else %}
-              <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="width:64px;height:64px;">—</div>
+              <div class="bg-light d-flex align-items-center justify-content-center"
+                   style="width:64px;height:64px;border-radius:.25rem;">
+                <span class="text-muted">—</span>
+              </div>
             {% endif %}
           </div>
-          <div class="flex-grow-1">
-            <div class="font-weight-bold">{{ p.name }}</div>
-            <div class="small text-muted">{{ p.category.name }} · {{ p.price }}</div>
-            <div class="small text-monospace text-truncate">{{ p.slug }}</div>
-            <div class="mt-2">
-              {% if p.is_active %}<span class="badge badge-success">Active</span>{% else %}<span class="badge badge-secondary">Inactive</span>{% endif %}
+
+          <div class="flex-grow-1 min-w-0">
+            <div class="font-weight-bold text-ellipsis">{{ p.name }}</div>
+            <div class="small text-muted text-ellipsis">
+              {{ p.category.name }} · {{ p.price }}
             </div>
-            <div class="mt-2">
-              <a class="btn btn-sm btn-outline-secondary mr-2" href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
-              <a class="btn btn-sm btn-outline-danger" href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
+            <div class="small text-monospace text-break">{{ p.slug }}</div>
+
+            <div class="d-flex align-items-center mt-2 flex-wrap">
+              {% if p.is_active %}
+                <span class="badge badge-success mr-2 mb-xs-2">Active</span>
+              {% else %}
+                <span class="badge badge-secondary mr-2 mb-xs-2">Inactive</span>
+              {% endif %}
+
+              <div class="ml-auto">
+                <a class="btn btn-sm btn-outline-secondary mr-2 mb-xs-2"
+                   href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
+                <a class="btn btn-sm btn-outline-danger mb-xs-2"
+                   href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
+              </div>
             </div>
           </div>
         </div>
@@ -49,44 +82,105 @@
 </div>
 
 
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Pagination" class="my-3 d-md-none">
+  <ul class="pagination pagination-sm bo-pagination">
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      {% if page_obj.has_previous %}
+        <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.previous_page_number }}">‹</a>
+      {% else %}<span class="page-link">‹</span>{% endif %}
+    </li>
 
-<div class="table-responsive d-none d-md-block">
-<table class="table table-sm table-hover">
-  <thead class="thead-light">
-    <tr>
-      <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Active</th><th>Created</th><th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in products %}
-      <tr>
-        <td style="width:70px;">
-          {% if p.image %}
-            <img src="{{ p.image.url }}" alt="{{ p.name }}" style="height:48px; width:auto;">
-          {% else %}
-            <div class="text-muted small">No image</div>
-          {% endif %}
-        </td>
-        <td>{{ p.name }}<br><small class="text-muted">{{ p.slug }}</small></td>
-        <td>{{ p.category.name }}</td>
-        <td>{{ p.price }}</td>
-        <td>
-          {% if p.is_active %}
-            <span class="badge badge-success">Yes</span>
-          {% else %}
-            <span class="badge badge-secondary">No</span>
-          {% endif %}
-        </td>
-        <td>{{ p.created|date:"Y-m-d H:i" }}</td>
-        <td class="text-right">
-          <a class="btn btn-sm btn-outline-secondary mr-2" href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
-          <a class="btn btn-sm btn-outline-danger" href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
-        </td>
-      </tr>
-    {% empty %}
-      <tr><td colspan="7" class="text-muted">No products found.</td></tr>
+    {% for p in elided_range %}
+      {% if p == '…' or p == '...' %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% else %}
+        <li class="page-item {% if p == page_obj.number %}active{% endif %}">
+          <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ p }}">{{ p }}</a>
+        </li>
+      {% endif %}
     {% endfor %}
-  </tbody>
-</table>
+
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      {% if page_obj.has_next %}
+        <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.next_page_number }}">›</a>
+      {% else %}<span class="page-link">›</span>{% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
+
+
+{# Desktop table (md+) #}
+<div class="table-responsive d-none d-md-block">
+  <table class="table table-sm table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Active</th><th>Created</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in products %}
+        <tr>
+          <td style="width:70px;">
+            {% if p.image %}
+              <img src="{{ p.image.url }}" alt="{{ p.name }}" style="height:48px;width:auto;">
+            {% else %}
+              <span class="text-muted small">No image</span>
+            {% endif %}
+          </td>
+          <td class="text-break">
+            {{ p.name }}<br>
+            <small class="text-muted text-monospace">{{ p.slug }}</small>
+          </td>
+          <td class="text-break">{{ p.category.name }}</td>
+          <td>{{ p.price }}</td>
+          <td>
+            {% if p.is_active %}
+              <span class="badge badge-success">Yes</span>
+            {% else %}
+              <span class="badge badge-secondary">No</span>
+            {% endif %}
+          </td>
+          <td>{{ p.created|date:"Y-m-d H:i" }}</td>
+          <td class="text-right">
+            <a class="btn btn-sm btn-outline-secondary mr-2"
+               href="{% url 'backoffice:product_edit' p.id %}">Edit</a>
+            <a class="btn btn-sm btn-outline-danger"
+               href="{% url 'backoffice:product_delete' p.id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
+
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Pagination" class="my-3 d-none d-md-block">
+  <ul class="pagination pagination-sm bo-pagination">
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      {% if page_obj.has_previous %}
+        <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.previous_page_number }}">‹</a>
+      {% else %}<span class="page-link">‹</span>{% endif %}
+    </li>
+
+    {% for p in elided_range %}
+      {% if p == '…' or p == '...' %}
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      {% else %}
+        <li class="page-item {% if p == page_obj.number %}active{% endif %}">
+          <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ p }}">{{ p }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      {% if page_obj.has_next %}
+        <a class="page-link" href="?{% if q %}q={{ q|urlencode }}&{% endif %}{% if active %}active={{ active }}&{% endif %}page={{ page_obj.next_page_number }}">›</a>
+      {% else %}<span class="page-link">›</span>{% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
 {% endblock %}

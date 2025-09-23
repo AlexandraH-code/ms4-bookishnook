@@ -4,7 +4,7 @@
 {% block title %}Products – Bookish Nook{% endblock %}
 
 {% block content %}
-{# --- Rubrik på egen rad --- #}
+{# --- Heading on its own row--- #}
 <div class="row">
   <div class="col-12">
     <h1 class="bn-section-title mb-3">
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-{# --- Sök / Sort på nästa rad (stackad på mobil, i rad på md+) --- #}
+{# --- Search / Sort on next row (stacked on mobile, in a row on md+) --- #}
 <div class="row align-items-center mb-3">
   <div class="col-12 col-md-6 mb-2 mb-md-0">
     <form class="w-100" method="get">
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-{# --- Kategori-knappar (wrap + luft) --- #}
+{# --- Category buttons (wrap + air) --- #}
 <div class="bn-chipwrap mb-3">
   <a href="{% url 'products:list' %}" class="btn bn-chip mb-2">All</a>
   {% for c in categories %}

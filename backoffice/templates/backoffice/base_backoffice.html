@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container my-4" style="max-width:1100px;">
-  <div class="row align-items-center mb-3">
-    <div class="col-12 col-md-6">
-      <h1 class="bn-section-title mb-2 mb-md-0">Backoffice</h1>
+<div class="container my-3" style="max-width:1100px;">
+  <div class="d-flex flex-wrap align-items-center justify-content-between backoffice-bar">
+    <h1 class="bn-admin-title mb-2 mb-sm-0">Backoffice</h1>
+    <div class="d-flex flex-nowrap btn-gap">
+      <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:orders_list' %}">Orders</a>
+      <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:products_list' %}">Products</a>
+      <a class="btn btn-sm btn-outline-secondary" href="/admin/">Django Admin</a>
     </div>
-    <div class="col-12 col-md-6 d-flex flex-wrap justify-content-md-end">
-      <a class="btn btn-sm btn-outline-secondary mr-2 mb-2" href="{% url 'backoffice:orders_list' %}">Orders</a>
-      <a class="btn btn-sm btn-outline-secondary mr-2 mb-2" href="{% url 'backoffice:products_list' %}">Products</a>
-      <a class="btn btn-sm btn-outline-secondary mb-2" href="/admin/">Django Admin</a>
-    </div>
+  </div>
 
   <!--{% if messages %}
     {% for message in messages %}

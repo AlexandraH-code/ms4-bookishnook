@@ -44,16 +44,14 @@ def orders_list(request):
         qs = qs.filter(status=status)
         
     # Pagination
-    paginator = Paginator(qs, 20)  # 20 per page (change according to taste)
+    paginator = Paginator(qs, 20)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    
-    # Make elided page range in Python, not in template
+
     try:
-        elided_range = paginator.get_elided_page_range(page_obj.number, on_each_side=1, on_ends=1)
+        elided_range = list(paginator.get_elided_page_range(page_obj.number, on_each_side=1, on_ends=1))
     except AttributeError:
-        # Fallback if your Django version lacks get_elided_page_range
-        elided_range = paginator.page_range
+        elided_range = list(paginator.page_range)
 
     return render(request, "backoffice/orders_list.html", {
         "page_obj": page_obj,
@@ -116,21 +114,20 @@ def products_list(request):
     paginator = Paginator(qs, 20)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-        
-    # Make elided page range in Python, not in template
+
     try:
-        elided_range = paginator.get_elided_page_range(page_obj.number, on_each_side=1, on_ends=1)
+        elided_range = list(paginator.get_elided_page_range(page_obj.number, on_each_side=1, on_ends=1))
     except AttributeError:
-        # Fallback if your Django version lacks get_elided_page_range
-        elided_range = paginator.page_range
+        elided_range = list(paginator.page_range)
 
     return render(request, "backoffice/products_list.html", {
         "page_obj": page_obj,
         "products": page_obj.object_list,
         "q": q,
         "active": active,
-        "elided_range": elided_range,
+        "elided_range": elided_range,  
     })
+
 
 @staff_member_required
 def product_create(request):
