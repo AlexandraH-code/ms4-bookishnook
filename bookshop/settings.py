@@ -57,6 +57,7 @@ def env_list(name: str, default: str = ""):
             vals.append(p)
     return vals
 
+
 # ---- Hosts / CSRF ----
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "127.0.0.1,localhost")
 
@@ -200,13 +201,24 @@ WSGI_APPLICATION = 'bookshop.wsgi.application'
     # )
 # }
 
+
+default_sqlite = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.getenv("DATABASE_URL", "sqlite:///" + str(BASE_DIR / "db.sqlite3")),
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL", default_sqlite),
         conn_max_age=600,
         ssl_require=os.getenv("DB_SSL_REQUIRE", "false").lower() == "true",
     )
 }
+
+
+# DATABASES = {
+    # "default": dj_database_url.parse(
+        # os.getenv("DATABASE_URL", "sqlite:///" + str(BASE_DIR / "db.sqlite3")),
+        # conn_max_age=600,
+        # ssl_require=os.getenv("DB_SSL_REQUIRE", "false").lower() == "true",
+    # )
+# }
 
 
 # Password validation
