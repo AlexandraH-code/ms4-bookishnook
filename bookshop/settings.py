@@ -56,7 +56,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1',
                  'localhost'
                  '.herokuapp.com',
-                 'https://bookish-nook-157d2cfc4403.herokuapp.com/']
+                 'https://bookish-nook-157d2cfc4403.herokuapp.com/'
+                 ]
 
 # Hosts
 ALLOWED_HOSTS = [
