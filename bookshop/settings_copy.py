@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables from .env
 # load_dotenv(BASE_DIR / ".env")
-load_dotenv(BASE_DIR / ".env", override=True)  # force local .env to win
+load_dotenv(BASE_DIR / ".env", override=False)  # force local .env to win
 
 # (optional) For backward compatibility: try reading env.py if you still have it
 # try:
@@ -51,12 +51,13 @@ DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1',
                  'localhost'
                  '.herokuapp.com',
-                 'https://bookish-nook-157d2cfc4403.herokuapp.com/']
+                 'https://bookish-nook-157d2cfc4403.herokuapp.com/'
+                 ]
 
 # Hosts
 ALLOWED_HOSTS = [
@@ -280,23 +281,39 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
 # AWS S3
 # AWS S3 setup (if USE_AWS=true in .env)
-if os.getenv("USE_AWS", "false").lower() == "true":
-    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-    AWS_DEFAULT_ACL = None
+USE_AWS = os.getenv("USE_AWS", "false").lower() == "true"
 
-# Custom domain (optional, otherwise it will be AWS default)
+if USE_AWS:
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "eu-north-1")
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
+    AWS_DEFAULT_ACL = None
+    AWS_QUERYSTRING_AUTH = False
+
     AWS_S3_CUSTOM_DOMAIN = os.getenv(
         "AWS_S3_CUSTOM_DOMAIN",
-        f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+        f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com",
     )
 
-    # Static & media via S3
-    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    # locations
+    STATIC_LOCATION = "static"
+    MEDIA_LOCATION  = "media"
 
-    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    MEDIA_URL  = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
 
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+            "OPTIONS": {"location": STATIC_LOCATION},
+        },
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {"location": MEDIA_LOCATION},
+        },
+    }
+else:
+    STATIC_URL = "/static/"
+    STATIC_ROOT = BASE_DIR / "staticfiles"
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"

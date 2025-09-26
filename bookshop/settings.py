@@ -18,10 +18,8 @@ from email.utils import formataddr
 
 # --- Paths ---
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env", override=False)
 
-# Load environment variables from .env
-# load_dotenv(BASE_DIR / ".env")
-load_dotenv(BASE_DIR / ".env", override=True)  # force local .env to win
 
 # (optional) For backward compatibility: try reading env.py if you still have it
 # try:
@@ -50,35 +48,29 @@ SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# ---- Helpers ----
+def env_list(name: str, default: str = ""):
+    vals = []
+    for p in os.getenv(name, default).split(","):
+        p = p.strip().strip('"').strip("'").rstrip("/")  # trim + ta bort trailing /
+        if p:
+            vals.append(p)
+    return vals
 
-ALLOWED_HOSTS = ['127.0.0.1',
-                 'localhost'
-                 '.herokuapp.com',
-                 'https://bookish-nook-157d2cfc4403.herokuapp.com/'
-                 ]
+# ---- Hosts / CSRF ----
+ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "127.0.0.1,localhost")
 
-# Hosts
-ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.getenv("ALLOWED_HOSTS", "").split(",")
-    if h.strip()
-]
-
-# CSRF-trusted origins (MUST have scheme + port)
-CSRF_TRUSTED_ORIGINS = [
-    o.strip()
-    for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
-    if o.strip()
-]
+CSRF_TRUSTED_ORIGINS = []
+for v in env_list("CSRF_TRUSTED_ORIGINS", ""):
+    if "://" not in v:
+        v = f"https://{v}"
+    CSRF_TRUSTED_ORIGINS.append(v)
 
 if DEBUG:
-    # ensure local dev hosts are present
+    # ensures local values ​​when running dev
     for h in ("127.0.0.1", "localhost"):
         if h not in ALLOWED_HOSTS:
             ALLOWED_HOSTS.append(h)
-
     for o in ("http://127.0.0.1:8000", "http://localhost:8000"):
         if o not in CSRF_TRUSTED_ORIGINS:
             CSRF_TRUSTED_ORIGINS.append(o)
@@ -92,6 +84,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     
@@ -156,6 +149,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Bookish Nook] "
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -251,8 +245,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media files (for product images etc.)
 MEDIA_URL = '/media/'
