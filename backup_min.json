@@ -1,0 +1,3651 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "237mbmfe6mqi20fhog8os859wkvqctb6",
+  "fields": {
+    "session_data": "eyJjYXJ0Ijp7fX0:1ux4XR:FQBVsoTCpCr05NgxnLulN4TFKmmuGRgyxwzKXtJu9mU",
+    "expire_date": "2025-09-26T14:14:09.899Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "uw1g0pv7k6dfic1wtdsf6902nzlllip5",
+  "fields": {
+    "session_data": ".eJxVkMFuhDAMRP_FZ4QSCHHg1O1vVCtkgltQIVnhoG212n_vQrlws2bG4yc_gLyPa0gtrWngkEZPaYyhnTkNsRdoPh7wP0MDNxK5x6WHDChBo7FyWJTG6tzp0rgqA55pnF5JGuIkiYNIDG9fm5j7OMPzmsF-qV2Fl3bcSjWctI78N4fNoGna5PwgzPfMYUt-OfG-H1unqoFkePX0riSr2KIpsDCMjDXWpJXFmk2FpdXMaK0qWDtjFJY9uc5-Gq-5K3rc-YRFtrfwz21cfqFRzz91eGjL:1v1QJR:5qhL0EER9wzKmbN17xvmiWT-rE7c6SG20PLqdv7yUu0",
+    "expire_date": "2025-10-08T14:17:41.832Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "vhtmr0b61zbr60nat3xfwqek23va1n2i",
+  "fields": {
+    "session_data": ".eJxVUEFuhDAM_IvPCCWEhMCp229UFTLGLaiQrHBQW6327wXKhZs1Mx7P-AFIFNeQWlzTwCGNhGmMoZ05DbEXaN4e8D9DA3cU-Y5LDxlggkZX1pelL5TJa-1VWWXAM47TpsQhTpI4iMTw8rmDOcUZnu8ZHJfaVXhpx91UwwXrkL447ARO0w7nZ8L80Jy05LdL3tdz62I1oAybjzJoje8VV0VfYIHIva47YtKuIral01ZbbypjibRxH6zIou42gpzSfOQTFtnfwj_3cfndqheqdko9_wA1iGrj:1v0Ghn:bDlM26VMIxMSxlsLqk3Z8NS2YMZKlCCUHrKqDnDMmww",
+    "expire_date": "2025-10-05T09:50:03.939Z"
+  }
+},
+{
+  "model": "sites.site",
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "alexandra_holstensson"
+    ],
+    "email": "alexandra_holstensson@hotmail.com",
+    "verified": false,
+    "primary": true
+  }
+},
+{
+  "model": "home.newslettersubscriber",
+  "pk": 4,
+  "fields": {
+    "email": "alexandra_holstensson@hotmail.com",
+    "created_at": "2025-09-18T13:34:24.153Z",
+    "confirmed": true,
+    "confirm_token": "r44hRNam15cBHdssooYqLIgD19QDUmM37S4sXY1Zgvs",
+    "confirm_sent_at": "2025-09-18T13:34:25.703Z",
+    "confirmed_at": "2025-09-18T13:34:45.636Z",
+    "unsubscribed": false,
+    "unsubscribe_token": "wriszDBefbV6aTjYVVCOxZONYDX-8YRzNq7c_S9XoYY"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 1,
+  "fields": {
+    "name": "Bookmarks",
+    "slug": "bookmarks",
+    "parent": null,
+    "is_active": true,
+    "is_featured": true,
+    "featured_order": 1,
+    "description": "",
+    "image": "category_images/bookmarks.jpg"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 2,
+  "fields": {
+    "name": "Book Sleeves",
+    "slug": "book-sleeves",
+    "parent": null,
+    "is_active": true,
+    "is_featured": true,
+    "featured_order": 2,
+    "description": "",
+    "image": "category_images/book_sleeve.jpg"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 3,
+  "fields": {
+    "name": "Pens & Notebooks",
+    "slug": "pens-notebooks",
+    "parent": null,
+    "is_active": true,
+    "is_featured": true,
+    "featured_order": 3,
+    "description": "",
+    "image": "category_images/pen_and_notebook.jpg"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 4,
+  "fields": {
+    "name": "Stickers & Sticky Tabs",
+    "slug": "stickers",
+    "parent": null,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": "category_images/sticker.jpg"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 5,
+  "fields": {
+    "name": "Reading Lights",
+    "slug": "reading-lights",
+    "parent": null,
+    "is_active": true,
+    "is_featured": true,
+    "featured_order": 4,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 6,
+  "fields": {
+    "name": "Bookends",
+    "slug": "bookends",
+    "parent": null,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 7,
+  "fields": {
+    "name": "Magnetic Bookmarks",
+    "slug": "magnetic-bookmarks",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 8,
+  "fields": {
+    "name": "Bookmark With Tassel",
+    "slug": "bookmark-with-tassel",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 9,
+  "fields": {
+    "name": "Bookmark With Elastic Band",
+    "slug": "bookmark-with-elastic-band",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 10,
+  "fields": {
+    "name": "Metal Bookmark",
+    "slug": "metal-bookmark",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 11,
+  "fields": {
+    "name": "Wooden Bookmark",
+    "slug": "wooden-bookmark",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 12,
+  "fields": {
+    "name": "Fabric Bookmark",
+    "slug": "fabric-bookmark",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 13,
+  "fields": {
+    "name": "Bookmark In Vegan Leather",
+    "slug": "bookmark-in-vegan-leather",
+    "parent": 1,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 14,
+  "fields": {
+    "name": "News",
+    "slug": "news",
+    "parent": null,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.category",
+  "pk": 15,
+  "fields": {
+    "name": "Sale",
+    "slug": "sale",
+    "parent": null,
+    "is_active": true,
+    "is_featured": false,
+    "featured_order": 0,
+    "description": "",
+    "image": ""
+  }
+},
+{
+  "model": "products.product",
+  "pk": 5,
+  "fields": {
+    "category": 7,
+    "name": "Classics : Bookmark Collection - Birds near a Mountain Stream",
+    "slug": "classics-bookmark-collection-birds-near-a-mountain-stream",
+    "description": "Double magnetic bookmark with art motive. 16x4,5 cm folded. Sturdy cardboard and high-quality magnet with space to write on the inside.",
+    "price": "39.00",
+    "image": "products/img-13-5307.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:22:21.010Z",
+    "updated": "2025-09-16T12:22:55.858Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 6,
+  "fields": {
+    "category": 7,
+    "name": "I-clips : Black Cats",
+    "slug": "i-clips-black-cats",
+    "description": "The i-clip is a folding magnet that can be used as a secure page marker/bookmark, as a paper clip, as a refrigerator magnet, and more! Each set with 8 magnets is packaged in a clear plastic sleeve. Card 17x6 cm. Magnet 2x2,5 cm",
+    "price": "49.00",
+    "image": "products/9781441328236.jpg",
+    "is_active": true,
+    "stock": 19,
+    "created": "2025-09-16T12:24:38.135Z",
+    "updated": "2025-09-16T12:24:38.135Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 7,
+  "fields": {
+    "category": 7,
+    "name": "Classics : Bookmark Collection - The Great Wave - Double magnetic bookmark with art motive",
+    "slug": "classics-bookmark-collection-the-great-wave-double-magnetic-bookmark-with-art-motive",
+    "description": "The Great Wave off Kanagawa (1829-1833) av Katsushika Hokusai. 16x4,5 cm folded. Sturdy cardboard and high-quality magnet with space to write on the inside",
+    "price": "39.00",
+    "image": "products/img-13-5313.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:25:49.402Z",
+    "updated": "2025-09-16T12:25:49.402Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 8,
+  "fields": {
+    "category": 7,
+    "name": "Libri_x : Three cats - Magnetic bookmarks 3 pcs on card - purple/cerise",
+    "slug": "libri_x-three-cats-magnetic-bookmarks-3-pcs-on-card-purplecerise",
+    "description": "Three magnetic bookmarks to mark particularly memorable places in the text or simply to know where you left off last time. The bookmarks are 5.5 cm high and sit together on a card.",
+    "price": "39.00",
+    "image": "products/180019277-origpic-dc1003.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:26:57.715Z",
+    "updated": "2025-09-16T12:26:57.715Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 9,
+  "fields": {
+    "category": 8,
+    "name": "3D Sloths : bookmark with 3D image and tassel",
+    "slug": "3d-sloths-bookmark-with-3d-image-and-tassel",
+    "description": "Let these lovable sloths remind you to slow down, relax, and enjoy a good book! Lenticular design dazzles and delights with cool visual effects combining color and dimension. Design is complemented with a matching tassel. On the back: A handy printed ruler in inches and centimeters. 3-D bookmark is packaged in a clear plastic sleeve. Bookmark measures 5,5 x 18 cm",
+    "price": "69.00",
+    "image": "products/9781441328182.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:28:40.132Z",
+    "updated": "2025-09-16T12:28:40.132Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 10,
+  "fields": {
+    "category": 8,
+    "name": "Book Nerd Floral : Bookmark with tassel",
+    "slug": "book-nerd-floral-bookmark-with-tassel",
+    "description": "Show off your book nerd style with this floral bookmark. Book Nerd is an Underlined by Out of Print collaboration. 50mm x 153mm. Design by Ash + Chess.",
+    "price": "39.00",
+    "image": "products/193437936-origpic-57e21c.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:29:51.826Z",
+    "updated": "2025-09-16T12:29:51.826Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 11,
+  "fields": {
+    "category": 8,
+    "name": "Drink good coffee, read good books : Bookmark with a tassel and a pearl",
+    "slug": "drink-good-coffee-read-good-books-bookmark-with-a-tassel-and-a-pearl",
+    "description": "''Drink good coffee. Read good books.'' And use this chalkboard-style bookmark to keep your place. Glossy white letters and images are set against a matte black background. Beaded bookmark comes with a silky black tassel and a black-and-white striped bead. Printed on sturdy, smooth-finish cardstock.",
+    "price": "39.00",
+    "image": "products/172260105-origpic-87cd17.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:30:40.971Z",
+    "updated": "2025-09-16T12:30:40.971Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 12,
+  "fields": {
+    "category": 8,
+    "name": "Keep calm and read on : Bookmark with a tassel and a pearl",
+    "slug": "keep-calm-and-read-on-bookmark-with-a-tassel-and-a-pearl",
+    "description": "A literary takeoff on the iconic WWII ''Keep Calm and Carry On'' British poster, its simple manifesto is one that will resound with book lovers everywhere. Printed on sturdy, smooth-finish cardstock with gloss highlights. Striated golden orb bead hangs from ivory tassel. Comes encased in a protective clear plastic sleeve. Measures 5,5 x 18 cm.",
+    "price": "39.00",
+    "image": "products/17758946.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:33:29.108Z",
+    "updated": "2025-09-16T12:33:29.108Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 13,
+  "fields": {
+    "category": 9,
+    "name": "A booklover never goes to bed alone : Bookmark with elastic band",
+    "slug": "a-booklover-never-goes-to-bed-alone-bookmark-with-elastic-band",
+    "description": "Bookmark with practical elastic band that keeps the mark in place in the book. 4.5 x 17.5 cm.",
+    "price": "39.00",
+    "image": "products/138444.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:34:30.894Z",
+    "updated": "2025-09-16T12:34:30.894Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 14,
+  "fields": {
+    "category": 9,
+    "name": "Dinosaurs didn't read : Bookmark with elastic band",
+    "slug": "dinosaurs-didnt-read-bookmark-with-elastic-band",
+    "description": "Bookmark with practical elastic band that keeps the mark in place in the book. 4.5 x 17.5 cm.",
+    "price": "39.00",
+    "image": "products/138430.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:35:17.842Z",
+    "updated": "2025-09-16T12:35:17.842Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 15,
+  "fields": {
+    "category": 9,
+    "name": "Just one more page : Bookmark with elastic band",
+    "slug": "just-one-more-page-bookmark-with-elastic-band",
+    "description": "Bookmark with practical elastic band that keeps the mark in place in the book. 4.5 x 17.5 cm.",
+    "price": "39.00",
+    "image": "products/138450.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:36:02.344Z",
+    "updated": "2025-09-16T12:36:02.344Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 16,
+  "fields": {
+    "category": 9,
+    "name": "So Many Books : Bookmark with elastic band",
+    "slug": "so-many-books-bookmark-with-elastic-band",
+    "description": "Bookmark with practical elastic band that keeps the mark in place in the book. \r\n4.5 x 17.5 cm",
+    "price": "39.00",
+    "image": "products/138384.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:38:01.050Z",
+    "updated": "2025-09-16T12:38:01.050Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 17,
+  "fields": {
+    "category": 10,
+    "name": "Book Hugger : Curious Cat - Bookmark in metal",
+    "slug": "book-hugger-curious-cat-bookmark-in-metal",
+    "description": "Mark your place with this cute, custom-tooled metal bookmark! Our Curious Cat uses its tail to keep your place as it awaits your return to your favorite book. A unique book accessory! Suitable for gift-giving. Purr-fect for every book-loving cat person you know! Fun black metal bookmark is packaged in a clear plastic protective sleeve. Sleeve measures 6x21 cm.",
+    "price": "99.00",
+    "image": "products/9781441340825.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:39:59.840Z",
+    "updated": "2025-09-16T12:39:59.840Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 18,
+  "fields": {
+    "category": 10,
+    "name": "Curled up corners : Sleepy Owl - Bookmark in metal",
+    "slug": "curled-up-corners-sleepy-owl-bookmark-in-metal",
+    "description": "Metal bookmark to put in the corners of the book. Better than dog ears!\r\nCurl up with a good book and a charming metal animal bookmark. Made in brass with antique effect plated finishes and simple etched detail, the set comprises of a drowsy dog, cosy cat, quiet mouse, furled fox and a sleepy owl. Clips smoothly onto the corner of your favourite book to keep your place for next time. What could be more snug for an evening’s relaxing read?",
+    "price": "99.00",
+    "image": "products/179802971-origpic-578662.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:41:27.472Z",
+    "updated": "2025-09-16T12:41:27.472Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 19,
+  "fields": {
+    "category": 10,
+    "name": "Luxury metal bookmark - William Morris Cray",
+    "slug": "luxury-metal-bookmark-william-morris-cray",
+    "description": "Luxury metal bookmark Cray. Silver-plated brass, William Morris design Cray in giclee print and covered with a domed dome. Tassel in matching color. William Morris started designing wallpaper and fabrics in 1862. His sources were planted themselves, observed in his gardens or on country walks, and also floral imagery in 16th-century woodcuts, illuminated manuscripts, tapestries, and other textiles. Solid brass, electro-plated with non-tarnishing silver finish, giclee print, domed dimensions: approx. 2,5 cm width x 9 cm length. Packaged in an acetate sleeve with a provenance card. Made in United States of America.",
+    "price": "169.00",
+    "image": "products/BKS8910_1_1024x.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:44:08.186Z",
+    "updated": "2025-09-16T12:44:08.186Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 20,
+  "fields": {
+    "category": 10,
+    "name": "Literary Emporium : Hamlet To read or not to read - Brass Bookmark",
+    "slug": "literary-emporium-hamlet-to-read-or-not-to-read-brass-bookmark",
+    "description": "A skull-shaped bookmark inspired by Shakespeare's Hamlet. This bookmark is delicately engraved with a playful take on the iconic Hamlet quote! To read or not to read, that is the question. The bookmark can be slipped onto the page of your book to ensure you never lose your page. Both practical and unique, this brass bookmark makes a stylish and functional gift for any booklover. The bookmark is presented on a backing card, ready to give as a gift. Etched Brass (etched on both sides of the bookmark)\r\n8 x 9 x 0.5 cm.",
+    "price": "129.00",
+    "image": "products/Hamlet_BM1.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:45:49.502Z",
+    "updated": "2025-09-16T12:45:49.502Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 21,
+  "fields": {
+    "category": 11,
+    "name": "Bumble & Birch : Books, because reality is overrated - Wooden bookmark with tassel",
+    "slug": "bumble-birch-books-because-reality-is-overrated-wooden-bookmark-with-tassel",
+    "description": "Add a touch of nature to your next novel with these beautiful eco-friendly wooden bookmarks. This engraved moon phase bookmark calls to nature lovers, adventurers, and outdoor lovers alike.\r\nAll bookmarks are engraved in-house using a durable unfinished beech hardwood. After your bookmark are engraved, they are finished with a black bookmark tassel. Best of all, this product is all-natural!\r\nBookmark dimensions:\r\nLength - 12,5 cm\r\nWidth - 4 cm\r\nEach bookmark is lovingly made in the small Colorado-based shop of Bumble & Birch. Edges will have a darkened look to them due to the laser cutting process. Due to the properties of natural wood, products may vary slightly in grain pattern or color.",
+    "price": "99.00",
+    "image": "products/BM_Books.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:47:11.660Z",
+    "updated": "2025-09-16T12:47:11.660Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 22,
+  "fields": {
+    "category": 11,
+    "name": "Fly Paper Products : Bee Quiet...I'm Reading - Wooden bookmark",
+    "slug": "fly-paper-products-bee-quietim-reading-wooden-bookmark",
+    "description": "A stylish and eco friendly way to hold your place while enjoying a good book! Each bookmark is made from 100% real, unaltered and natural wood materials. The production of the materials uses very minimal amounts of energy, gas and no use of water. This green and revolutionary product is made entirely in the USA. Since the wood is 100% natural, the card will biodegrade.\r\nDimensions: 5x15 cm. Made in USA by Fly Paper Products.",
+    "price": "59.00",
+    "image": "products/215786639-origpic-af087f.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:48:16.584Z",
+    "updated": "2025-09-16T12:48:16.584Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 23,
+  "fields": {
+    "category": 11,
+    "name": "Fly Paper Products : Books are Windows into other Worlds - Wooden bookmark",
+    "slug": "fly-paper-products-books-are-windows-into-other-worlds-wooden-bookmark",
+    "description": "A stylish and eco friendly way to hold your place while enjoying a good book! Each bookmark is made from 100% real, unaltered and natural wood materials. The production of the materials uses very minimal amounts of energy, gas and no use of water. This green and revolutionary product is made entirely in the USA. Since the wood is 100% natural, the card will biodegrade.\r\nDimensions: 5x15 cm. Made in USA by Fly Paper Products.",
+    "price": "59.00",
+    "image": "products/215051445-origpic-a6068d.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:49:23.828Z",
+    "updated": "2025-09-16T12:49:23.828Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 24,
+  "fields": {
+    "category": 11,
+    "name": "Fly Paper Products : Book lovers never go to bed alone - Wooden bookmark",
+    "slug": "fly-paper-products-book-lovers-never-go-to-bed-alone-wooden-bookmark",
+    "description": "A stylish and eco friendly way to hold your place while enjoying a good book! Each bookmark is made from 100% real, unaltered and natural wood materials. The production of the materials uses very minimal amounts of energy, gas and no use of water. This green and revolutionary product is made entirely in the USA. Since the wood is 100% natural, the card will biodegrade\r\nDimensions: 5x15 cm. Made in USA by Fly Paper Products.",
+    "price": "59.00",
+    "image": "products/1559233794.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:50:44.903Z",
+    "updated": "2025-09-16T12:50:44.903Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 25,
+  "fields": {
+    "category": 12,
+    "name": "Reading buddy : Book-Tails Bookmark Black Cat - Plush bookmark Cat",
+    "slug": "reading-buddy-book-tails-bookmark-black-cat-plush-bookmark-cat",
+    "description": "Super cute bookmark in soft plush (CE marked).  Figure with miniature glasses and a tail that keeps track of where you are in the book! The furriest fun to be had at reading time. These plush bespectacled bookmarks will faithfully keep your page with their dangly tails, but secretly can’t wait for you to pick up your book and continue the story.",
+    "price": "99.00",
+    "image": "products/img-13-2856.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:51:40.535Z",
+    "updated": "2025-09-16T12:51:40.535Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 26,
+  "fields": {
+    "category": 12,
+    "name": "Reading buddy : Book-Tails Bookmark Dragon - Plush bookmark Dragon",
+    "slug": "reading-buddy-book-tails-bookmark-dragon-plush-bookmark-dragon",
+    "description": "Super cute bookmark in soft plush (CE marked). Figure with miniature glasses and a tail that keeps track of where you are in the book! The furriest fun to be had at reading time. These plush bespectacled bookmarks will faithfully keep your page with their dangly tails, but secretly can’t wait for you to pick up your book and continue the story.",
+    "price": "99.00",
+    "image": "products/img-13-2860.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:52:18.818Z",
+    "updated": "2025-09-16T12:52:18.818Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 27,
+  "fields": {
+    "category": 12,
+    "name": "Reading buddy : Little Monkey - Fabric bookmark",
+    "slug": "reading-buddy-little-monkey-fabric-bookmark",
+    "description": "Cute little reading buddy and bookmark in soft textile with embroidered face. The tail keeps track of where you are in the book. The animal is 4 cm and the tail is 32 cm. Not for children under 3 years.",
+    "price": "39.00",
+    "image": "products/product_thumb.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:53:07.423Z",
+    "updated": "2025-09-16T12:53:07.423Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 28,
+  "fields": {
+    "category": 12,
+    "name": "Reading buddy: Little Wolf - Fabric bookmark",
+    "slug": "reading-buddy-little-wolf-fabric-bookmark",
+    "description": "Cute little reading buddy and bookmark in soft textile with embroidered face. The tail keeps track of where you are in the book. The animal is 4 cm and the tail is 32 cm. Not for children under 3 years.",
+    "price": "39.00",
+    "image": "products/IMG_4657.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:54:03.497Z",
+    "updated": "2025-09-16T12:54:03.497Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 29,
+  "fields": {
+    "category": 13,
+    "name": "Artisan : Create the life you love - bookmark in vegan leather",
+    "slug": "artisan-create-the-life-you-love-bookmark-in-vegan-leather",
+    "description": "Attractive vegan leather bookmark is embossed with this uplifting saying and an intricate floral design.\r\nDecorative stitching embellishes front and back. Slim, flexible faux leather -- the perfect way to keep your place! Matching tassel. A unique book accessory. Suitable for gift-giving. Bookmark is encased in a protective clear plastic sleeve. Measures 5,5 x 18 cm Warning: Choking hazard, small parts. Not for children under 3 years.",
+    "price": "69.00",
+    "image": "products/180002457-origpic-afe689.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:55:16.899Z",
+    "updated": "2025-09-16T12:55:16.899Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 30,
+  "fields": {
+    "category": 13,
+    "name": "Ssshhh : Bookmark Collection - I'm Reading bookmark - bookmark in vegan leather",
+    "slug": "ssshhh-bookmark-collection-im-reading-bookmark-bookmark-in-vegan-leather",
+    "description": "Beautifully debossed, double thickness, super soft faux leather. With colour matched ribbons and gun metal grey eyelet detailing. Cool typographic literary content and each faux leather bookmark has an engaging curation of either book titles or bookish phrases debossed into the soft material. With matching eyelet and ribbon. Dimensions: 16 x 4.5 cm.",
+    "price": "49.00",
+    "image": "products/img-13-5405.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:56:30.543Z",
+    "updated": "2025-09-16T12:56:30.543Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 31,
+  "fields": {
+    "category": 13,
+    "name": "V&A : Bookmark Collection - Morris Tulip & Willow - bookmark in vegan leather",
+    "slug": "va-bookmark-collection-morris-tulip-willow-bookmark-in-vegan-leather",
+    "description": "Carefully printed onto superior quality faux leather, embellished with metal eyelets and gold grosgrain ribbon and finished with debossed detailing on the reverse. Dimensions: 16 x 4.5 cm.",
+    "price": "69.00",
+    "image": "products/img-13-5410.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:57:31.213Z",
+    "updated": "2025-09-16T12:57:31.213Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 32,
+  "fields": {
+    "category": 13,
+    "name": "V&A : Bookmark Collection - Sundour Pheasant - bookmark in vegan leather",
+    "slug": "va-bookmark-collection-sundour-pheasant-bookmark-in-vegan-leather",
+    "description": "Carefully printed onto superior quality faux leather, embellished with metal eyelets and gold grosgrain ribbon and finished with debossed detailing on the reverse. Dimensions: 16 x 4.5 cm.",
+    "price": "69.00",
+    "image": "products/img-13-5411.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:58:29.215Z",
+    "updated": "2025-09-16T12:58:29.215Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 33,
+  "fields": {
+    "category": 2,
+    "name": "Book Sleeve - Pink",
+    "slug": "book-sleeve-pink",
+    "description": "A perfect \"book bag\" to keep in your bag! The bag closes with a convenient button. Dimensions: 19 x 24 cm.",
+    "price": "249.00",
+    "image": "products/671e652d82cad.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T12:59:24.417Z",
+    "updated": "2025-09-16T12:59:24.417Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 34,
+  "fields": {
+    "category": 2,
+    "name": "Book Sleeve - Black",
+    "slug": "book-sleeve-black",
+    "description": "A perfect \"book bag\" to keep in your bag! The bag closes with a convenient button. Dimensions: 19 x 24 cm.",
+    "price": "249.00",
+    "image": "products/671e65058cac9.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:00:13.638Z",
+    "updated": "2025-09-16T13:00:13.638Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 35,
+  "fields": {
+    "category": 2,
+    "name": "Book Sleeve - Orange Blue",
+    "slug": "book-sleeve-orange-blue",
+    "description": "A perfect \"book bag\" to keep in your bag! The bag closes with a convenient button. Dimensions: 19 x 24 cm.",
+    "price": "249.00",
+    "image": "products/671933123254f.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:00:59.898Z",
+    "updated": "2025-09-16T13:00:59.898Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 36,
+  "fields": {
+    "category": 2,
+    "name": "Book Sleeve - Orange Purple",
+    "slug": "book-sleeve-orange-purple",
+    "description": "A perfect \"book bag\" to keep in your bag! The bag closes with a convenient button. Dimensions: 19 x 24 cm.",
+    "price": "249.00",
+    "image": "products/6719336fdb79d.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:01:42.154Z",
+    "updated": "2025-09-16T13:01:42.154Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 37,
+  "fields": {
+    "category": 5,
+    "name": "Reading Light - Floral",
+    "slug": "reading-light-floral",
+    "description": "NOTE: The lamp clip should only be threaded onto the book, not bent or opened!\r\nBook Lover's Reading Light - Book lovers are NOT boring! So why should reading lights be dull?\r\nThis lovely little pocket sized lights are anything but. Of course they have all the same features that you would expect from a 'proper' book light such as a good battery life, dimmable LED (2 actually) bulbs, a secure clip and bendy positionable neck...just in a much nicer form and giftable packaging.\r\nDesigned especially to appeal to book lovers who appreciate the finer things in life and like a bit of colour in their reading lives. These will brighten up any book and are a fab unique gift!\r\nTakes 1 x AAA battery in an easy to change compartment. Battery included!\r\nWith adjustable light settings and flexible neck - find your own comfy reading position.",
+    "price": "199.00",
+    "image": "products/img-13-5797.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:02:36.332Z",
+    "updated": "2025-09-16T14:27:48.119Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 38,
+  "fields": {
+    "category": 5,
+    "name": "Designworks Ink : Rechargeable LED reading light with multiple light temperatures and brightness levels - Dark blue",
+    "slug": "designworks-ink-rechargeable-led-reading-light-with-multiple-light-temperatures-and-brightness-levels-dark-blue",
+    "description": "Rechargeable LED reading light from Designworks Ink. 9 LED lights in the lamp head (4 warm white and 5 cool white). Dimensions: 24x7 cm. 3 different brightness levels and 3 different light temperatures. Charging cable included.",
+    "price": "299.00",
+    "image": "products/DBL-1003EU_6.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:04:47.555Z",
+    "updated": "2025-09-16T13:04:47.555Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 39,
+  "fields": {
+    "category": 5,
+    "name": "Super Night Dream : Book Lovers Never Goes to Bed Alone - Rechargeable LED reading light",
+    "slug": "super-night-dream-book-lovers-never-goes-to-bed-alone-rechargeable-led-reading-light",
+    "description": "A rechargeable reading lamp with warm white LED lighting in three different brightness levels.\r\nAttaches with clip and can be rotated 360°. Charged with USB cable that is included.\r\nPower: USB CHARGING. Height (cm): 6. Width (cm): 3.8. Depth (cm): 1.8. Weight (g): 111. Material: ABS, aluminium.",
+    "price": "249.00",
+    "image": "products/141121_5.jpg",
+    "is_active": true,
+    "stock": 19,
+    "created": "2025-09-16T13:06:37.455Z",
+    "updated": "2025-09-16T13:06:37.455Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 40,
+  "fields": {
+    "category": 5,
+    "name": "Libri_x : Rechargeable LED reading light with touch switch - White",
+    "slug": "libri_x-rechargeable-led-reading-light-with-touch-switch-white",
+    "description": "Rechargeable LED reading lamp from German Moses Verlag. 16 LED lights in the lamp head and three brightness settings together provide the perfect light for the purpose. The lamp is turned on and the brightness is regulated with a convenient touch switch. Flexible arm and clamp that can also be used as a lamp base. The lamp is charged with a USB-C cable (not included due to environmental concerns!)\r\n4 hours charging time. Lights for 3-10 hours depending on the dimming level. Total length of the lamp 30 cm.",
+    "price": "249.00",
+    "image": "products/083415.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:07:30.996Z",
+    "updated": "2025-09-16T13:07:30.996Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 41,
+  "fields": {
+    "category": 3,
+    "name": "Bookaroo : Ballpoint pen - Forest green",
+    "slug": "bookaroo-ballpoint-pen-forest-green",
+    "description": "A pen that fits perfectly with the stylish Sundour design from the Victoria & Albert Museum!\r\nSoft coated barrel - A lovely thing to hold and behold. Black ball point pen containing superior German ink. It’s just a pen. But it IS a good one. It contains superior German black ink so flows beautifully and the barrel is lovely and soft coated to make it comfortable to hold.\r\nBut MOST importantly and what you really need to know is…it LOOKS GOOD! Create a bit of ‘penvy’ with your friends and mix and Match your pen with your other accessories and complete the Bookaroo Lookaroo!",
+    "price": "49.00",
+    "image": "products/img-13-3587.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:17:56.416Z",
+    "updated": "2025-09-16T13:19:07.036Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 42,
+  "fields": {
+    "category": 3,
+    "name": "Bookaroo : Ballpoint pen- Gold",
+    "slug": "bookaroo-ballpoint-pen-gold",
+    "description": "Stylish and really good ballpoint pen to match your notebook! Black ink.\r\nSoft coated barrel - A lovely thing to hold and behold. Black ball point pen containing superior German ink. It’s just a pen. But it IS a good one. It contains superior German black ink so flows beautifully and the barrel is lovely and soft coated to make it comfortable to hold.\r\nBut MOST importantly and what you really need to know is…it LOOKS GOOD! Create a bit of ‘penvy’ with your friends and mix and Match your pen with your other accessories and complete the Bookaroo Lookaroo!",
+    "price": "49.00",
+    "image": "products/img-13-3590.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:18:45.571Z",
+    "updated": "2025-09-16T13:18:45.571Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 43,
+  "fields": {
+    "category": 3,
+    "name": "Erasable : Be Curious Cat - gel pen with black erasable ink",
+    "slug": "erasable-be-curious-cat-gel-pen-with-black-erasable-ink",
+    "description": "Gel pen from Italian Legami with black erasable ink that you erase with the eraser on the top of the pen.\r\nCute cat on the cap of the pen. Pin 0.7 mm.",
+    "price": "29.00",
+    "image": "products/168221_1.jpg",
+    "is_active": true,
+    "stock": 19,
+    "created": "2025-09-16T13:20:14.979Z",
+    "updated": "2025-09-16T13:20:14.979Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 44,
+  "fields": {
+    "category": 3,
+    "name": "Erasable : Bee Different - gel pen with black erasable ink",
+    "slug": "erasable-bee-different-gel-pen-with-black-erasable-ink",
+    "description": "Gel pen from Italian Legami with black erasable ink that you erase with the eraser on the top of the pen.\r\nA bee on the cap of the pen. Pin 0.7 mm.",
+    "price": "29.00",
+    "image": "products/168187_1.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:21:26.824Z",
+    "updated": "2025-09-16T13:21:26.824Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 45,
+  "fields": {
+    "category": 3,
+    "name": "Erasable : Farm Sweet Farm - Set of 4 gel pens erasable ink Cow | Pig | Donkey | Rooster",
+    "slug": "erasable-farm-sweet-farm-set-of-4-gel-pens-erasable-ink-cow-pig-donkey-rooster",
+    "description": "Set of four cute gel pens from Italian Legami, with erasable ink that you erase with the eraser on the top of the pen. Always in the Mood with black ink. Rock'n'Rolling with pink ink. Better than a Unicorn with green ink. Rise and Shine with red ink. Pin 0.7 mm.",
+    "price": "119.00",
+    "image": "products/220880839-origpic-21a62.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:22:51.469Z",
+    "updated": "2025-09-16T13:22:51.469Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 46,
+  "fields": {
+    "category": 3,
+    "name": "Notebook - Notes from a reader",
+    "slug": "notebook-notes-from-a-reader",
+    "description": "Super cute notebook for the book lover. Perfect for writing down which books you want to buy next, or making ordinary notes a little more fun. 10 cm x 15 cm notebook, 50 pages. Printed sheets in full color.",
+    "price": "89.00",
+    "image": "products/Skarmavbild2024-10-1.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:23:56.716Z",
+    "updated": "2025-09-16T13:23:56.716Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 47,
+  "fields": {
+    "category": 3,
+    "name": "Notebook - It's a good day to relax with a wonderful book",
+    "slug": "notebook-its-a-good-day-to-relax-with-a-wonderful-book",
+    "description": "Super cute notebook for the book lover. Perfect for writing down which books you want to buy next, or making ordinary notes a little more fun. 10 cm x 15 cm notebook, 50 pages. Printed sheets in full color.",
+    "price": "89.00",
+    "image": "products/Skarmavbild2024-10-11kl.13.38.webp",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:25:01.671Z",
+    "updated": "2025-09-16T13:25:01.671Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 48,
+  "fields": {
+    "category": 3,
+    "name": "Notebook - Book Review",
+    "slug": "notebook-book-review",
+    "description": "The notebook is in A5 format with a book-inspired theme! The notebook has 25 pages and has a nice light shade of paper and is adorned with pink book-like details.\r\nThe review block leaves room for you to fill in any important information you want to include. Some pre-printed details include the book's title, author, genre, and whether you would recommend the book.",
+    "price": "69.00",
+    "image": "products/6779435ca9b9f.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:26:27.435Z",
+    "updated": "2025-09-16T13:26:27.435Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 49,
+  "fields": {
+    "category": 3,
+    "name": "Notebook Set Small",
+    "slug": "notebook-set-small",
+    "description": "Perfect to fill with goals and dreams, or why not use it as a review block! The pad has 50 pages and has a nice light yellow shade and a nice print at the bottom left. The notebook comes with a matching pen.",
+    "price": "99.00",
+    "image": "products/671e6a2babb67.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:27:44.183Z",
+    "updated": "2025-09-16T13:27:44.183Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 50,
+  "fields": {
+    "category": 6,
+    "name": "Balvi : Bookend Bookshop - Mood-enhancing bookend in black sheet metal",
+    "slug": "balvi-bookend-bookshop-mood-enhancing-bookend-in-black-sheet-metal",
+    "description": "Bookends in black lacquered sheet metal from Spanish company Balvi.\r\nThe disboring products - Based in Barcelona, our mission is to design to transform everyday products into surprising and sparkling objects.\r\nBalvi - Bookshop metal bookend\r\nYOUR BOOKS ARE SAFE. Protect your books from falling.\r\nORDER AND STYLE. Its design will give a personal touch to your library.\r\nRESISTANT. Made of metal for strength and durability.\r\nTHE PERFECT GIFT. Great gift for avid readers and bookworms.\r\nDimensions: 17x10x19.5 cm Material: metal.",
+    "price": "199.00",
+    "image": "products/209790207-origpic-0245c8.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:28:40.305Z",
+    "updated": "2025-09-16T13:28:40.305Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 51,
+  "fields": {
+    "category": 6,
+    "name": "Balvi : Bookend Fishing Cat - Mood-enhancing bookend in black sheet metal",
+    "slug": "balvi-bookend-fishing-cat-mood-enhancing-bookend-in-black-sheet-metal",
+    "description": "Bookends in black lacquered sheet metal from Spanish company Balvi.\r\nThe disboring products - Based in Barcelona, our mission is to design to transform everyday products into surprising and sparkling objects.\r\nBalvi Bookend Fishing Cat Colour black Bookend with decorative cat, fish tank and library figure Iron 17 cm.\r\nKEEP YOUR BOOKS SAFE. Protects your books from falling off a shelf.\r\nSTYLISH. Its original design will give your bookshelf a personal touch.\r\nRESISTANT. Made of metal for a higher strength and durability.\r\nPERFECT GIFT. You will get it right with this gift for book lovers.",
+    "price": "199.00",
+    "image": "products/bookend-fishing-cat-black-metal-2.jpg",
+    "is_active": true,
+    "stock": 18,
+    "created": "2025-09-16T13:29:31.141Z",
+    "updated": "2025-09-16T13:29:31.141Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 52,
+  "fields": {
+    "category": 6,
+    "name": "Balvi : Bookend Dachshund - Mood-enhancing bookend in black sheet metal",
+    "slug": "balvi-bookend-dachshund-mood-enhancing-bookend-in-black-sheet-metal",
+    "description": "Two bookends in black lacquered sheet metal from Spanish company Balvi.\r\nThe disboring products - Based in Barcelona, our mission is to design to transform everyday products into surprising and sparkling objects.\r\nBalvi Bookend Postman Black colour Decorative Metal.\r\nYOUR BOOKS ARE SAFE. Avoid your books to fall.\r\nORDER AND STYLE. Its design will give a personal touch to your library.\r\nRESISTANT. Made of metal for strength and durability.\r\nTHE PERFECT GIFT. Great gift for avid readers and bookworms.\r\nDimensions: 17x27x10 cm. Material: metal.",
+    "price": "279.00",
+    "image": "products/bookend-teckel-black-metal-275.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:30:44.185Z",
+    "updated": "2025-09-16T13:30:44.185Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 53,
+  "fields": {
+    "category": 6,
+    "name": "Libri_x : Silhouette Cat Bookends in sheet metal - set of two",
+    "slug": "libri_x-silhouette-cat-bookends-in-sheet-metal-set-of-two",
+    "description": "Black sheet metal bookends in the Libri_x series from German Moses Verlag with a cat in silhouette.\r\nSet of two.",
+    "price": "199.00",
+    "image": "products/178757933-origpic-4569b9.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:31:18.321Z",
+    "updated": "2025-09-16T13:31:18.321Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 54,
+  "fields": {
+    "category": 4,
+    "name": "A nice cup of tea : I love tea - Sticker book with 24 stickers",
+    "slug": "a-nice-cup-of-tea-i-love-tea-sticker-book-with-24-stickers",
+    "description": "It´s tea time! These 24 colorful stickers remind us of the pleasure of a cup of tea, with steaming mugs of cookies and muffins and a tall glass pitcher of iced tea. Floral patterns and other beautiful motifs decorate the charming cups and saucers. A6 format.",
+    "price": "49.00",
+    "image": "products/yhst-137970348157658_26.jpg",
+    "is_active": true,
+    "stock": 20,
+    "created": "2025-09-16T13:32:28.326Z",
+    "updated": "2025-09-16T13:32:28.326Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 22,
+  "fields": {
+    "created": "2025-09-19T10:17:11.493Z",
+    "updated": "2025-09-21T09:48:36.647Z",
+    "total": "228.00",
+    "shipping": "49.00",
+    "tax_amount": "57.00",
+    "grand_total": "334.00",
+    "status": "cancelled",
+    "stripe_session_id": "cs_test_b1hQ6pLNQ1hcjicLFWEDFD9ymn3xNTyHuiUlIMYhtQNcMgAwrqr8MrmAix",
+    "full_name": "Alexandra Holstensson",
+    "email": "alexandra_holstensson@hotmail.com",
+    "phone": null,
+    "address_line1": null,
+    "address_line2": null,
+    "postal_code": null,
+    "city": null,
+    "country": null,
+    "billing_name": "Alexandra Holstensson",
+    "billing_line1": "Sannum Södergård 517",
+    "billing_line2": null,
+    "billing_postal": "44990",
+    "billing_city": "Nol",
+    "billing_country": "SE"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 23,
+  "fields": {
+    "created": "2025-09-21T09:46:30.780Z",
+    "updated": "2025-09-21T10:46:35.316Z",
+    "total": "497.00",
+    "shipping": "49.00",
+    "tax_amount": "124.25",
+    "grand_total": "670.25",
+    "status": "pending",
+    "stripe_session_id": "cs_test_b1ZLqruusYg8Caf145I1TNLa13ghcD87nY6twNdrrxU2sJ8omI6gLHQVKE",
+    "full_name": "Alexandra Holstensson",
+    "email": "alexandra_holstensson@hotmail.com",
+    "phone": null,
+    "address_line1": null,
+    "address_line2": null,
+    "postal_code": null,
+    "city": null,
+    "country": null,
+    "billing_name": "Alexandra Holstensson",
+    "billing_line1": "Sannum Södergård 517",
+    "billing_line2": null,
+    "billing_postal": "44990",
+    "billing_city": "Nol",
+    "billing_country": "SE"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 36,
+  "fields": {
+    "order": 22,
+    "product": 43,
+    "name": "Erasable : Be Curious Cat - gel pen with black erasable ink",
+    "unit_price": "29.00",
+    "qty": 1,
+    "subtotal": "29.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 37,
+  "fields": {
+    "order": 22,
+    "product": 51,
+    "name": "Balvi : Bookend Fishing Cat - Mood-enhancing bookend in black sheet metal",
+    "unit_price": "199.00",
+    "qty": 1,
+    "subtotal": "199.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 38,
+  "fields": {
+    "order": 23,
+    "product": 51,
+    "name": "Balvi : Bookend Fishing Cat - Mood-enhancing bookend in black sheet metal",
+    "unit_price": "199.00",
+    "qty": 1,
+    "subtotal": "199.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 39,
+  "fields": {
+    "order": 23,
+    "product": 39,
+    "name": "Super Night Dream : Book Lovers Never Goes to Bed Alone - Rechargeable LED reading light",
+    "unit_price": "249.00",
+    "qty": 1,
+    "subtotal": "249.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 40,
+  "fields": {
+    "order": 23,
+    "product": 6,
+    "name": "I-clips : Black Cats",
+    "unit_price": "49.00",
+    "qty": 1,
+    "subtotal": "49.00"
+  }
+},
+{
+  "model": "profiles.address",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "alexandra_holstensson"
+    ],
+    "kind": "shipping",
+    "full_name": "Alexandra Holstensson",
+    "phone": "+46735436759",
+    "line1": "Sannum Södergård 517",
+    "line2": "",
+    "postal_code": "44990",
+    "city": "Nol",
+    "country": "SE",
+    "is_default": true
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-09-11T10:49:43.367Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "2",
+    "object_repr": "Order #2 (paid)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-09-15T06:00:49.391Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Reading Lights",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-09-15T06:01:11.431Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "6",
+    "object_repr": "Bookends",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-09-15T06:01:29.713Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "7",
+    "object_repr": "Book Boxes",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-09-15T10:11:46.810Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "7",
+    "object_repr": "Book Boxes",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-09-15T10:36:50.141Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-09-16T07:11:24.417Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "7",
+    "object_repr": "Bookmarks / Magnetic Bookmarks",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-09-16T07:11:34.241Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "8",
+    "object_repr": "Bookmarks / Bookmark With Tassel",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-09-16T07:11:40.672Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "9",
+    "object_repr": "Bookmark With Elastic Band",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-09-16T07:11:46.797Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "10",
+    "object_repr": "Metal Bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-09-16T07:11:52.582Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "11",
+    "object_repr": "Wooden Bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-09-16T07:12:09.413Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "12",
+    "object_repr": "Bookmarks / Fabric Bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-09-16T07:12:18.635Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "13",
+    "object_repr": "Bookmarks / Bookmark In Vegan Leather",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-09-16T07:12:30.047Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "9",
+    "object_repr": "Bookmarks / Bookmark With Elastic Band",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Parent\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-09-16T07:12:36.768Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "10",
+    "object_repr": "Bookmarks / Metal Bookmark",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Parent\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-09-16T07:12:43.849Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "11",
+    "object_repr": "Bookmarks / Wooden Bookmark",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Parent\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-09-16T07:12:48.733Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "13",
+    "object_repr": "Bookmarks / Bookmark In Vegan Leather",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-09-16T07:12:55.912Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "11",
+    "object_repr": "Bookmarks / Wooden Bookmark",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-09-16T07:12:59.254Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "10",
+    "object_repr": "Bookmarks / Metal Bookmark",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-09-16T07:13:03.236Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "7",
+    "object_repr": "Bookmarks / Magnetic Bookmarks",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-09-16T07:13:06.525Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "12",
+    "object_repr": "Bookmarks / Fabric Bookmark",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-09-16T07:13:09.913Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "8",
+    "object_repr": "Bookmarks / Bookmark With Tassel",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-09-16T07:13:13.310Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "9",
+    "object_repr": "Bookmarks / Bookmark With Elastic Band",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.079Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "21",
+    "object_repr": "Order #21 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.100Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "20",
+    "object_repr": "Order #20 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.107Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "19",
+    "object_repr": "Order #19 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.114Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "18",
+    "object_repr": "Order #18 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.118Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "17",
+    "object_repr": "Order #17 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.132Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "16",
+    "object_repr": "Order #16 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.166Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "15",
+    "object_repr": "Order #15 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.184Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "14",
+    "object_repr": "Order #14 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.200Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "13",
+    "object_repr": "Order #13 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.218Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "12",
+    "object_repr": "Order #12 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.226Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "11",
+    "object_repr": "Order #11 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.234Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "10",
+    "object_repr": "Order #10 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.241Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "9",
+    "object_repr": "Order #9 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.247Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "8",
+    "object_repr": "Order #8 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.252Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "7",
+    "object_repr": "Order #7 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.266Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "6",
+    "object_repr": "Order #6 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.292Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "5",
+    "object_repr": "Order #5 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.318Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "4",
+    "object_repr": "Order #4 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.354Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "3",
+    "object_repr": "Order #3 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.362Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "2",
+    "object_repr": "Order #2 (paid)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2025-09-16T08:51:02.376Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "object_id": "1",
+    "object_repr": "Order #1 (pending)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2025-09-16T08:51:10.931Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "2",
+    "object_repr": "Cozy Fabric Sleeve",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2025-09-16T08:51:10.959Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "1",
+    "object_repr": "Leather Bookmark",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2025-09-16T08:51:10.995Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "3",
+    "object_repr": "Notebook A5",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2025-09-16T08:51:11.022Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "4",
+    "object_repr": "Reading Stickers Pack",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2025-09-16T09:49:46.507Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "14",
+    "object_repr": "News",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2025-09-16T09:49:50.076Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "15",
+    "object_repr": "Sale",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2025-09-16T12:22:21.015Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "5",
+    "object_repr": "Classics : Bookmark Collection - Birds near a Mountain Stream",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2025-09-16T12:22:55.867Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "5",
+    "object_repr": "Classics : Bookmark Collection - Birds near a Mountain Stream",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Stock\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2025-09-16T12:24:38.148Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "6",
+    "object_repr": "I-clips : Black Cats",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2025-09-16T12:25:49.405Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "7",
+    "object_repr": "Classics : Bookmark Collection - The Great Wave - Double magnetic bookmark with art motive",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2025-09-16T12:26:57.719Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "8",
+    "object_repr": "Libri_x : Three cats - Magnetic bookmarks 3 pcs on card - purple/cerise",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2025-09-16T12:28:40.136Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "9",
+    "object_repr": "3D Sloths : bookmark with 3D image and tassel",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2025-09-16T12:29:51.831Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "10",
+    "object_repr": "Book Nerd Floral : Bookmark with tassel",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2025-09-16T12:30:40.975Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "11",
+    "object_repr": "Drink good coffee, read good books : Bookmark with a tassel and a pearl",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2025-09-16T12:33:29.111Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "12",
+    "object_repr": "Keep calm and read on : Bookmark with a tassel and a pearl",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2025-09-16T12:34:30.898Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "13",
+    "object_repr": "A booklover never goes to bed alone : Bookmark with elastic band",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2025-09-16T12:35:17.847Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "14",
+    "object_repr": "Dinosaurs didn't read : Bookmark with elastic band",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2025-09-16T12:36:02.346Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "15",
+    "object_repr": "Just one more page : Bookmark with elastic band",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2025-09-16T12:38:01.053Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "16",
+    "object_repr": "So Many Books : Bookmark with elastic band",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2025-09-16T12:39:59.843Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "17",
+    "object_repr": "Book Hugger : Curious Cat - Bookmark in metal",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2025-09-16T12:41:27.475Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "18",
+    "object_repr": "Curled up corners : Sleepy Owl - Bookmark in metal",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2025-09-16T12:44:08.189Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "19",
+    "object_repr": "Luxury metal bookmark - William Morris Cray",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2025-09-16T12:45:49.505Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "20",
+    "object_repr": "Literary Emporium : Hamlet To read or not to read - Brass Bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2025-09-16T12:47:11.664Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "21",
+    "object_repr": "Bumble & Birch : Books, because reality is overrated - Wooden bookmark with tassel",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2025-09-16T12:48:16.588Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "22",
+    "object_repr": "Fly Paper Products : Bee Quiet...I'm Reading - Wooden bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2025-09-16T12:49:23.833Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "23",
+    "object_repr": "Fly Paper Products : Books are Windows into other Worlds - Wooden bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2025-09-16T12:50:44.907Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "24",
+    "object_repr": "Fly Paper Products : Book lovers never go to bed alone - Wooden bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2025-09-16T12:51:40.540Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "25",
+    "object_repr": "Reading buddy : Book-Tails Bookmark Black Cat - Plush bookmark Cat",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2025-09-16T12:52:18.822Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "26",
+    "object_repr": "Reading buddy : Book-Tails Bookmark Dragon - Plush bookmark Dragon",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2025-09-16T12:53:07.427Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "27",
+    "object_repr": "Reading buddy : Little Monkey - Fabric bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2025-09-16T12:54:03.501Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "28",
+    "object_repr": "Reading buddy: Little Wolf - Fabric bookmark",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2025-09-16T12:55:16.904Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "29",
+    "object_repr": "Artisan : Create the life you love - bookmark in vegan leather",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2025-09-16T12:56:30.547Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "30",
+    "object_repr": "Ssshhh : Bookmark Collection - I'm Reading bookmark - bookmark in vegan leather",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2025-09-16T12:57:31.217Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "31",
+    "object_repr": "V&A : Bookmark Collection - Morris Tulip & Willow - bookmark in vegan leather",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2025-09-16T12:58:29.218Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "32",
+    "object_repr": "V&A : Bookmark Collection - Sundour Pheasant - bookmark in vegan leather",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2025-09-16T12:59:24.422Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "33",
+    "object_repr": "Book Sleeve - Pink",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2025-09-16T13:00:13.642Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "34",
+    "object_repr": "Book Sleeve - Black",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2025-09-16T13:00:59.902Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "35",
+    "object_repr": "Book Sleeve - Orange Blue",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2025-09-16T13:01:42.157Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "36",
+    "object_repr": "Book Sleeve - Orange Purple",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2025-09-16T13:02:36.334Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "37",
+    "object_repr": "Reading Light - Floral",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2025-09-16T13:04:47.558Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "38",
+    "object_repr": "Designworks Ink : Rechargeable LED reading light with multiple light temperatures and brightness levels - Dark blue",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2025-09-16T13:06:37.458Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "39",
+    "object_repr": "Super Night Dream : Book Lovers Never Goes to Bed Alone - Rechargeable LED reading light",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2025-09-16T13:07:31.000Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "40",
+    "object_repr": "Libri_x : Rechargeable LED reading light with touch switch - White",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2025-09-16T13:17:56.421Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "41",
+    "object_repr": "Bookaroo : Ballpoint pen - Forest green",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2025-09-16T13:18:45.574Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "42",
+    "object_repr": "Bookaroo : Ballpoint pen- Gold",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 90,
+  "fields": {
+    "action_time": "2025-09-16T13:19:07.041Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "41",
+    "object_repr": "Bookaroo : Ballpoint pen - Forest green",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 91,
+  "fields": {
+    "action_time": "2025-09-16T13:20:14.982Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "43",
+    "object_repr": "Erasable : Be Curious Cat - gel pen with black erasable ink",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 92,
+  "fields": {
+    "action_time": "2025-09-16T13:21:26.828Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "44",
+    "object_repr": "Erasable : Bee Different - gel pen with black erasable ink",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 93,
+  "fields": {
+    "action_time": "2025-09-16T13:22:51.472Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "45",
+    "object_repr": "Erasable : Farm Sweet Farm - Set of 4 gel pens erasable ink Cow | Pig | Donkey | Rooster",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 94,
+  "fields": {
+    "action_time": "2025-09-16T13:23:56.719Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "46",
+    "object_repr": "Notebook - Notes from a reader",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 95,
+  "fields": {
+    "action_time": "2025-09-16T13:25:01.674Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "47",
+    "object_repr": "Notebook - It's a good day to relax with a wonderful book",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 96,
+  "fields": {
+    "action_time": "2025-09-16T13:26:27.438Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "48",
+    "object_repr": "Notebook - Book Review",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 97,
+  "fields": {
+    "action_time": "2025-09-16T13:27:44.188Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "49",
+    "object_repr": "Notebook Set Small",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 98,
+  "fields": {
+    "action_time": "2025-09-16T13:28:40.308Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "50",
+    "object_repr": "Balvi : Bookend Bookshop - Mood-enhancing bookend in black sheet metal",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 99,
+  "fields": {
+    "action_time": "2025-09-16T13:29:31.143Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "51",
+    "object_repr": "Balvi : Bookend Fishing Cat - Mood-enhancing bookend in black sheet metal",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 100,
+  "fields": {
+    "action_time": "2025-09-16T13:30:44.188Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "52",
+    "object_repr": "Balvi : Bookend Dachshund - Mood-enhancing bookend in black sheet metal",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 101,
+  "fields": {
+    "action_time": "2025-09-16T13:31:18.324Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "53",
+    "object_repr": "Libri_x : Silhouette Cat Bookends in sheet metal - set of two",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 102,
+  "fields": {
+    "action_time": "2025-09-16T13:32:28.328Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "54",
+    "object_repr": "A nice cup of tea : I love tea - Sticker book with 24 stickers",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 103,
+  "fields": {
+    "action_time": "2025-09-16T13:36:59.411Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "55",
+    "object_repr": "Bookaroo : Sticky Tabs Pastel for books, notebooks and journals - Pack of 40 self-adhesive page markers in various colors",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 104,
+  "fields": {
+    "action_time": "2025-09-16T13:37:40.647Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "56",
+    "object_repr": "Bookaroo : Sticky Tabs Pink for books, notebooks and journals - Pack of 40 self-adhesive page markers in various colors",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 105,
+  "fields": {
+    "action_time": "2025-09-16T13:39:46.787Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "57",
+    "object_repr": "Whatever You Say : A Words and Phrases Sticker Book - Sticker book with more than 1,200 stickers",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 106,
+  "fields": {
+    "action_time": "2025-09-16T14:27:48.126Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "37",
+    "object_repr": "Reading Light - Floral",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Price\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 107,
+  "fields": {
+    "action_time": "2025-09-17T09:22:30.978Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 108,
+  "fields": {
+    "action_time": "2025-09-17T10:42:00.132Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "6",
+    "object_repr": "Bookends",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 109,
+  "fields": {
+    "action_time": "2025-09-17T10:42:00.136Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Bookmarks",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 110,
+  "fields": {
+    "action_time": "2025-09-17T10:42:00.138Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Pens & Notebooks",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 111,
+  "fields": {
+    "action_time": "2025-09-17T10:42:00.140Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Reading Lights",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 112,
+  "fields": {
+    "action_time": "2025-09-17T10:47:22.133Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Book Sleeves",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 113,
+  "fields": {
+    "action_time": "2025-09-17T10:47:42.203Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 114,
+  "fields": {
+    "action_time": "2025-09-17T10:47:53.730Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Bookmarks",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 115,
+  "fields": {
+    "action_time": "2025-09-17T10:48:05.750Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Pens & Notebooks",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 116,
+  "fields": {
+    "action_time": "2025-09-17T10:50:34.875Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Book Sleeves",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 117,
+  "fields": {
+    "action_time": "2025-09-17T11:06:19.917Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Book Sleeves",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 118,
+  "fields": {
+    "action_time": "2025-09-17T11:06:19.919Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 119,
+  "fields": {
+    "action_time": "2025-09-17T11:06:19.921Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "6",
+    "object_repr": "Bookends",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 120,
+  "fields": {
+    "action_time": "2025-09-17T11:06:19.923Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Reading Lights",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 121,
+  "fields": {
+    "action_time": "2025-09-17T12:32:53.266Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Bookmarks",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 122,
+  "fields": {
+    "action_time": "2025-09-17T12:32:58.262Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Book Sleeves",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 123,
+  "fields": {
+    "action_time": "2025-09-17T12:33:04.504Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Pens & Notebooks",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 124,
+  "fields": {
+    "action_time": "2025-09-17T12:33:09.442Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 125,
+  "fields": {
+    "action_time": "2025-09-17T12:59:14.587Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "55",
+    "object_repr": "Bookaroo : Sticky Tabs Pastel for books, notebooks and journals - Pack of 40 self-adhesive page markers in various colors",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 126,
+  "fields": {
+    "action_time": "2025-09-17T12:59:14.597Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "56",
+    "object_repr": "Bookaroo : Sticky Tabs Pink for books, notebooks and journals - Pack of 40 self-adhesive page markers in various colors",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 127,
+  "fields": {
+    "action_time": "2025-09-17T12:59:14.604Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "57",
+    "object_repr": "Whatever You Say : A Words and Phrases Sticker Book - Sticker book with more than 1,200 stickers",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 128,
+  "fields": {
+    "action_time": "2025-09-17T13:18:37.505Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Reading Lights",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 129,
+  "fields": {
+    "action_time": "2025-09-17T13:18:37.508Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "products",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Stickers & Sticky Tabs",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Is featured\", \"Featured order\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 130,
+  "fields": {
+    "action_time": "2025-09-18T13:16:43.492Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "3",
+    "object_repr": "aholstensson@gmail.com",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 131,
+  "fields": {
+    "action_time": "2025-09-18T13:16:43.506Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "2",
+    "object_repr": "lillan26@hotmail.com",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 132,
+  "fields": {
+    "action_time": "2025-09-18T13:16:43.515Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "1",
+    "object_repr": "alexandra_holstensson@hotmail.com",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 133,
+  "fields": {
+    "action_time": "2025-09-18T14:17:49.717Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "4",
+    "object_repr": "alexandra_holstensson@hotmail.com",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 134,
+  "fields": {
+    "action_time": "2025-09-18T14:18:09.394Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "4",
+    "object_repr": "alexandra_holstensson@hotmail.com",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Confirmed\", \"Unsubscribed\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 135,
+  "fields": {
+    "action_time": "2025-09-19T05:32:42.333Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "6",
+    "object_repr": "lillan26@hotmail.com",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 136,
+  "fields": {
+    "action_time": "2025-09-19T05:32:42.343Z",
+    "user": [
+      "alexa"
+    ],
+    "content_type": [
+      "home",
+      "newslettersubscriber"
+    ],
+    "object_id": "5",
+    "object_repr": "aholstensson@gmail.com",
+    "action_flag": 3,
+    "change_message": ""
+  }
+}
+]
