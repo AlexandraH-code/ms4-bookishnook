@@ -184,18 +184,176 @@ I used the program [Balsamiq](https://balsamiq.com/) to create wireframes for my
 I have divided the wireframes into three different sections: mobile, tablet and desktop.
 
 #### Mobile Wireframes
-Example:
-
   <details>
   <summary>Home Page - Not Logged In</summary>
 
-  ![Home Page - Not Logged In](docs/wireframes/mobile/home_not_logged_in.png)
+  ![Home Page - Not Logged In](docs/images/wireframes/mobile/home_page_not_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Home Page - Logged In</summary>
+
+  ![Home Page - Logged In](docs/images/wireframes/mobile/home_page_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Sale</summary>
+
+  ![Sale](docs/images/wireframes/mobile/sale.png)
+  
+  </details>
+  
+  <details>
+  <summary>Products</summary>
+
+  ![Products](docs/images/wireframes/mobile/products.png)
+  
+  </details>
+  
+  <details>
+  <summary>Product Details</summary>
+
+  ![Product Details](docs/images/wireframes/mobile/product_details.png)
+  
+  </details>
+  
+  <details>
+  <summary>Contact</summary>
+
+  ![Contact](docs/images/wireframes/mobile/contact_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>About Us</summary>
+
+  ![About Us](docs/images/wireframes/mobile/about_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>FAQ</summary>
+
+  ![FAQ](docs/images/wireframes/mobile/faq.png)
   
   </details>
 
-
 #### Tablet Wireframes
+  <details>
+  <summary>Home Page - Not Logged In</summary>
+
+  ![Home Page - Not Logged In](docs/images/wireframes/tablet/home_page_not_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Home Page - Logged In</summary>
+
+  ![Home Page - Logged In](docs/images/wireframes/tablet/home_page_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Sale</summary>
+
+  ![Sale](docs/images/wireframes/tablet/sale.png)
+  
+  </details>
+  
+  <details>
+  <summary>Products</summary>
+
+  ![Products](docs/images/wireframes/tablet/products.png)
+  
+  </details>
+  
+  <details>
+  <summary>Product Details</summary>
+
+  ![Product Details](docs/images/wireframes/tablet/product_details.png)
+  
+  </details>
+  
+  <details>
+  <summary>Contact</summary>
+
+  ![Contact](docs/images/wireframes/tablet/contact_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>About Us</summary>
+
+  ![About Us](docs/images/wireframes/tablet/about_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>FAQ</summary>
+
+  ![FAQ](docs/images/wireframes/tablet/faq.png)
+  
+  </details>
+
 #### Laptop/Desktop Wireframes
+  <details>
+  <summary>Home Page - Not Logged In</summary>
+
+  ![Home Page - Not Logged In](docs/images/wireframes/desktop/home_page_not_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Home Page - Logged In</summary>
+
+  ![Home Page - Logged In](docs/images/wireframes/desktop/home_page_logged_in.png)
+  
+  </details>
+  
+  <details>
+  <summary>Sale</summary>
+
+  ![Sale](docs/images/wireframes/desktop/sale.png)
+  
+  </details>
+  
+  <details>
+  <summary>Products</summary>
+
+  ![Products](docs/images/wireframes/desktop/products.png)
+  
+  </details>
+  
+  <details>
+  <summary>Product Details</summary>
+
+  ![Product Details](docs/images/wireframes/desktop/product_details.png)
+  
+  </details>
+  
+  <details>
+  <summary>Contact</summary>
+
+  ![Contact](docs/images/wireframes/desktop//contact_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>About Us</summary>
+
+  ![About Us](docs/images/wireframes/desktop/about_us.png)
+  
+  </details>
+  
+  <details>
+  <summary>FAQ</summary>
+
+  ![FAQ](docs/images/wireframes/desktop/faq.png)
+  
+  </details>
+
 ### Colors
 
 [ColorMagic's ContastChecker](https://colormagic.app/contrast-checker)
