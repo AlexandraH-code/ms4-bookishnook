@@ -1,5 +1,4 @@
-# ms4-bookishnook
-# Bookish Nook
+# ms4-Bookish Nook
 Developer - Alexandra Holstensson
 
 [Link to the project - Heroku](https://bookish-nook-157d2cfc4403.herokuapp.com/)
@@ -99,18 +98,95 @@ Bookish Nook is a webshop that sells book accessories such as bookmarks, book sl
 ## 2. User Goals
 [Back To The Top](#table-of-contents)
 ### External User Goals
+
+Visitors/users can view and, if they want to, purchase book accessories.
+
+* Find and filter book accessories quickly (categories, search, sorting).
+* See product details (price, picture, description) and available variations.
+* Add products to cart, update quantity, delete.
+* Smooth checkout with secure payment (Stripe) and email receipt.
+* Create an account / log in to save address information and see order history.
+* Subscribe to newsletter (with double opt-in).
+* Contact the store via the contact form.
+
 ### Site Owner Goals
+Create a demand for book accessories and make money selling these products.
+
+* Add/edit/delete products and categories easily (Backoffice).
+* View and manage incoming orders (status flow).
+* See dashboard for quick mode (latest orders, totals).
+* Switch the email list (Newsletter).
+* Run stable operations with S3 (media), Postgres and Heroku.
 
 ## 3. User Stories
 [Back To The Top](#table-of-contents)
 ### User Stories - Site Visitors
+#### **Epic 1: User Account Management**
+* **User Account Registration**
+    * As a new user, I can register for an account so that I can access personal features.
+* **Securely Log In With User Account**
+    * As a registered user, I can log in and out so that I can access my account securely.
+* **Change Password If Password Is Forgotten**
+    * As a user I can reset my password so that I can access my account again.
+* **Update User Details**
+    * As a user, I can update my profile information so that my details are up to date.
+* **View Order History**
+    * As a user, I can view my order history so that I can track my purchases.
+
+#### **Epic 2: Product Browsing and Search**
+* **Display All Products**
+    * As a customer, I can see all products so that I can browse the available items.
+* **Search For Products**
+    * As a customer, I can search for products so that I can find specific items.
+* **Filter Products**
+    * As a customer, I can filter products by category so that I can narrow down my options.
+* **Sort Products According To Price Or Name**
+    * As a customer, I can sort products by price or name so that I can organize the displayed items.
+* **See Detailed Product Information**
+    * As a customer, I can see detailed information about products so that I can make informed purchases.
+
+#### **Epic 3: Shopping Cart and Checkout**
+* **Adding Items To Cart**
+    * As a customer, I can add products to my shopping cart so that I can purchase multiple items.
+* **Change The Quantity Of An Item**
+    * As a customer, I can change how many of a specific item I want to purchase so that I can change my order before placing it.
+* **Securely Go Through Checkout**
+    * As a customer, I can safely go to the checkout so that I can complete my purchase.
+* **Receive An Order Confirmation Sent Via Email**
+    * As a customer, I can receive an order confirmation so that I know that my purchase has gone through.
+
+#### **Epic 4: Product Reviews**
+* **Leave Product Reviews**
+    * As a registered user on the website, I can leave reviews about products so that I can share my experiences.
+* **Rate Products**
+    * As a registered user, I can rate products so that I can give my opinion about them.
+* **Read Other Customers' Reviews**
+    * As a customer, I can read other customers' reviews and ratings of products so that I can make informed decisions.
+
 ### User Stories - Administrator(s)
+#### **Epic 5: Site Administration**
+* **Add New Products**
+    * As the administrator of the webshop, I can add new products so that I can expand the assortment.
+* **Update Product Details**
+    * As the administrator of the webshop, I can edit product information so that I can keep it up to date.
+* **Delete Products**
+    * As the administrator of the webshop, I can delete products so that I can remove products from the webshop that are no longer sold.
+* **Manage Order Status**
+    * As the owner of the webshop, I can manage placed orders so that I can process customers' purchases
 
 ## 4. Database Models Overview And Entity Relationship Diagram (ERD)
 [Back To The Top](#table-of-contents)
 ### Database Models Overview
 Description of the models I use on the website.
 
+* User (django-allauth) – login with email.
+* Profile – OneToOne to User (name, phone, addresses, etc.).
+* Category – hierarki (parent/child) + slug, featured_order, image.
+* Product – belongs to Category; name, slug, price, image, is_active.
+* Order – connected to User (or nullable), totals, status, shipping/billing address, Stripe field.
+* OrderItem – line in an Order; product, quantity, price_each.
+* NewsletterSubscriber – e-mail, confirmed, confirm_token.
+* ContactMessage – from contact form; name, email, subject, message, created.
 
 - **User Model (Django built-in)** - (Right now I only use the username, email and password fields.)
   - Handles authentication and user information.
@@ -126,8 +202,6 @@ Description of the models I use on the website.
     - One-to-many with Comment (user can write multiple comments)
     - One-to-many with StarRating (user can submit multiple ratings)
 
-
-
 ### Entity Relationship Diagram (ERD)
 
 I used [drawDB](https://www.drawdb.app/) to create an Entity Relationship Diagram (ERD). The relationships between the tables are drawn. The About and ContactRequest tables are completely independent (they have no connection to any other table). A picture of the ERD is below.
@@ -137,6 +211,12 @@ I used [drawDB](https://www.drawdb.app/) to create an Entity Relationship Diagra
 ## 5. Agile Methodology
 [Back To The Top](#table-of-contents)
 ### User Story Prioritization - MoSCoW Method
+
+Must have: Browse products, product details, shopping cart, checkout (Stripe), account (login/signup), order confirmation via email.
+Should have: Profile & order history, filter/sorting, double opt-in newsletter, backoffice CRUD for products/orders.
+Could have: Promotion section (“Bargain Corner”), product reviews, wish list.
+Won’t have (nu): Full review system and ratings with moderation.
+
 ### Kanban Workflow
 
 I have used a Kanban board to structure the work on the website. In the Kanban board, I have chosen to divide all tasks (issues) into three different stages:
@@ -356,12 +436,35 @@ I have divided the wireframes into three different sections: mobile, tablet and 
 
 ### Colors
 
+The color palette was chosen to create a cozy, book-inspired atmosphere with warm earthy tones and soft accents.  
+
+| Color | Hex | Example |
+|-------|-----|---------|
+| **Primary Brown** | `#5A3825` | <span style="display:inline-block;width:40px;height:20px;background:#5A3825;border:1px solid #ccc;"></span> |
+| **Cream** | `#FFF8F0` | <span style="display:inline-block;width:40px;height:20px;background:#FFF8F0;border:1px solid #ccc;"></span> |
+| **Sage** | `#A3B18A` | <span style="display:inline-block;width:40px;height:20px;background:#A3B18A;border:1px solid #ccc;"></span> |
+| **Rose** | `#D8A7B1` | <span style="display:inline-block;width:40px;height:20px;background:#D8A7B1;border:1px solid #ccc;"></span> |
+| **Dark Dropdown Brown** | `#4A2F21` | <span style="display:inline-block;width:40px;height:20px;background:#4A2F21;border:1px solid #ccc;"></span> |
+| **Text** | `#333333` | <span style="display:inline-block;width:40px;height:20px;background:#333333;border:1px solid #ccc;"></span> |
+
+> **Design rationale:**  
+> The deep brown provides a strong, warm foundation, while cream ensures a light and comfortable background for reading. Sage green and rose pink were introduced as *accent colors* — sage conveys calmness and nature, while rose adds a soft, welcoming warmth. These subtle contrasts prevent the design from feeling flat and reinforce the cozy “book nook” aesthetic.
+
 [ColorMagic's ContastChecker](https://colormagic.app/contrast-checker)
 
 ### Fonts
-The fonts are used in this way on the website:
-- Playfair Display: H1, H2, H3 and other heading.
-- Lato: Body
+
+The project uses two complementary Google Fonts:  
+
+- **Playfair Display (serif)** – used for titles, headings, and the brand logo.  
+- **Lato (sans-serif)** – used for body text and general content.  
+
+> **Design rationale:**  
+> *Playfair Display* was chosen for its elegant and slightly decorative style, giving a classic “bookish” feeling that works well for headings and brand identity. Its contrast in stroke weight creates a timeless impression reminiscent of printed literature.  
+>  
+> *Lato* was selected as the primary body font because of its modern, clean, and highly readable design. This ensures that product descriptions, instructions, and longer text blocks remain easy to read on both desktop and mobile.  
+>  
+> Together, these fonts balance **warmth and elegance** with **clarity and readability**, reinforcing the bookstore-inspired aesthetic of *Bookish Nook*.  
 
 ### Icons And Images
 

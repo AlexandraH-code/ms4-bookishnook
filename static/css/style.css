@@ -2,6 +2,10 @@
 body { font-family: 'Lato', sans-serif; color: #333333; background-color: #FFF8F0; }
 h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', serif; }
 
+
+/* body { font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; } */
+/* h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; } */
+
 /* Palette */
 .bn-brown { background-color: #5A3825; }
 .bn-cream { background-color: #FFF8F0; }
