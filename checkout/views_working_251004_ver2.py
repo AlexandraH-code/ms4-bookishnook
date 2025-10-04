@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
 
 from products.models import Product
 from orders.models import Order, OrderItem
@@ -500,13 +499,9 @@ def stripe_webhook(request):
                 p.is_active = False
             p.save(update_fields=["stock", "is_active"])
 
-    # --- skicka orderbekräftelse EN gång ---
-    should_send = (just_paid or order.status == "paid") and not order.confirmation_sent_at
-    if should_send:
+    if just_paid:
         try:
             send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
-            order.confirmation_sent_at = timezone.now()
-            order.save(update_fields=["confirmation_sent_at"])
         except Exception:
             logger.exception("Failed to send order confirmation")
 

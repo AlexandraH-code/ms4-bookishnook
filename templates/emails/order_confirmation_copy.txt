@@ -1,4 +1,3 @@
-{% load countries %}
 {% load price_filters %}
 
 Hi {{ customer_name|default:"there" }},
@@ -6,8 +5,7 @@ Hi {{ customer_name|default:"there" }},
 Thank you for your purchase at Bookish Nook!
 Order #{{ order.id }} has been confirmed.
 
-{# Shipping address #}
-<h5>Shipping address</h5>
+<h3 style="margin-top:16px;">Shipping address</h3>
 <p>
   {% if order.full_name %}{{ order.full_name }}<br>{% endif %}
   {% if order.address_line1 %}{{ order.address_line1 }}<br>{% endif %}
@@ -16,21 +14,6 @@ Order #{{ order.id }} has been confirmed.
   {% if order.country %}{{ order.country }}{% endif %}
   {% if order.phone %}<br>Phone: {{ order.phone }}{% endif %}
 </p>
-
-{# Billing address #}
-<h5>Billing address</h5>
-{% if order.billing_line1 %}
-  <p>
-    {% if order.billing_name %}{{ order.billing_name }}<br>{% endif %}
-    {{ order.billing_line1 }}<br>
-    {% if order.billing_line2 %}{{ order.billing_line2 }}<br>{% endif %}
-    {% if order.billing_postal %}{{ order.billing_postal }} {% endif %}{% if order.billing_city %}{{ order.billing_city }}{% endif %}<br>
-    {% if order.billing_country %}{{ order.billing_country }}{% endif %}
-  </p>
-{% else %}
-  <p class="text-muted">Same as shipping.</p>
-{% endif %}
-
 
 
 Items:

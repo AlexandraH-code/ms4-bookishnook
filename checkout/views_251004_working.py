@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
 
 from products.models import Product
 from orders.models import Order, OrderItem
@@ -338,10 +337,9 @@ def cancel(request):
 # Hjälpare – ha den EN gång
 def _first(*vals):
     for v in vals:
-        if v not in (None, "", {}):
+        if v:
             return v
     return None
-
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -349,7 +347,7 @@ def stripe_webhook(request):
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
     secret = getattr(settings, "STRIPE_WEBHOOK_SECRET", "")
 
-    # --- Verifiera event ---
+    # Verifiera event
     if secret:
         try:
             event = stripe.Webhook.construct_event(payload, sig_header, secret)
@@ -373,7 +371,7 @@ def stripe_webhook(request):
     raw = event["data"]["object"]
     session_id = raw.get("id")
 
-    # --- Hämta expanderad session & PI ---
+    # Hämta expanderad session (får alla fält)
     try:
         sess = stripe.checkout.Session.retrieve(
             session_id,
@@ -385,33 +383,33 @@ def stripe_webhook(request):
                 "payment_intent.charges.data",
             ],
         )
+        # sess_dict = sess.to_dict_recursive() if hasattr(sess, "to_dict_recursive") else sess
+        sess_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
     except Exception:
-        sess = raw
+        # Fallback: använd det som kom i eventet (är redan dict)
+        sess_dict = raw
 
-    # Gör om till plain dict (vägen som fungerade hos dig)
-    sess_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
-
-    # --- Hitta order ---
+    # Hitta order
     meta = sess_dict.get("metadata") or {}
     order_id = meta.get("order_id")
     order = None
     if order_id:
+        from orders.models import Order  # säkra import här om du vill
         order = Order.objects.filter(id=order_id).first()
     if not order:
         order = Order.objects.filter(stripe_session_id=session_id).first()
     if not order:
         return HttpResponse(status=200)
 
-    # === Plocka ut fält ===
+    # Plocka ut detaljer
     customer_details = sess_dict.get("customer_details") or {}
 
-    # SHIPPING: normal väg eller collected_information (finns i din dump)
-    shipping_details = _first(
-        sess_dict.get("shipping_details"),
-        (sess_dict.get("collected_information") or {}).get("shipping_details"),
-    ) or {}
+    # SHIPPING (Stripe kan lägga den i collected_information)
+    shipping_details = sess_dict.get("shipping_details") or {}
+    if not shipping_details:
+        shipping_details = (sess_dict.get("collected_information") or {}).get("shipping_details") or {}
 
-    # PaymentIntent/charges fallback
+    # PaymentIntent fallback (charges[0])
     pi = sess_dict.get("payment_intent")
     charges = []
     if isinstance(pi, dict):
@@ -419,79 +417,78 @@ def stripe_webhook(request):
     elif isinstance(pi, str):
         try:
             pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
-            pi = json.loads(pi_obj.to_json()) if hasattr(pi_obj, "to_json") else pi_obj
-            charges = (pi.get("charges") or {}).get("data") or []
+            # pi_dict = pi_obj.to_dict_recursive() if hasattr(pi_obj, "to_dict_recursive") else pi_obj
+            pi_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
+            charges = (pi_dict.get("charges") or {}).get("data") or []
         except Exception:
             charges = []
-    ch0 = charges[0] if charges else {}
-    billing_details_pi = ch0.get("billing_details") or {}
-    shipping_pi = ch0.get("shipping") or {}
+    charge0 = charges[0] if charges else {}
+    billing_details = charge0.get("billing_details") or {}
+    shipping_pi = charge0.get("shipping") or {}
 
-    # --- Email/namn/telefon ---
-    email = _first(customer_details.get("email"), billing_details_pi.get("email"), order.email)
+    # Email/namn/telefon
+    email = _first(customer_details.get("email"), billing_details.get("email"), order.email)
     full_name = _first(
         shipping_details.get("name"),
         shipping_pi.get("name"),
         customer_details.get("name"),
-        billing_details_pi.get("name"),
+        billing_details.get("name"),
         order.full_name,
     )
     phone = _first(
         shipping_details.get("phone"),
         shipping_pi.get("phone"),
         customer_details.get("phone"),
-        billing_details_pi.get("phone"),
+        billing_details.get("phone"),
         order.phone,
     )
 
-    # --- SHIPPING = ENBART från shipping-källor ---
-    saddr = _first(shipping_details.get("address"), shipping_pi.get("address")) or {}
+    # SHIPPING – ENBART från shippingkällor
+    saddr = (shipping_details.get("address") or {}) or (shipping_pi.get("address") or {})
     s_line1 = saddr.get("line1"); s_line2 = saddr.get("line2")
     s_post = saddr.get("postal_code"); s_city = saddr.get("city"); s_ctry = saddr.get("country")
 
-    # --- BILLING = ENBART från billing-källor ---
-    baddr = _first(customer_details.get("address"), billing_details_pi.get("address")) or {}
+    # BILLING – ENBART från billingkällor (customer_details.address eller billing_details.address)
+    baddr = (customer_details.get("address") or {}) or (billing_details.get("address") or {})
     b_line1 = baddr.get("line1"); b_line2 = baddr.get("line2")
     b_post = baddr.get("postal_code"); b_city = baddr.get("city"); b_ctry = baddr.get("country")
-    b_name = _first(customer_details.get("name"), billing_details_pi.get("name"), full_name)
+    b_name = _first(customer_details.get("name"), billing_details.get("name"), full_name)
 
-    # --- Skriv endast fält som har värden ---
+    # Spara – skriv endast fält som har värde och som ändras
     to_update = []
-    
+
     def setif(attr, val):
         if val not in (None, "") and getattr(order, attr) != val:
             setattr(order, attr, val)
             to_update.append(attr)
 
-    # Bas
+    # basfält
     setif("email", email)
     setif("full_name", full_name)
     setif("phone", phone)
 
-    # Shipping
+    # shipping
     setif("address_line1", s_line1)
     setif("address_line2", s_line2)
-    setif("postal_code",  s_post)
-    setif("city",         s_city)
-    setif("country",      s_ctry)
+    setif("postal_code", s_post)
+    setif("city", s_city)
+    setif("country", s_ctry)
 
-    # Billing
-    setif("billing_name",   b_name)
-    setif("billing_line1",  b_line1)
-    setif("billing_line2",  b_line2)
+    # billing
+    setif("billing_name", b_name)
+    setif("billing_line1", b_line1)
+    setif("billing_line2", b_line2)
     setif("billing_postal", b_post)
-    setif("billing_city",   b_city)
-    setif("billing_country",b_ctry)
+    setif("billing_city", b_city)
+    setif("billing_country", b_ctry)
 
     if to_update:
         order.save(update_fields=to_update)
 
-    # Markera paid + lager (och skicka bara ett mail)
-    just_paid = False
+    # Markera betald + dra lager
     if order.status != "paid":
         order.status = "paid"
         order.save(update_fields=["status"])
-        just_paid = True
         for item in order.items.select_related("product"):
             p = item.product
             new_stock = max(0, p.stock - item.qty)
@@ -500,14 +497,11 @@ def stripe_webhook(request):
                 p.is_active = False
             p.save(update_fields=["stock", "is_active"])
 
-    # --- skicka orderbekräftelse EN gång ---
-    should_send = (just_paid or order.status == "paid") and not order.confirmation_sent_at
-    if should_send:
-        try:
-            send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
-            order.confirmation_sent_at = timezone.now()
-            order.save(update_fields=["confirmation_sent_at"])
-        except Exception:
-            logger.exception("Failed to send order confirmation")
+    # Skicka bekräftelse
+    try:
+        from orders.utils import send_order_confirmation
+        send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
+    except Exception:
+        pass
 
     return HttpResponse(status=200)

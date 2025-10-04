@@ -88,6 +88,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_countries',
     
     # Third-party apps
     'crispy_forms',
@@ -270,6 +271,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe
+# STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
+# STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+# STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WH_SECRET")
+
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
@@ -323,3 +328,20 @@ else:
     STATIC_ROOT = BASE_DIR / "staticfiles"
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        # valfritt: höj nivån för just checkout-modulen om du vill
+        "checkout": {"handlers": ["console"], "level": "INFO", "propagate": True},
+    },
+}

@@ -12,27 +12,27 @@ class Order(models.Model):
     ]
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    email = models.EmailField(blank=True, null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     shipping = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     stripe_session_id = models.CharField(max_length=255, blank=True, null=True)
+    confirmation_sent_at = models.DateTimeField(blank=True, null=True)
     
-    # Kunduppgifter (från Stripe)
+    # Customer data (from Stripe)
     full_name = models.CharField(max_length=200, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)  # redan hos dig
+    email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
 
-    # Leveransadress
+    # Delivery address
     address_line1 = models.CharField(max_length=200, blank=True, null=True)
     address_line2 = models.CharField(max_length=200, blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    country = models.CharField(max_length=2, blank=True, null=True)  # ISO 2 (SE, NO, ...)
+    country = models.CharField(max_length=2, blank=True, null=True)
     
-    # NEW: Billing address
+    # Billing address
     billing_name = models.CharField(max_length=200, blank=True, null=True)
     billing_line1 = models.CharField(max_length=200, blank=True, null=True)
     billing_line2 = models.CharField(max_length=200, blank=True, null=True)
@@ -54,3 +54,8 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.name} x {self.qty}"
+
+
+class ProcessedStripeEvent(models.Model):
+    event_id = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)

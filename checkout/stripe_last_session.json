@@ -1,0 +1,154 @@
+{
+  "id": "cs_test_b1pyikxejN1G4PiVOqKVcPSh3iKxxB7dPISTmw5wQCosqJiegusp6W7WjS",
+  "object": "checkout.session",
+  "adaptive_pricing": {
+    "enabled": true
+  },
+  "after_expiration": null,
+  "allow_promotion_codes": true,
+  "amount_subtotal": 24800,
+  "amount_total": 24800,
+  "automatic_tax": {
+    "enabled": false,
+    "liability": null,
+    "provider": null,
+    "status": null
+  },
+  "billing_address_collection": "required",
+  "branding_settings": {
+    "background_color": "#ffffff",
+    "border_style": "rounded",
+    "button_color": "#0074d4",
+    "display_name": "New business-sandlåda",
+    "font_family": "default",
+    "icon": null,
+    "logo": null
+  },
+  "cancel_url": "http://127.0.0.1:8000/checkout/cancel/",
+  "client_reference_id": null,
+  "client_secret": null,
+  "collected_information": {
+    "business_name": null,
+    "individual_name": null,
+    "shipping_details": {
+      "address": {
+        "city": "Nol",
+        "country": "SE",
+        "line1": "Sannum Södergård 517",
+        "line2": null,
+        "postal_code": "44990",
+        "state": null
+      },
+      "name": "Alexandra Holstensson"
+    }
+  },
+  "consent": null,
+  "consent_collection": null,
+  "created": 1759572790,
+  "currency": "sek",
+  "currency_conversion": null,
+  "custom_fields": [],
+  "custom_text": {
+    "after_submit": null,
+    "shipping_address": null,
+    "submit": null,
+    "terms_of_service_acceptance": null
+  },
+  "customer": "cus_TAo52BfccA0Fhh",
+  "customer_creation": "always",
+  "customer_details": {
+    "address": {
+      "city": "Teststad",
+      "country": "SE",
+      "line1": "Testgatan 1",
+      "line2": null,
+      "postal_code": "123 45",
+      "state": null
+    },
+    "business_name": null,
+    "email": "alexandra_holstensson@hotmail.com",
+    "individual_name": null,
+    "name": "Test Testsson",
+    "phone": "+46735436759",
+    "tax_exempt": "none",
+    "tax_ids": []
+  },
+  "customer_email": null,
+  "discounts": [],
+  "expires_at": 1759659190,
+  "invoice": null,
+  "invoice_creation": {
+    "enabled": false,
+    "invoice_data": {
+      "account_tax_ids": null,
+      "custom_fields": null,
+      "description": null,
+      "footer": null,
+      "issuer": null,
+      "metadata": {},
+      "rendering_options": null
+    }
+  },
+  "livemode": false,
+  "locale": null,
+  "metadata": {
+    "order_id": "116"
+  },
+  "mode": "payment",
+  "origin_context": null,
+  "payment_intent": "pi_3SESTD2f8YC2ygr20cKt2aBv",
+  "payment_link": null,
+  "payment_method_collection": "if_required",
+  "payment_method_configuration_details": {
+    "id": "pmc_1Rl41L2f8YC2ygr2yoxdB25U",
+    "parent": null
+  },
+  "payment_method_options": {
+    "card": {
+      "request_three_d_secure": "automatic"
+    }
+  },
+  "payment_method_types": [
+    "card",
+    "klarna",
+    "link",
+    "amazon_pay"
+  ],
+  "payment_status": "paid",
+  "permissions": null,
+  "phone_number_collection": {
+    "enabled": true
+  },
+  "recovered_from": null,
+  "saved_payment_method_options": {
+    "allow_redisplay_filters": [
+      "always"
+    ],
+    "payment_method_remove": "disabled",
+    "payment_method_save": null
+  },
+  "setup_intent": null,
+  "shipping_address_collection": {
+    "allowed_countries": [
+      "SE",
+      "NO",
+      "DK",
+      "FI",
+      "DE"
+    ]
+  },
+  "shipping_cost": null,
+  "shipping_options": [],
+  "status": "complete",
+  "submit_type": null,
+  "subscription": null,
+  "success_url": "http://127.0.0.1:8000/checkout/success/?session_id={CHECKOUT_SESSION_ID}",
+  "total_details": {
+    "amount_discount": 0,
+    "amount_shipping": 0,
+    "amount_tax": 0
+  },
+  "ui_mode": "hosted",
+  "url": null,
+  "wallet_options": null
+}

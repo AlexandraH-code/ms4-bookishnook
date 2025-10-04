@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.utils import timezone
 
 from products.models import Product
 from orders.models import Order, OrderItem
@@ -14,7 +13,6 @@ from decimal import Decimal, ROUND_HALF_UP
 import stripe
 import logging
 import json
-import os
 
 logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -335,147 +333,145 @@ def cancel(request):
     return render(request, "checkout/cancel.html")
 
 
-# Hjälpare – ha den EN gång
-def _first(*vals):
-    for v in vals:
-        if v not in (None, "", {}):
-            return v
-    return None
-
-
+# checkout/views.py (ersätt HELA stripe_webhook med detta)
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
     secret = getattr(settings, "STRIPE_WEBHOOK_SECRET", "")
 
-    # --- Verifiera event ---
+    event = None
     if secret:
         try:
             event = stripe.Webhook.construct_event(payload, sig_header, secret)
         except ValueError:
+            logger.exception("WEBHOOK: invalid JSON payload")
             return HttpResponseBadRequest("Invalid payload")
         except stripe.error.SignatureVerificationError:
+            logger.exception("WEBHOOK: invalid signature")
             return HttpResponseBadRequest("Invalid signature")
     else:
         if settings.DEBUG:
             try:
                 event = json.loads(payload.decode("utf-8"))
             except Exception:
+                logger.exception("WEBHOOK DEV: JSON parse error")
                 return HttpResponseBadRequest("Invalid payload (dev)")
         else:
+            logger.error("WEBHOOK: missing secret in production")
             return HttpResponseBadRequest("Webhook secret not configured")
 
-    etype = event.get("type") if isinstance(event, dict) else event["type"]
-    if etype != "checkout.session.completed":
+    event_type = event.get("type") if isinstance(event, dict) else event["type"]
+    logger.info("WEBHOOK: received event type=%s", event_type)
+
+    if event_type != "checkout.session.completed":
         return HttpResponse(status=200)
 
-    raw = event["data"]["object"]
-    session_id = raw.get("id")
-
-    # --- Hämta expanderad session & PI ---
+    # ---- Hämta session, expandera för säkerhets skull ----
+    raw_session = event["data"]["object"]
+    session_id = raw_session.get("id")
     try:
-        sess = stripe.checkout.Session.retrieve(
+        session = stripe.checkout.Session.retrieve(
             session_id,
             expand=[
-                "customer",
-                "customer_details",
-                "shipping_details",
-                "payment_intent",
-                "payment_intent.charges.data",
+                "customer", "customer_details", "shipping_details",
+                "payment_intent", "payment_intent.charges.data",
             ],
         )
+        logger.info("WEBHOOK: expanded session ok id=%s", session_id)
     except Exception:
-        sess = raw
+        logger.exception("WEBHOOK: could not expand session; using raw")
+        session = raw_session
 
-    # Gör om till plain dict (vägen som fungerade hos dig)
-    sess_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
-
-    # --- Hitta order ---
-    meta = sess_dict.get("metadata") or {}
+    # ---- Hitta order: 1) metadata.order_id -> 2) stripe_session_id fallback ----
+    meta = session.get("metadata") or {}
     order_id = meta.get("order_id")
     order = None
     if order_id:
         order = Order.objects.filter(id=order_id).first()
+        logger.info("WEBHOOK: lookup by metadata order_id=%s -> %s", order_id, "FOUND" if order else "MISSING")
+
     if not order:
+        # Fallback: matcha mot fältet du sparade när du skapade sessionen
         order = Order.objects.filter(stripe_session_id=session_id).first()
+        logger.info("WEBHOOK: lookup by stripe_session_id=%s -> %s", session_id, "FOUND" if order else "MISSING")
+
     if not order:
+        logger.error("WEBHOOK: No order found for session id=%s (no update done)", session_id)
         return HttpResponse(status=200)
 
-    # === Plocka ut fält ===
-    customer_details = sess_dict.get("customer_details") or {}
+    # ---- Plocka ut email/namn/telefon/adresser (med fallback via PI) ----
+    cust = session.get("customer_details") or {}
+    ship = session.get("shipping_details") or {}
+    baddr = (cust.get("address") or {})
+    saddr = (ship.get("address") or {})
 
-    # SHIPPING: normal väg eller collected_information (finns i din dump)
-    shipping_details = _first(
-        sess_dict.get("shipping_details"),
-        (sess_dict.get("collected_information") or {}).get("shipping_details"),
-    ) or {}
-
-    # PaymentIntent/charges fallback
-    pi = sess_dict.get("payment_intent")
+    # Fallback från PaymentIntent->charges[0]
+    billing_details = {}
+    shipping_pi = {}
+    pi = session.get("payment_intent")
     charges = []
     if isinstance(pi, dict):
         charges = (pi.get("charges") or {}).get("data") or []
     elif isinstance(pi, str):
         try:
             pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
-            pi = json.loads(pi_obj.to_json()) if hasattr(pi_obj, "to_json") else pi_obj
-            charges = (pi.get("charges") or {}).get("data") or []
+            charges = (pi_obj.get("charges") or {}).get("data") or []
         except Exception:
-            charges = []
-    ch0 = charges[0] if charges else {}
-    billing_details_pi = ch0.get("billing_details") or {}
-    shipping_pi = ch0.get("shipping") or {}
+            logger.exception("WEBHOOK: PI fallback failed")
+    if charges:
+        ch0 = charges[0]
+        billing_details = ch0.get("billing_details") or {}
+        shipping_pi = ch0.get("shipping") or {}
 
-    # --- Email/namn/telefon ---
-    email = _first(customer_details.get("email"), billing_details_pi.get("email"), order.email)
-    full_name = _first(
-        shipping_details.get("name"),
-        shipping_pi.get("name"),
-        customer_details.get("name"),
-        billing_details_pi.get("name"),
-        order.full_name,
-    )
-    phone = _first(
-        shipping_details.get("phone"),
-        shipping_pi.get("phone"),
-        customer_details.get("phone"),
-        billing_details_pi.get("phone"),
-        order.phone,
-    )
+    def first(*vals):
+        for v in vals:
+            if v:
+                return v
+        return None
 
-    # --- SHIPPING = ENBART från shipping-källor ---
-    saddr = _first(shipping_details.get("address"), shipping_pi.get("address")) or {}
-    s_line1 = saddr.get("line1"); s_line2 = saddr.get("line2")
-    s_post = saddr.get("postal_code"); s_city = saddr.get("city"); s_ctry = saddr.get("country")
+    stripe_email = first(cust.get("email"), billing_details.get("email"), order.email)
+    full_name    = first(ship.get("name"), shipping_pi.get("name"), cust.get("name"),
+                         billing_details.get("name"), order.full_name)
+    phone        = first(ship.get("phone"), shipping_pi.get("phone"), cust.get("phone"),
+                         billing_details.get("phone"), order.phone)
 
-    # --- BILLING = ENBART från billing-källor ---
-    baddr = _first(customer_details.get("address"), billing_details_pi.get("address")) or {}
-    b_line1 = baddr.get("line1"); b_line2 = baddr.get("line2")
-    b_post = baddr.get("postal_code"); b_city = baddr.get("city"); b_ctry = baddr.get("country")
-    b_name = _first(customer_details.get("name"), billing_details_pi.get("name"), full_name)
+    # Shipping
+    s_line1 = first(saddr.get("line1"), (shipping_pi.get("address") or {}).get("line1"))
+    s_line2 = first(saddr.get("line2"), (shipping_pi.get("address") or {}).get("line2"))
+    s_post  = first(saddr.get("postal_code"), (shipping_pi.get("address") or {}).get("postal_code"))
+    s_city  = first(saddr.get("city"), (shipping_pi.get("address") or {}).get("city"))
+    s_ctry  = first(saddr.get("country"), (shipping_pi.get("address") or {}).get("country"))
 
-    # --- Skriv endast fält som har värden ---
+    # Billing (fallback till shipping om billing saknas)
+    bd = (billing_details.get("address") or {})
+    b_line1 = first(baddr.get("line1"), bd.get("line1"), s_line1)
+    b_line2 = first(baddr.get("line2"), bd.get("line2"), s_line2)
+    b_post  = first(baddr.get("postal_code"), bd.get("postal_code"), s_post)
+    b_city  = first(baddr.get("city"), bd.get("city"), s_city)
+    b_ctry  = first(baddr.get("country"), bd.get("country"), s_ctry)
+    b_name  = first(cust.get("name"), billing_details.get("name"), full_name)
+
+    logger.info("WEBHOOK DATA: email=%s | ship=%s %s %s %s %s | bill=%s %s %s %s %s",
+                stripe_email, s_line1, s_post, s_city, s_ctry, phone,
+                b_line1, b_post, b_city, b_ctry, b_name)
+
+    # ---- Skriv in fält (sätt bara om vi har värden) ----
     to_update = []
-    
-    def setif(attr, val):
-        if val not in (None, "") and getattr(order, attr) != val:
-            setattr(order, attr, val)
-            to_update.append(attr)
+    def setif(attr, value):
+        if value not in (None, "") and getattr(order, attr) != value:
+            setattr(order, attr, value); to_update.append(attr)
 
-    # Bas
-    setif("email", email)
+    setif("email", stripe_email)
     setif("full_name", full_name)
     setif("phone", phone)
 
-    # Shipping
     setif("address_line1", s_line1)
     setif("address_line2", s_line2)
     setif("postal_code",  s_post)
     setif("city",         s_city)
     setif("country",      s_ctry)
 
-    # Billing
     setif("billing_name",   b_name)
     setif("billing_line1",  b_line1)
     setif("billing_line2",  b_line2)
@@ -485,13 +481,14 @@ def stripe_webhook(request):
 
     if to_update:
         order.save(update_fields=to_update)
+        logger.info("WEBHOOK: updated fields -> %s", ", ".join(to_update))
+    else:
+        logger.info("WEBHOOK: nothing to update on order %s", order.id)
 
-    # Markera paid + lager (och skicka bara ett mail)
-    just_paid = False
+    # ---- Markera paid + lager ----
     if order.status != "paid":
         order.status = "paid"
         order.save(update_fields=["status"])
-        just_paid = True
         for item in order.items.select_related("product"):
             p = item.product
             new_stock = max(0, p.stock - item.qty)
@@ -499,15 +496,13 @@ def stripe_webhook(request):
             if new_stock == 0:
                 p.is_active = False
             p.save(update_fields=["stock", "is_active"])
+        logger.info("WEBHOOK: order %s marked PAID and stock updated", order.id)
 
-    # --- skicka orderbekräftelse EN gång ---
-    should_send = (just_paid or order.status == "paid") and not order.confirmation_sent_at
-    if should_send:
-        try:
-            send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
-            order.confirmation_sent_at = timezone.now()
-            order.save(update_fields=["confirmation_sent_at"])
-        except Exception:
-            logger.exception("Failed to send order confirmation")
+    # ---- Skicka kvitto ----
+    try:
+        send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
+        logger.info("WEBHOOK: order confirmation sent to %s", order.email)
+    except Exception:
+        logger.exception("WEBHOOK: could not send order confirmation")
 
     return HttpResponse(status=200)

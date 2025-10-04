@@ -1,11 +1,14 @@
+# checkout/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
-from orders.utils import send_order_confirmation
 from django.views.decorators.csrf import csrf_exempt
+
 from products.models import Product
 from orders.models import Order, OrderItem
+from orders.utils import send_order_confirmation  # justera om din path skiljer sig
+
 from decimal import Decimal, ROUND_HALF_UP
 import stripe
 import logging
@@ -15,7 +18,12 @@ logger = logging.getLogger(__name__)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-# Create your views here.
+# --------- Hjälpare ----------
+def _to_cents(dec: Decimal) -> int:
+    # SEK i ören; alltid Decimal in, avrunda halvor upp
+    return int((dec * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+
+
 def _cart_items_and_total(request):
     """
     Returnerar (items, total) från sessionens cart.
@@ -33,16 +41,102 @@ def _cart_items_and_total(request):
     return items, total
 
 
+def _extract_addresses(session_like: dict) -> dict:
+    """
+    Tar en Stripe Checkout Session (eller expanderad variant) och plockar ut bästa möjliga
+    e-post, namn, telefon, shipping- och billing-adresser. Har fallback via PaymentIntent->charges.
+    Returnerar en dict med nycklar som matchar Order-fälten.
+    """
+
+    # Grund: det här brukar räcka
+    cust = (session_like.get("customer_details") or {})
+    ship = (session_like.get("shipping_details") or {})
+    baddr = (cust.get("address") or {})
+    saddr = (ship.get("address") or {})
+
+    email = cust.get("email")
+    full_name = ship.get("name") or cust.get("name")
+    phone = ship.get("phone") or cust.get("phone")
+
+    # Fallback via PaymentIntent -> charges[0]
+    pi = session_like.get("payment_intent")
+    charges = []
+    if isinstance(pi, dict):
+        charges = (pi.get("charges") or {}).get("data") or []
+    elif isinstance(pi, str):
+        try:
+            pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
+            charges = (pi_obj.get("charges") or {}).get("data") or []
+        except Exception:
+            logger.exception("PI fallback misslyckades")
+
+    if charges:
+        ch0 = charges[0]
+        bd = ch0.get("billing_details") or {}
+        sh = ch0.get("shipping") or {}
+        # Uppdatera om saknas
+        email = email or bd.get("email")
+        full_name = full_name or bd.get("name") or sh.get("name")
+        phone = phone or bd.get("phone") or sh.get("phone")
+        baddr = baddr or (bd.get("address") or {})
+        saddr = saddr or (sh.get("address") or {})
+
+    # Logga vad vi faktiskt hittade (hjälper felsökning)
+    logger.info("Stripe addr debug | email=%s | ship=%s | bill=%s", email, saddr, baddr)
+
+    return {
+        # primär info
+        "email": email,
+        "full_name": full_name,
+        "phone": phone,
+
+        # shipping
+        "address_line1": saddr.get("line1"),
+        "address_line2": saddr.get("line2"),
+        "postal_code": saddr.get("postal_code"),
+        "city": saddr.get("city"),
+        "country": saddr.get("country"),
+
+        # billing
+        "billing_name":  full_name,  # om Stripe saknar separat namn för billing använder vi orderns namn
+        "billing_line1": (baddr.get("line1") or None),
+        "billing_line2": (baddr.get("line2") or None),
+        "billing_postal": (baddr.get("postal_code") or None),
+        "billing_city": (baddr.get("city") or None),
+        "billing_country": (baddr.get("country") or None),
+    }
+
+
+def _apply_addresses(order: Order, data: dict):
+    """
+    Sätter bara fält om de finns (None hoppar vi över) för att inte skriva över tidigare värden.
+    """
+    fields = [
+        "email", "full_name", "phone",
+        "address_line1", "address_line2", "postal_code", "city", "country",
+        "billing_name", "billing_line1", "billing_line2", "billing_postal", "billing_city", "billing_country",
+    ]
+    updated = []
+    for f in fields:
+        val = data.get(f)
+        if val not in (None, ""):
+            setattr(order, f, val)
+            updated.append(f)
+    if updated:
+        order.save(update_fields=updated)
+
+
+# --------- Views ----------
 def start_checkout(request):
     items, total = _cart_items_and_total(request)
     if not items:
         messages.info(request, "Your cart is empty.")
         return redirect("cart:view")
 
-    # (valfritt) demonstrativ moms/ship för känsla – justera eller ta bort
-    tax_rate = Decimal("0.25")  # 25% (exempel), byt sen när du bygger riktigt
-    tax_amount = (total * tax_rate).quantize(Decimal("0.01"))  # avrunda till 2 decimaler
-    shipping = Decimal("49.00") if total < Decimal("500.00") else Decimal("0.00")  # fri frakt över 500 kr, exempel
+    # enkla exempelvärden
+    tax_rate = Decimal("0.25")
+    tax_amount = (total * tax_rate).quantize(Decimal("0.01"))
+    shipping = Decimal("49.00") if total < Decimal("500.00") else Decimal("0.00")
     grand_total = total + tax_amount + shipping
 
     ctx = {
@@ -56,11 +150,6 @@ def start_checkout(request):
     return render(request, "checkout/checkout_start.html", ctx)
 
 
-def _to_cents(dec: Decimal) -> int:
-    # SEK i ören; alltid Decimal in, avrunda halvor upp
-    return int((dec * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
-
-
 def create_checkout_session(request):
     if request.method != "POST":
         return redirect("checkout:start")
@@ -70,13 +159,12 @@ def create_checkout_session(request):
         messages.info(request, "Your cart is empty.")
         return redirect("cart:view")
 
-    # Fraktlogik (samma som i start_checkout)
     shipping_amount = Decimal("49.00") if total < Decimal("500.00") else Decimal("0.00")
-    tax_rate = Decimal("0.25")  # exempelmoms i UI; (Stripe Tax kan aktiveras senare)
+    tax_rate = Decimal("0.25")
     tax_amount = (total * tax_rate).quantize(Decimal("0.01"))
     grand_total = total + shipping_amount + tax_amount
 
-    # 1) Skapa pending Order i DB
+    # 1) pending order
     order = Order.objects.create(
         email=request.user.email if request.user.is_authenticated else None,
         total=total, shipping=shipping_amount, tax_amount=tax_amount, grand_total=grand_total,
@@ -90,27 +178,21 @@ def create_checkout_session(request):
             subtotal=p.price * qty
         )
 
-    # 2) Bygg Stripe line_items
+    # 2) Stripe line_items
     line_items = []
     for it in items:
         p = it["product"]
         qty = it["qty"]
-        # För bilder på Stripe (frivilligt), bygg absolut URL om du har media:
-        imgs = [request.build_absolute_uri(p.image.url)]if (p.image and hasattr(p.image, "url")) else []
-
+        imgs = [request.build_absolute_uri(p.image.url)] if (p.image and hasattr(p.image, "url")) else []
         line_items.append({
             "price_data": {
                 "currency": "sek",
                 "unit_amount": _to_cents(p.price),
-                "product_data": {
-                    "name": p.name,
-                    "images": imgs,
-                },
+                "product_data": {"name": p.name, "images": imgs},
             },
             "quantity": qty,
         })
 
-    # Lägg frakt som en egen rad (om > 0)
     if shipping_amount > 0:
         line_items.append({
             "price_data": {
@@ -121,47 +203,52 @@ def create_checkout_session(request):
             "quantity": 1,
         })
 
-    # (Val: lägg tax som egen rad — enklast är att låta Stripe sköta tax via Tax Rates/Automatic Tax.
-    # I denna minimala version skippar vi tax på Stripe-sidan, och visar den bara i vårt UI.)
-
     success_url = request.build_absolute_uri(redirect("checkout:success").url) + "?session_id={CHECKOUT_SESSION_ID}"
     cancel_url = request.build_absolute_uri(redirect("checkout:cancel").url)
 
-    # 3) Skicka order-id i metadata
     session = stripe.checkout.Session.create(
         mode="payment",
         line_items=line_items,
         success_url=success_url,
         cancel_url=cancel_url,
         allow_promotion_codes=True,
-        billing_address_collection="required", # <— lägg till
+        billing_address_collection="required",
         shipping_address_collection={"allowed_countries": ["SE", "NO", "DK", "FI", "DE"]},
-        # automatic_tax={"enabled": True},  # aktivera om du konfigurerat Stripe Tax
-        customer_creation="always", # <— lägg till
+        customer_creation="always",
         metadata={"order_id": str(order.id)},
     )
 
-    # Spara session-id på ordern (hjälper på success-sidan)
     order.stripe_session_id = session.id
     order.save(update_fields=["stripe_session_id"])
-
     return redirect(session.url, permanent=False)
 
 
 def success(request):
-    # Valfritt: töm cart direkt, eller hämta session för kvitto-info
     session_id = request.GET.get("session_id")
     order = None
     if session_id:
         try:
-            session = stripe.checkout.Session.retrieve(session_id)
-            oid = session.get("metadata", {}).get("order_id")
+            sess = stripe.checkout.Session.retrieve(
+                session_id,
+                expand=[
+                    "customer", "customer_details", "shipping_details",
+                    "payment_intent", "payment_intent.charges.data",
+                ],
+            )
+            oid = (sess.get("metadata") or {}).get("order_id")
             if oid:
                 order = Order.objects.filter(id=oid).first()
-        except Exception:
-            pass
 
-    # Töm kundvagn
+            if order:
+                # Skriv in adresser här också (best effort)
+                data = _extract_addresses(sess)
+                
+                logger.warning("APPLY DBG (webhook) | order=%s | data=%s", order.id, data)
+
+                _apply_addresses(order, data)
+        except Exception:
+            logger.exception("Checkout success: could not enrich addresses")
+
     request.session["cart"] = {}
     request.session.modified = True
     return render(request, "checkout/success.html", {"order": order})
@@ -179,8 +266,6 @@ def stripe_webhook(request):
     secret = getattr(settings, "STRIPE_WEBHOOK_SECRET", "")
 
     event = None
-
-    # 1) SÄKER VÄG: verifiera signatur om secret finns
     if secret:
         try:
             event = stripe.Webhook.construct_event(payload, sig_header, secret)
@@ -191,7 +276,6 @@ def stripe_webhook(request):
             logger.exception("Stripe webhook: invalid signature")
             return HttpResponseBadRequest("Invalid signature")
     else:
-        # 2) DEV-FALLBACK (frivilligt): tillåt osignerat i DEBUG
         if settings.DEBUG:
             try:
                 event = json.loads(payload.decode("utf-8"))
@@ -199,7 +283,6 @@ def stripe_webhook(request):
                 logger.exception("DEV webhook: JSON parse error")
                 return HttpResponseBadRequest("Invalid payload (dev)")
         else:
-            # i produktion kräver vi secret
             logger.error("Stripe webhook: missing secret in production")
             return HttpResponseBadRequest("Webhook secret not configured")
 
@@ -207,8 +290,6 @@ def stripe_webhook(request):
 
     if event_type == "checkout.session.completed":
         session = event["data"]["object"]
-
-        # 1) Hitta ordern
         order_id = (session.get("metadata") or {}).get("order_id")
         if not order_id:
             return HttpResponse(status=200)
@@ -217,51 +298,14 @@ def stripe_webhook(request):
         if not order:
             return HttpResponse(status=200)
 
-        # 2) Läs ut e-post, shipping & billing från sessionen
-        cust = session.get("customer_details") or {}       # billing info & email
-        ship = session.get("shipping_details") or {}       # shipping info
-        baddr = (cust.get("address") or {})                # billing address
-        saddr = (ship.get("address") or {})                # shipping address
+        # Skriv adresser från event-session (ev. utan expand)
+        data = _extract_addresses(session)
+        
+        logger.warning("APPLY DBG (success) | order=%s | data=%s", order.id, data)
+        
+        _apply_addresses(order, data)
 
-        # Låt Stripe-e-post vinna över tidigare (t.ex. inloggad användare)
-        stripe_email = cust.get("email")
-        if stripe_email and stripe_email != order.email:
-            order.email = stripe_email
-
-        # Shipping: namn/telefon/adress (om de finns)
-        full_name = ship.get("name") or cust.get("name")
-        phone = ship.get("phone") or cust.get("phone")
-
-        order.full_name = full_name or order.full_name
-        order.phone = phone or order.phone
-        order.address_line1 = saddr.get("line1") or order.address_line1
-        order.address_line2 = saddr.get("line2") or order.address_line2
-        order.postal_code = saddr.get("postal_code") or order.postal_code
-        order.city = saddr.get("city") or order.city
-        order.country = saddr.get("country") or order.country
-
-        # Billing: spara separat
-        order.billing_name = cust.get("name") or order.billing_name
-        order.billing_line1 = baddr.get("line1") or order.billing_line1
-        order.billing_line2 = baddr.get("line2") or order.billing_line2
-        order.billing_postal = baddr.get("postal_code") or order.billing_postal
-        order.billing_city = baddr.get("city") or order.billing_city
-        order.billing_country = baddr.get("country") or order.billing_country
-
-        # Fyll fraktadress från fakturaadress om frakt är tomt:
-        if not order.address_line1 and order.billing_line1:
-            order.address_line1 = order.billing_line1
-            order.address_line2 = order.billing_line2
-            order.postal_code = order.billing_postal
-            order.city = order.billing_city
-            order.country = order.billing_country
-            order.save(update_fields=[
-                "address_line1", "address_line2", "postal_code", "city", "country"
-            ])
-
-        order.save()
-
-        # 3) Markera betald & dra lager (din befintliga logik)
+        # Markera Paid + lager
         if order.status != "paid":
             order.status = "paid"
             order.save(update_fields=["status"])
@@ -273,8 +317,9 @@ def stripe_webhook(request):
                     p.is_active = False
                 p.save(update_fields=["stock", "is_active"])
 
-        # 4) Skicka orderbekräftelse till kundens e-post
+        # Kvitto
         send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
+
     else:
         logger.info(f"Unhandled Stripe event type: {event_type}")
 
