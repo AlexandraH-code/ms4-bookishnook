@@ -13,6 +13,19 @@ def dashboard(request):
     orders = Order.objects.filter(email=request.user.email).order_by("-created")[:10]
     return render(request, "profiles/dashboard.html", {"orders": orders})
 
+@login_required
+def edit_profile(request):
+    # profile = request.user.profile
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated.")
+            return redirect("profiles:dashboard")
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, "profiles/edit_profile.html", {"form": form})
 
 @login_required
 def edit_profile(request):

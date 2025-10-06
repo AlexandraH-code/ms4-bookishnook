@@ -36,7 +36,6 @@
 </table>
 
 <div class="text-right h5">Total: {{ total|currency }}</div>
-<!--<a href="#" class="btn bn-btn-primary mt-3">Checkout</a>-->
 <a href="{% url 'checkout:start' %}" class="btn bn-btn-primary mt-3">Checkout</a>
 {% else %}
 <p>Your cart is empty.</p>

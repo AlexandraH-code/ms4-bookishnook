@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5" style="max-width:860px;">
+  <h1 class="bn-section-title mb-3">Order #{{ order.id }}</h1>
+  <p>Status: <strong>{{ order.status|capfirst }}</strong></p>
+  <h5 class="mt-3">Items</h5>
+  <ul>
+    {% for item in order.items.all %}
+      <li>{{ item.product.name }} × {{ item.qty }} — {{ item.price }}</li>
+    {% endfor %}
+  </ul>
+  <h5 class="mt-3">Totals</h5>
+  <p>Subtotal: {{ order.total }}<br>Tax: {{ order.tax_amount }}<br>Shipping: {{ order.shipping }}<br><strong>Grand total: {{ order.grand_total }}</strong></p>
+  <h5 class="mt-3">Shipping address</h5>
+  <p>
+    {% if order.full_name %}{{ order.full_name }}<br>{% endif %}
+    {{ order.address_line1 }}{% if order.address_line2 %}, {{ order.address_line2 }}{% endif %}<br>
+    {{ order.postal_code }} {{ order.city }}<br>{{ order.country }}
+    {% if order.phone %}<br>Phone: {{ order.phone }}{% endif %}
+  </p>
+</div>
+{% endblock %}

@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_countries',
+
     
     # Third-party apps
     'crispy_forms',
@@ -104,8 +105,9 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'orders',
-    'profiles',
+    # 'profiles',
     'backoffice',
+    'profiles.apps.ProfilesConfig',
 ]
 
 # Crispy forms

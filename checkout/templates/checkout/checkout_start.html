@@ -30,7 +30,7 @@
             <th class="text-right">{{ total|currency }}</th>
           </tr>
           <tr>
-            <th colspan="3" class="text-right">Tax (example)</th>
+            <th colspan="3" class="text-right">Tax</th>
             <th class="text-right">{{ tax_amount|currency }}</th>
           </tr>
           <tr>
@@ -46,9 +46,9 @@
         </tfoot>
       </table>
     </div>
-    <p class="text-muted small">
+    <!--<p class="text-muted small">
       * Moms och frakt är endast exempelvärden i detta läge.
-    </p>
+    </p>-->
   </div>
 
   <!-- Summary / Action -->
@@ -59,7 +59,7 @@
         <span>Subtotal</span><strong>{{ total|currency }}</strong>
       </div>
       <div class="d-flex justify-content-between">
-        <span>Tax (example)</span><strong>{{ tax_amount|currency }}</strong>
+        <span>Tax</span><strong>{{ tax_amount|currency }}</strong>
       </div>
       <div class="d-flex justify-content-between">
         <span>Shipping</span>

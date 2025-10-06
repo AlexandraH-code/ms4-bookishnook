@@ -1,14 +1,15 @@
+# checkout/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.db import transaction, IntegrityError
+from django.db import transaction
 from django.utils import timezone
 
 from products.models import Product
 from orders.models import Order, OrderItem, ProcessedStripeEvent
-from orders.utils import send_order_confirmation  
+from orders.utils import send_order_confirmation  # justera path om du har annan struktur
 
 from decimal import Decimal, ROUND_HALF_UP
 import stripe
@@ -290,29 +291,41 @@ def create_checkout_session(request):
 def success(request):
     session_id = request.GET.get("session_id")
     order = None
+    sess = None
+
     if session_id:
         try:
             sess = stripe.checkout.Session.retrieve(
                 session_id,
-                # INTE "shipping_details" här – det är inte expanderbart
                 expand=[
-                    "customer",
-                    "customer_details",
-                    "payment_intent",
-                    "payment_intent.charges.data",
+                    "customer", "customer_details", "shipping_details",
+                    "payment_intent", "payment_intent.charges.data",
                 ],
             )
-            oid = (getattr(sess, "metadata", {}) or {}).get("order_id") if hasattr(sess, "to_json") \
-                  else (sess.get("metadata") or {}).get("order_id")
-            if oid:
-                order = Order.objects.filter(id=oid).first()
-
-            # valfritt: försök enricha (best effort), rör inte e-post eller status här
-            # ... du kan lämna det som du har eller ta bort enrichment om du vill minimera brus
         except Exception:
-            # lugn fallback: visa bara kvittosidan
-            pass
+            logger.exception("SUCCESS: could not retrieve session")
 
+    # hitta order
+    oid = (sess.get("metadata") or {}).get("order_id") if sess else None
+    if oid:
+        order = Order.objects.filter(id=oid).first()
+
+    if not order:
+        last_id = request.session.get("last_order_id")
+        if last_id:
+            order = Order.objects.filter(id=last_id).first()
+
+    if not order and session_id:
+        order = Order.objects.filter(stripe_session_id=session_id).first()
+
+    # uppdatera kontakt + adresser + finalisera
+    if order:
+        if sess:
+            data = _extract_best_contact(sess)
+            _apply_addresses(order, data)
+        _finalize_paid(order)
+
+    # töm cart
     request.session["cart"] = {}
     request.session.modified = True
     return render(request, "checkout/success.html", {"order": order})
@@ -323,6 +336,7 @@ def cancel(request):
     return render(request, "checkout/cancel.html")
 
 
+# Hjälpare – ha den EN gång
 def _first(*vals):
     for v in vals:
         if v not in (None, "", {}):
@@ -354,23 +368,13 @@ def stripe_webhook(request):
             return HttpResponseBadRequest("Webhook secret not configured")
 
     etype = event.get("type") if isinstance(event, dict) else event["type"]
-    evt_id = event.get("id")
-
-    # --- Idempotenslager A: processa aldrig samma Stripe-event två gånger ---
-    if evt_id:
-        try:
-            ProcessedStripeEvent.objects.create(event_id=evt_id)
-        except IntegrityError:
-            # Redan processat – returnera 200 så Stripe inte re-enqueue:ar
-            return HttpResponse(status=200)
-
     if etype != "checkout.session.completed":
         return HttpResponse(status=200)
 
     raw = event["data"]["object"]
     session_id = raw.get("id")
 
-    # --- Hämta expanderad session & PI (behåll 'to_json'-vägen som gav korrekta adresser) ---
+    # --- Hämta expanderad session & PI ---
     try:
         sess = stripe.checkout.Session.retrieve(
             session_id,
@@ -382,24 +386,27 @@ def stripe_webhook(request):
                 "payment_intent.charges.data",
             ],
         )
-        sess_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
     except Exception:
-        # fallback: använd eventets objekt
-        sess_dict = raw
+        sess = raw
 
-    # --- Hitta Order ---
+    # Gör om till plain dict (vägen som fungerade hos dig)
+    sess_dict = json.loads(sess.to_json()) if hasattr(sess, "to_json") else sess
+
+    # --- Hitta order ---
     meta = sess_dict.get("metadata") or {}
     order_id = meta.get("order_id")
-    order = Order.objects.filter(id=order_id).first() if order_id else None
+    order = None
+    if order_id:
+        order = Order.objects.filter(id=order_id).first()
     if not order:
         order = Order.objects.filter(stripe_session_id=session_id).first()
     if not order:
         return HttpResponse(status=200)
 
-    # === Plocka fält (EXAKT samma prioritering som i din fungerande version) ===
+    # === Plocka ut fält ===
     customer_details = sess_dict.get("customer_details") or {}
 
-    # SHIPPING: vanlig väg eller collected_information (som i din dump)
+    # SHIPPING: normal väg eller collected_information (finns i din dump)
     shipping_details = _first(
         sess_dict.get("shipping_details"),
         (sess_dict.get("collected_information") or {}).get("shipping_details"),
@@ -413,15 +420,15 @@ def stripe_webhook(request):
     elif isinstance(pi, str):
         try:
             pi_obj = stripe.PaymentIntent.retrieve(pi, expand=["charges.data"])
-            pi_dict = json.loads(pi_obj.to_json()) if hasattr(pi_obj, "to_json") else pi_obj
-            charges = (pi_dict.get("charges") or {}).get("data") or []
+            pi = json.loads(pi_obj.to_json()) if hasattr(pi_obj, "to_json") else pi_obj
+            charges = (pi.get("charges") or {}).get("data") or []
         except Exception:
             charges = []
     ch0 = charges[0] if charges else {}
     billing_details_pi = ch0.get("billing_details") or {}
     shipping_pi = ch0.get("shipping") or {}
 
-    # Email, namn, telefon
+    # --- Email/namn/telefon ---
     email = _first(customer_details.get("email"), billing_details_pi.get("email"), order.email)
     full_name = _first(
         shipping_details.get("name"),
@@ -438,18 +445,18 @@ def stripe_webhook(request):
         order.phone,
     )
 
-    # SHIPPING = ENBART från shipping-källor
+    # --- SHIPPING = ENBART från shipping-källor ---
     saddr = _first(shipping_details.get("address"), shipping_pi.get("address")) or {}
     s_line1 = saddr.get("line1"); s_line2 = saddr.get("line2")
     s_post = saddr.get("postal_code"); s_city = saddr.get("city"); s_ctry = saddr.get("country")
 
-    # BILLING = ENBART från billing-källor
+    # --- BILLING = ENBART från billing-källor ---
     baddr = _first(customer_details.get("address"), billing_details_pi.get("address")) or {}
     b_line1 = baddr.get("line1"); b_line2 = baddr.get("line2")
     b_post = baddr.get("postal_code"); b_city = baddr.get("city"); b_ctry = baddr.get("country")
     b_name = _first(customer_details.get("name"), billing_details_pi.get("name"), full_name)
 
-    # --- Skriv ändringar (bara fält med värde) ---
+    # --- Skriv endast fält som har värden ---
     to_update = []
     
     def setif(attr, val):
@@ -470,42 +477,47 @@ def stripe_webhook(request):
     setif("country",      s_ctry)
 
     # Billing
-    setif("billing_name",    b_name)
-    setif("billing_line1",   b_line1)
-    setif("billing_line2",   b_line2)
-    setif("billing_postal",  b_post)
-    setif("billing_city",    b_city)
-    setif("billing_country", b_ctry)
+    setif("billing_name",   b_name)
+    setif("billing_line1",  b_line1)
+    setif("billing_line2",  b_line2)
+    setif("billing_postal", b_post)
+    setif("billing_city",   b_city)
+    setif("billing_country",b_ctry)
 
     if to_update:
         order.save(update_fields=to_update)
 
-    # Markera paid + dra lager
+    # Markera paid + lager (och skicka bara ett mail)
     just_paid = False
     if order.status != "paid":
         order.status = "paid"
         order.save(update_fields=["status"])
         just_paid = True
         for item in order.items.select_related("product"):
-            p: Product = item.product
+            p = item.product
             new_stock = max(0, p.stock - item.qty)
             p.stock = new_stock
             if new_stock == 0:
                 p.is_active = False
             p.save(update_fields=["stock", "is_active"])
 
-    # --- Idempotenslager B: skicka mejl exakt en gång per order ---
-    # --- PER-ORDER-spärr: skicka bara ett mejl per order ---
-    send_now = False
+    # --- Skicka orderbekräftelse exakt en gång, även om Stripe levererar eventet två gånger ---
+    # Gör en *atomisk* "claim": sätt confirmation_sent_at om och endast om den är tom.
+    rows = 0
     with transaction.atomic():
         rows = Order.objects.filter(
             pk=order.pk,
             confirmation_sent_at__isnull=True
         ).update(confirmation_sent_at=timezone.now())
-        send_now = (rows == 1)
 
-    if send_now and order.email:
+    if rows == 1:
+        # Vi “vann” racet och fick sätta tidsstämpeln → skicka mejlet nu.
         try:
             send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
         except Exception:
-            logger.exception("Failed to send confirmation email")
+            logger.exception("Failed to send order confirmation")
+    else:
+        # Någon annan process/upprepning har redan skickat
+        pass
+
+    return HttpResponse(status=200)

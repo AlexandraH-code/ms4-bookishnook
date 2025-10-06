@@ -359,7 +359,83 @@ html, body { overflow-x: hidden; }
 .bn-admin-title { font-size: 1.35rem; }
 .page-title     { font-size: 1.1rem;  } /* smaller than Backoffice-h1 */
 
-/* Media queries */ 
+
+/* ===== Links – follow the color theme ===== */
+a, .btn-link {
+  color: #5A3825;                 /* brown */
+  text-decoration: none;
+}
+a:hover, .btn-link:hover {
+  color: #A3B18A;                 /* sage/green on hover */
+  text-decoration: underline;
+}
+
+/* More specific (if you want to restrict the effect) */
+.account-page a,
+.cart-page a,
+.checkout-page a {
+  color: #5A3825;
+}
+.account-page a:hover,
+.cart-page a:hover,
+.checkout-page a:hover {
+  color: #A3B18A;
+}
+
+/* Extra: make order number in “My Account” in theme color */
+.order-number,
+.order-number a {
+  color: #5A3825;
+  font-weight: 600;
+}
+.order-number a:hover {
+  color: #A3B18A;
+}
+
+/* ==== Cart layout fix ==== */
+
+/* Add some space between quantity input and Update button */
+form[action*="cart/update"] input[type="number"] {
+  margin-bottom: 0.4rem; /* luft under fältet */
+  margin-right: 0.3rem;  /* luft till höger om fältet */
+}
+
+form[action*="cart/update"] button {
+  margin-top: 0.3rem; /* liten toppmarginal */
+}
+
+/* Make the Update button a bit like the other Bookish Nook buttons */
+.bn-btn-primary {
+  background-color: #5A3825;
+  color: #fff;
+  border: none;
+}
+.bn-btn-primary:hover {
+  background-color: #A3B18A;
+  color: #fff;
+}
+
+
+/* === Sticky footer fix === */
+/* Make sure the body fills the entire height of the window */
+html, body {
+  height: 100%;
+}
+
+/* Make the page a flex container with three parts: header (navbar), main, footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Let the main content take up all available space so the footer is pushed down */
+main {
+  flex: 1;
+}
+
+
+/* === Media queries === */ 
 
 /* Extra space on small screens for inputs/buttons so they don't "stick" together*/
 @media (max-width: 767.98px) {

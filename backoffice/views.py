@@ -8,8 +8,8 @@ from django.db.models import Q
 from django.utils import timezone
 
 from .forms import ProductForm
-from orders.models import Order  # the Order model
-from products.models import Product  # for simple lists
+from orders.models import Order 
+from products.models import Product
 
 STATUSES = [
     ("pending", "Pending"),
