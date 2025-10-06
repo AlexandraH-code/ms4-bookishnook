@@ -272,7 +272,8 @@ def create_checkout_session(request):
         cancel_url=cancel_url,
         allow_promotion_codes=True,
         billing_address_collection="required",
-        shipping_address_collection={"allowed_countries": ["SE", "NO", "DK", "FI", "DE"]},
+        # shipping_address_collection={"allowed_countries": ["SE", "NO", "DK", "FI", "DE"]},
+        shipping_address_collection={"allowed_countries": ["US", "CA", "GB", "SE", "NO", "DK", "FI", "DE", "FR", "ES", "IT", "NL", "PL", "IE", "AU", "NZ"]},
         customer_creation="always",
         phone_number_collection={"enabled": True},   # <= lägg till
         metadata={"order_id": str(order.id)},

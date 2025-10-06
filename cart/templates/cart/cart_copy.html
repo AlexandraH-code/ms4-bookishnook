@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load price_filters %}
+
+{% block title %}Your Cart – Bookish Nook{% endblock %}
+
+{% block content %}
+  <h1 class="bn-section-title mb-4">Your Cart</h1>
+
+  {% if items %}
+  <div class="bn-table-wrap table-responsive mb-3">
+    <table class="table table-striped mb-0">
+      <thead>
+        <tr>
+          <th style="width:45%">Product</th>
+          <th style="width:140px;">Qty</th>
+          <th class="text-right" style="width:15%">Price</th>
+          <th class="text-right" style="width:15%">Subtotal</th>
+          <th style="width:80px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for it in items %}
+        <tr>
+          <td class="break">
+            <a href="{{ it.product.get_absolute_url }}">{{ it.product.name }}</a>
+          </td>
+          <td>
+            <form method="post" action="{% url 'cart:update' it.product.id %}" class="form-inline">
+              {% csrf_token %}
+              <input type="number" name="qty" min="0" value="{{ it.qty }}" class="form-control mr-2" style="width:90px">
+              <button class="btn btn-sm bn-btn-primary">Update</button>
+            </form>
+          </td>
+          <td class="text-right"><span class="nowrap">{{ it.product.price|currency }}</span></td>
+          <td class="text-right"><span class="nowrap">{{ it.subtotal|currency }}</span></td>
+          <td>
+            <form method="post" action="{% url 'cart:remove' it.product.id %}">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger">Remove</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-right h5">Total: <span class="nowrap">{{ total|currency }}</span></div>
+  <a href="{% url 'checkout:start' %}" class="btn bn-btn-primary mt-3">Checkout</a>
+  {% else %}
+  <p>Your cart is empty.</p>
+  {% endif %}
+{% endblock %}

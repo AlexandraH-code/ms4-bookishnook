@@ -1,10 +1,10 @@
-/* Fonter */
+/* === General CSS === */
+/* No side scrolling on small screens */
+html, body { overflow-x: hidden; }
+
+/* Fonts */
 body { font-family: 'Lato', sans-serif; color: #333333; background-color: #FFF8F0; }
 h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', serif; }
-
-
-/* body { font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; } */
-/* h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; } */
 
 /* Palette */
 .bn-brown { background-color: #5A3825; }
@@ -22,75 +22,7 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 .bn-btn-primary:hover { background-color: #A3B18A; color: #fff; }
 
 
-/* Hero image */ 
-
-/* Hero container*/
-.bn-hero {
-  min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  background: url("/static/images/hero.jpg") center/cover no-repeat; /* dev-server */
-}
-
-/* Dark overlay that makes the text clear regardless of the image*/
-.bn-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.45)
-  );
-}
-
-/* The text box on top of the overlay */
-.bn-hero__overlay {
-  position: relative; /* ends up over ::before */
-  color: #FFF8F0;
-  text-align: center;
-  padding: 2rem;
-}
-
-/* Adjust the title */
-.bn-hero__overlay h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  margin-bottom: .5rem;
-}
-
-.bn-hero-title { font-weight: 700; }
-
-
-/* Cards startpage */ 
-
-/* Cards / categories */
-.bn-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 0.75rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-
-.bn-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-}
-
-.bn-card-img {
-  height: 180px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-
-/* Navbar */
-
+/* === Navbar === */
 /* Title in the center of the navbar */
 .bn-title { font-size: 1.4rem; font-weight: 700;}
 
@@ -165,26 +97,10 @@ h1, h2, h3, .bn-title, .bn-section-title { font-family: 'Playfair Display', seri
 }
 
 
-/* Start page */
-
-
-/* Cards on the startpage */
-.bn-card .bn-link,
-.bn-card h5,
-.bn-card h5 a {
-  color: #5A3825;
-  text-decoration: none;
-}
-.bn-card .bn-link:hover {
-  color: #3E2A20;
-  text-decoration: underline;
-}}
-
-/* Footer */
+/* === Footer === */
 footer .input-group { border:1px solid rgba(255,255,255,.3); border-radius:.25rem; background:rgba(0,0,0,.06); }
 footer .input-group .form-control, footer .input-group .btn { border:none; }
 footer .bn-h5 { margin-bottom:.5rem; }
-
 
 /* Newsletter Form - Footer  */
 .bn-newsletter {
@@ -199,8 +115,85 @@ footer .bn-h5 { margin-bottom:.5rem; }
 }
 
 
-/* Buttons product_list */ 
+/* === Start page === */
+/* Hero image */ 
+/* Hero container*/
+.bn-hero {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: url("/static/images/hero.jpg") center/cover no-repeat; /* dev-server */
+}
 
+/* Dark overlay that makes the text clear regardless of the image*/
+.bn-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)
+  );
+}
+
+/* The text box on top of the overlay */
+.bn-hero__overlay {
+  position: relative; /* ends up over ::before */
+  color: #FFF8F0;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Adjust the title */
+.bn-hero__overlay h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.bn-hero-title { font-weight: 700; }
+
+
+/* Cards/categories on the startpage */
+.bn-card .bn-link,
+.bn-card h5,
+.bn-card h5 a {
+  color: #5A3825;
+  text-decoration: none;
+}
+.bn-card .bn-link:hover {
+  color: #3E2A20;
+  text-decoration: underline;
+}}
+
+.bn-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.bn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+.bn-card-img {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+
+/* === Product list === */
+/* Buttons product_list */ 
 /* Give the “chips” (category buttons) a nice wrap + spacing */
 .bn-chipwrap {
   display: flex;
@@ -219,11 +212,21 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .bn-chip:hover { background: #EADFD7; color: #3E2A20; }
 
 
+/* === Cart ===*/
+/* little air on small/medium screens */
+.bn-table-wrap {
+  border-radius: 8px;
+  overflow: hidden; /* rounded corners for zebra rows */
+}
+
+
+/* === Modals for account creation and login === */
 /* Modals */
 #authModal .modal-content { border-radius: .75rem; overflow: hidden; }
 #authModal .close { position: absolute; right: .25rem; top: .25rem; z-index: 10; }
 
 
+/* === Backoffice CSS === */
 /* Backoffice */
 .badge { border-radius: .5rem; padding: .35em .6em; font-weight: 600; }
 
@@ -287,7 +290,6 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .status-sep { width:24px; height:2px; background:#e1e1e1; margin:0 .25rem .5rem; }
 .status-step small { color:#666; }
 
-/* --- Backoffice responsive polish ---*/
 /* ---- Backoffice header ---- */
 .bn-admin-title { font-size: 1.35rem; line-height: 1.2; }
 .page-title     { font-size: 1.1rem;  line-height: 1.2; }
@@ -351,8 +353,6 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .product-card-mobile.card { overflow: hidden; }
 
 
-/* No side scrolling on small screens */
-html, body { overflow-x: hidden; }
 
 /* Backoffice - product_form */ 
 /* Header size & air */ 
@@ -392,8 +392,8 @@ a:hover, .btn-link:hover {
   color: #A3B18A;
 }
 
-/* ==== Cart layout fix ==== */
 
+/* ==== Cart layout fix ==== */
 /* Add some space between quantity input and Update button */
 form[action*="cart/update"] input[type="number"] {
   margin-bottom: 0.4rem; /* luft under fältet */
@@ -434,7 +434,87 @@ main {
   flex: 1;
 }
 
+/* === Product list === */ 
+/* === Product grid image normalization === */
+.product-card .product-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;      /* square box */
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.product-card .product-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;       /* show the entire image */
+  display: block;
+}
+
+
+/* === Product detail === */
+/* Product detail hero image: show the FULL image and limit height */
+.product-hero-img {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;       /* stop long images from becoming huge */
+  object-fit: contain;    /* show the full image on the detail page */
+  background: #fff;
+}
+
+/* Smaller title on smaller screens */
+.product-title {
+  font-size: clamp(1.25rem, 2.5vw + 0.5rem, 2rem); /* responsive without media queries */
+}
+
+
+/* Product image standardization === */
+.product-image,
+.product-hero-img {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  aspect-ratio: 1 / 1; /* make the image square */
+  object-fit: contain; /* show the entire image, nothing is cropped */
+  background-color: #fff; /* optional, but looks nice behind transparent PNGs */
+  border-radius: 8px;
+}
+
+
+/* === Cart and Checkout === */
+/* Currencys Cart, Checkout*/
+/* Don't break numbers/currency */
+.nowrap { white-space: nowrap; }
+
+/* Only allow product names to be broken, not numbers */
+.break { word-break: break-word; overflow-wrap: anywhere; }
+
+/* Cart */
+/* table wrapper with some extra space and nice corners */
+.bn-table-wrap { border-radius: 8px; overflow: hidden; }
+.table td, .table th { vertical-align: middle; }
+
+/* mobile/tablet card for cart */
+.bn-cart-card { border-radius: 12px; }
+
+/* 2x2 grid: Qty | Price | Subtotal | Remove */
+.bn-cart-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: .75rem;
+  grid-column-gap: .75rem;
+}
+.bn-cart-meta > div { align-self: start; }
+
+
+
+
+/* ===================== */
 /* === Media queries === */ 
 
 /* Extra space on small screens for inputs/buttons so they don't "stick" together*/
@@ -454,4 +534,149 @@ main {
 }
 
 
+/* Product detail responsive tweaks */
+/* Tablets (≤ 991px) */
+@media (max-width: 991.98px) {
+  .product-hero-img { max-width: 400px; }
+  .product-title { font-size: 1.5rem; } /* ~24px */
+}
 
+/* Mobiles (≤ 575px) */
+@media (max-width: 575.98px) {
+  .product-hero-img { max-width: 280px; }
+  .product-title { font-size: 1.25rem; } /* ~20px */
+}
+
+/* Adjust prodct image size on larger screens */
+@media (min-width: 992px) {
+  .product-hero-img {
+    max-width: 500px;
+  }
+}
+
+
+/* === Product list === */ 
+
+/* Slightly larger squares on desktop */
+@media (min-width: 992px) {
+  .product-card .product-thumb { aspect-ratio: 1 / 1; }
+}
+
+
+/* === FOOTER FIX === */
+
+/* Alltid centrerat innehåll på tablet & mobil */
+@media (max-width: 991.98px) {
+  .bn-brown .row {
+    text-align: center;
+  }
+
+  .bn-brown .col-md-4 {
+    margin-bottom: 2rem;
+  }
+
+  .bn-brown .col-md-4 h5 {
+    text-align: center;
+  }
+
+  /* Se till att inputfältet inte blir för smalt */
+  .bn-brown .input-group {
+    justify-content: center;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .bn-brown .input-group .form-control {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .bn-brown .input-group-append .btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* Desktop (≥ 992px) – återställ vänsterjustering */
+@media (min-width: 992px) {
+  .bn-brown .text-md-left {
+    text-align: left;
+  }
+}
+
+/* === Cart === */
+/* tablet: give a little more space to the numbers */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .bn-cart-meta {
+    grid-template-columns: 1.2fr 1fr 1fr 1fr; /* Qty wider */
+  }
+}
+
+/* desktop: border margins are already available via container, but add some extra air on small screens */
+@media (max-width: 991.98px) {
+  .bn-table-wrap { margin-right: .25rem; }
+}
+
+
+
+/* === Checkout table mobile fix === */
+@media (max-width: 575.98px) {
+  .bn-checkout-table {
+    width: 100%;
+    table-layout: fixed;        /* lock column widths */
+    font-size: 0.9rem;
+    margin: 0;                  /* avoid spilling outside the container */
+  }
+  .bn-checkout-table th,
+  .bn-checkout-table td {
+    padding: .5rem .35rem;      /* a little tighter */
+    vertical-align: middle;
+    overflow: hidden;           /* prevent spills */
+  }
+
+/* Column widths that sum to 100% and allow space for amounts */
+  .bn-col-product { width: 52%; }
+  .bn-col-qty     { width: 14%; text-align: center; }
+  .bn-col-price   { width: 17%; text-align: right; }
+  .bn-col-subtot  { width: 17%; text-align: right; }
+
+/* Product names may be broken/ellipticized – amounts never */
+  .bn-checkout-table .break {
+    display: block;
+    word-break: break-word;
+    hyphens: auto;
+    text-overflow: ellipsis;
+  }
+  .bn-checkout-table .nowrap {
+    white-space: nowrap;
+    font-size: 0.9rem;          /* slightly smaller so 279.00 SEK fits */
+  }
+}
+
+/* make sure the table is in a responsive wrapper */
+.table-responsive {
+  overflow-x: auto;
+}
+
+
+/* === Product list === */
+
+/* Product grid image height by breakpoint (product_list)*/
+@media (max-width: 575.98px) {  /* phones */
+  .bn-card-img { height: 140px; }
+}
+@media (min-width: 576px) and (max-width: 991.98px) { /* tablets */
+  .bn-card-img { height: 160px; }
+}
+/* 992px+ = your existing 180px is fine */
+
+/* === Section titles mobiles === */
+/* Smaller section titles on mobile */
+@media (max-width: 575.98px) {
+  .bn-section-title { font-size: 1.5rem; }
+}
+
+
+/* === Cart === */
+@media (max-width: 991.98px) {
+  .bn-table-wrap { margin-right: .25rem; }
+}

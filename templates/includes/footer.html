@@ -2,7 +2,7 @@
   <div class="container text-center text-md-left">
     <div class="row">
       <!-- Quick links -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 col-lg-4 mb-3 mb-lg-0">
         <h5 class="bn-h5">Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="{% url 'about' %}" class="text-light">About Us</a></li>
@@ -12,7 +12,7 @@
       </div>
 
       <!-- Newsletter -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 col-lg-4 mb-3 mb-lg-0"">
         <h5 class="bn-h5">Newsletter</h5>
         <form id="footerNewsletterForm" action="{% url 'newsletter_subscribe' %}" method="post" class="mt-2" novalidate>
           {% csrf_token %}
@@ -27,7 +27,7 @@
       </div>
 
       <!-- Social media links -->
-      <div class="col-md-4 mb-3 text-center">
+      <div class="col-12 col-lg-4 text-center">
         <h5 class="bn-h5">Follow Us</h5>
           <a href="https://www.instagram.com/" class="text-light mx-2" target="_blank" rel="noopener" aria-label="Link to Instagram (opens in new tab)">
             <i class="fab fa-instagram"></i> Instagram
