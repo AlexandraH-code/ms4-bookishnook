@@ -3,8 +3,39 @@ from django.core.mail import EmailMultiAlternatives
 from django.urls import reverse
 from django.conf import settings
 
+"""
+Utilities for the Home app (newsletter-related email helpers).
+"""
+
 
 def send_newsletter_confirmation(subscriber, request):
+    """
+    Send the double opt-in confirmation email for a newsletter subscription.
+
+    Builds absolute confirm/unsubscribe URLs from the current request, renders
+    subject/text/HTML templates, and sends a multipart email to the subscriber.
+
+    Args:
+        subscriber (home.models.NewsletterSubscriber): The subscriber receiving the email.
+        request (django.http.HttpRequest): Used to construct absolute URLs
+            for confirmation and unsubscribe links.
+
+    Templates used:
+        - emails/newsletter_confirm_subject.txt
+        - emails/newsletter_confirm.txt
+        - emails/newsletter_confirm.html
+
+    From address:
+        Uses `settings.DEFAULT_FROM_EMAIL` as the sender.
+
+    Returns:
+        None
+
+    Raises:
+        Any exception from the email backend if sending fails
+        (because `fail_silently=False` is used).
+    """
+
     confirm_url = request.build_absolute_uri(
         reverse("newsletter_confirm", args=[subscriber.confirm_token])
     )

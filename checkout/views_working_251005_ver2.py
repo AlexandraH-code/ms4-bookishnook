@@ -304,7 +304,7 @@ def success(request):
                 ],
             )
             oid = (getattr(sess, "metadata", {}) or {}).get("order_id") if hasattr(sess, "to_json") \
-                  else (sess.get("metadata") or {}).get("order_id")
+                else (sess.get("metadata") or {}).get("order_id")
             if oid:
                 order = Order.objects.filter(id=oid).first()
 

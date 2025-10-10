@@ -58,23 +58,16 @@ def env_list(name: str, default: str = ""):
     return vals
 
 
-# ---- Hosts / CSRF ----
-ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "127.0.0.1,localhost")
-
-CSRF_TRUSTED_ORIGINS = []
-for v in env_list("CSRF_TRUSTED_ORIGINS", ""):
-    if "://" not in v:
-        v = f"https://{v}"
-    CSRF_TRUSTED_ORIGINS.append(v)
+DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 if DEBUG:
-    # ensures local values ​​when running dev
-    for h in ("127.0.0.1", "localhost"):
-        if h not in ALLOWED_HOSTS:
-            ALLOWED_HOSTS.append(h)
-    for o in ("http://127.0.0.1:8000", "http://localhost:8000"):
-        if o not in CSRF_TRUSTED_ORIGINS:
-            CSRF_TRUSTED_ORIGINS.append(o)
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://localhost:8000"]
+else:
+    # Prod-läge lokalt – tillåt exakt dessa
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://localhost:8000"]
+
 
 
 # Application definition
@@ -347,3 +340,6 @@ LOGGING = {
         "checkout": {"handlers": ["console"], "level": "INFO", "propagate": True},
     },
 }
+
+TEST_RUNNER = "django.test.runner.DiscoverRunner"
+# TEST_DISCOVER_PATTERN = "test*.py"

@@ -12,13 +12,35 @@ from .models import NewsletterSubscriber
 from products.models import Category
 from .utils import send_newsletter_confirmation
 
+"""
+Public-facing views for the Home app.
+
+Includes:
+- Homepage/landing and static pages (About, FAQ, Reviews).
+- Newsletter double opt-in flow (subscribe, confirm, unsubscribe).
+- Contact form handling with simple rate limiting.
+"""
+
 
 # Create your views here.
 def index(request):
+    """
+    Minimal index view (alias of the homepage template).
+    """
+
     return render(request, 'home/index.html')
 
 
 def home(request):
+    """
+    Render the homepage with up to four featured or fallback root categories
+    and an empty newsletter form.
+
+    Selection logic:
+      1) Try to show up to 4 categories marked as featured (ordered).
+      2) If fewer than 4, fill the remaining slots with top-level categories.
+    """
+
     qs = Category.objects.filter(is_active=True)
 
     featured = list(
@@ -27,7 +49,7 @@ def home(request):
           .select_related("parent")[:4]
     )
 
-    # Fyll på med root-kategorier om färre än 4 är markerade
+    # Fill in root categories if fewer than 4 are selected
     if len(featured) < 4:
         exclude_ids = [c.id for c in featured]
         filler = list(
@@ -44,14 +66,31 @@ def home(request):
 
 
 def about(request):
+    """
+    Render a simple static 'About Us' page.
+    """
+   
     return render(request, "home/about.html")
-   
-   
+  
+  
 def contact(request):
+    """
+    Display and process the contact form.
+
+    POST:
+        - Validates form.
+        - Applies a naive rate limit: 5 messages per 10 minutes per IP.
+        - Sends an email to site admin (from DEFAULT_FROM_EMAIL).
+        - Shows success/failure messages and redirects back to the contact page.
+
+    GET:
+        - Renders the contact form.
+    """
+
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            # rate limit (5 försök/10 min per IP)
+            # rate limit (5 attempts/10 min per IP)
             ip = request.META.get("REMOTE_ADDR", "unknown")
             key = f"contact_rate:{ip}"
             count = cache.get(key, 0)
@@ -83,27 +122,44 @@ def contact(request):
 
 
 def faq(request):
+    """
+    Render the FAQ page.
+    """
+    
     return render(request, "home/faq.html")
-
-
-def reviews(request):
-    return render(request, "home/reviews.html")
 
 
 @require_POST
 def subscribe_newsletter(request):
+    """
+    Subscribe an email address to the newsletter (AJAX-only).
+
+    Behavior:
+        - Validates email with `NewsletterForm`.
+        - Creates or fetches a `NewsletterSubscriber`.
+        - Resets unsubscribe/confirmed flags if previously unsubscribed.
+        - Ensures tokens exist and, if not confirmed, sends a confirmation email
+          and returns a JSON response indicating double opt-in is required.
+        - If already confirmed, returns a JSON response indicating no action needed.
+
+    Returns:
+        JsonResponse with:
+          { ok: bool, created: bool, requires_confirmation?: bool, already_confirmed?: bool }
+        and HTTP 400 with { error: "..."} on invalid input.
+    """
+
     form = NewsletterForm(request.POST)
     if not form.is_valid():
         return JsonResponse({"ok": False, "error": "Please enter a valid email."}, status=400)
 
     email = form.cleaned_data["email"]
     sub, created = NewsletterSubscriber.objects.get_or_create(email=email)
-    # Återaktivera om de tidigare avregistrerat sig
+    # Reactivate if they previously unsubscribed
     if sub.unsubscribed:
         sub.unsubscribed = False
         sub.confirmed = False
 
-    # Tokens + skicka bekräftelse om ej confirmed
+    # Tokens + send confirmation if not confirmed
     sub.ensure_tokens(save=True)
     if not sub.confirmed:
         send_newsletter_confirmation(sub, request)
@@ -111,11 +167,21 @@ def subscribe_newsletter(request):
         sub.save(update_fields=["confirm_sent_at", "unsubscribed", "confirmed"])
         return JsonResponse({"ok": True, "created": created, "requires_confirmation": True})
 
-    # Redan klar sedan tidigare
+    # Already confirmed earlier
     return JsonResponse({"ok": True, "created": False, "already_confirmed": True})
 
 
 def newsletter_confirm(request, token):
+    """
+    Confirm a newsletter subscription via token (double opt-in).
+
+    Args:
+        token (str): The confirmation token sent to the subscriber.
+
+    Returns:
+        Rendered confirmation page; sets `confirmed=True` and timestamp if needed.
+    """
+
     sub = get_object_or_404(NewsletterSubscriber, confirm_token=token, unsubscribed=False)
     if not sub.confirmed:
         sub.confirmed = True
@@ -125,6 +191,16 @@ def newsletter_confirm(request, token):
 
 
 def newsletter_unsubscribe(request, token):
+    """
+    Unsubscribe a newsletter subscriber via token.
+
+    Args:
+        token (str): The unsubscribe token sent to the subscriber.
+
+    Returns:
+        Rendered unsubscribe page; sets `unsubscribed=True` and `confirmed=False`.
+    """
+
     sub = get_object_or_404(NewsletterSubscriber, unsubscribe_token=token)
     if not sub.unsubscribed:
         sub.unsubscribed = True

@@ -1,41 +1,27 @@
 from django.test import TestCase
 from django.urls import reverse
-from products.models import Category
+from django.core import mail
 
 
-class HomeViewsTests(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        # Några kategorier för startsidans “featured”
-        cls.c1 = Category.objects.create(
-            name="Bookmarks", slug="bookmarks", is_active=True, featured_order=2
-        )
-        cls.c2 = Category.objects.create(
-            name="Book Sleeves", slug="book-sleeves", is_active=True, featured_order=1
-        )
-        # En inaktiv kategori ska inte visas
-        cls.c3 = Category.objects.create(
-            name="Hidden", slug="hidden", is_active=False, featured_order=3
-        )
+class NewsletterTests(TestCase):
+    def test_subscribe_flow(self):
+        res = self.client.post(reverse("newsletter_subscribe"), {"email": "user@example.com"},
+                               HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(res.json()["requires_confirmation"])
+        # an email is sent
+        self.assertEqual(len(mail.outbox), 1)
 
-    def test_home_status_and_template(self):
-        url = reverse("home:index")  # byt till din url-name
-        resp = self.client.get(url)
-        self.assertEqual(resp.status_code, 200)
-        # self.assertTemplateUsed(resp, "home/index.html")
+    def test_contact_form_rate_limit(self):
+        url = reverse("contact")
+        payload = {"name": "A", "email": "a@a.com", "message": "hi"}
 
-    def test_home_featured_categories_present_and_sorted(self):
-        url = reverse("home:index")
-        resp = self.client.get(url)
+        # 5 attempts allowed
+        for _ in range(5):
+            res = self.client.post(url, payload, follow=True)
+            self.assertEqual(res.status_code, 200)
 
-        # Justera om din context key heter något annat (t.ex. 'featured_cats')
-        featured = resp.context.get("featured_categories")
-        self.assertIsNotNone(featured)
-
-        # Inaktiva kategorier ska inte vara med
-        self.assertIn(self.c1, featured)
-        self.assertIn(self.c2, featured)
-        self.assertNotIn(self.c3, featured)
-
-        # Sortering enligt featured_order (c2=1 före c1=2)
-        self.assertEqual(list(featured), [self.c2, self.c1])
+        # 6th -> rate limited + redirect back to contact
+        res = self.client.post(url, payload, follow=True)  # <— follow redirect
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, "Too many messages")

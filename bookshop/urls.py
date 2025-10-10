@@ -20,6 +20,10 @@ from django.contrib import admin
 from django.urls import path, include
 from home.views import index
 
+# handler404 = "django.views.defaults.page_not_found"
+# handler500 = "django.views.defaults.server_error"
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls")),
@@ -34,3 +38,9 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# def boom(request): raise Exception("boom")
+
+
+# urlpatterns += [path("boom/", boom)]

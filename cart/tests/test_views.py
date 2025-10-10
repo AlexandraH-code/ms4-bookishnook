@@ -1,30 +1,26 @@
 from django.test import TestCase
 from django.urls import reverse
 from products.models import Category, Product
-from decimal import Decimal
 
 
-class CartFlowTests(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.cat = Category.objects.create(name="Bookmarks", slug="bookmarks", is_active=True)
-        cls.prod = Product.objects.create(
-            name="Tab Bookmark", slug="tab-bookmark", price=Decimal("29.00"),
-            category=cls.cat, is_active=True
-        )
-        cls.add_url = reverse("cart:add", args=[cls.prod.id])
-        cls.view_url = reverse("cart:view")
-        cls.remove_url = reverse("cart:remove", args=[cls.prod.id])
-        # ev. update_url = reverse("cart:update", args=[cls.prod.id])
+class CartViewTests(TestCase):
+    def setUp(self):
+        cat = Category.objects.create(name="TestCat", slug="testcat")
+        self.p = Product.objects.create(category=cat, name="P1", price=100, stock=5, slug="p1")
 
-    def test_add_and_view_cart(self):
-        resp = self.client.post(self.add_url, {"quantity": 2}, follow=True)
-        self.assertEqual(resp.status_code, 200)
-        resp2 = self.client.get(self.view_url)
-        self.assertContains(resp2, "Tab Bookmark")
+    def test_add_to_cart(self):
+        res = self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 2})
+        self.assertRedirects(res, self.p.get_absolute_url())
+        self.assertEqual(self.client.session["cart"][str(self.p.id)], 2)
+
+    def test_update_cart(self):
+        self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 1})
+        res = self.client.post(reverse("cart:update", args=[self.p.id]), {"qty": 3})
+        self.assertRedirects(res, reverse("cart:view"))
+        self.assertEqual(self.client.session["cart"][str(self.p.id)], 3)
 
     def test_remove_from_cart(self):
-        self.client.post(self.add_url, {"quantity": 1})
-        resp = self.client.post(self.remove_url, follow=True)
-        self.assertEqual(resp.status_code, 200)
-        self.assertNotContains(resp, "Tab Bookmark")
+        self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 1})
+        res = self.client.get(reverse("cart:remove", args=[self.p.id]))
+        self.assertRedirects(res, reverse("cart:view"))
+        self.assertNotIn(str(self.p.id), self.client.session["cart"])
