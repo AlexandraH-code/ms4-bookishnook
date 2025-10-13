@@ -15,6 +15,7 @@ Developer - Alexandra Holstensson
     - [**User Stories - Administrator(s)**](#user-stories---administrators)
 4. [**Database Models Overview And Entity Relationship Diagram (ERD)**](#4-database-models-overview-and-entity-relationship-diagram-erd)
     - [**Database Models Overview**](#database-models-overview)
+        - [**Explanation of how the models are connected to each other**](#explanation-of-how-the-models-are-connected-to-each-other)
     - [**Entity Relationship Diagram (ERD)**](#entity-relationship-diagram-erd)
 5. [**Agile Methodology**](#5-agile-methodology)
     - [**User Story Prioritization - MoSCoW Method**](#user-story-prioritization---moscow-method)
@@ -315,13 +316,39 @@ Description of the models that I use in my project.
         - 1–1 → Profile (your app).
         - 1–* → Address (one user can have multiple addresses (for example, different shipping and billing addresses)).
 
+#### Explanation of how the models are connected to each other
+
+The database design of Bookish Nook supports the complete shopping flow, from product browsing to checkout and order management.
+
+- **Products & Categories**
+    - Products are organized into a hierarchical category tree. Each Category can have child categories, featured ordering, and an optional image. A Product belongs to one category and contains details such as name, description, price, stock, and image. This structure ensures products can be browsed both by category and through search/sorting.
+- **Orders & Checkout**
+    - An Order represents a completed purchase. It stores customer contact details, shipping and billing addresses, totals, and payment status. Each order has multiple OrderItems, which snapshot the product’s name, price, and quantity at the time of purchase. This ensures historical accuracy even if a product is later updated or removed.
+    - The checkout process integrates with Stripe for secure payments. To prevent duplicate side effects from Stripe retrying the same webhook multiple times, the ProcessedStripeEvent model tracks each processed event ID. This guarantees that order confirmations, stock updates, and payment status changes are executed only once, maintaining data consistency and reliability.
+- **Profiles & Addresses**
+    - Each User automatically gets a linked Profile, which holds extended information such as full name, phone number, and newsletter preferences. Users can also save multiple Address entries (shipping/billing), which makes repeat purchases faster and more convenient.
+- **Newsletter Subscribers**
+    - The NewsletterSubscriber model manages opt-in/opt-out states for visitors who want to receive newsletters. It supports a double opt-in workflow using confirmation and unsubscribe tokens, ensuring compliance with best practices for email marketing.
+- **User (Django auth)**
+    - Django’s built-in User model is extended through Profile and Address. Authentication is handled with email-based login, and users can view/edit their profile, orders, and addresses via the frontend.
+
+Together, these models form a consistent flow:
+User → Profile & Addresses → Products (via Category) → Cart → Order & OrderItems → ProcessedStripeEvent (webhook protection).
+This allows both customers and administrators to interact with the store efficiently, while maintaining data integrity and scalability.
 
 
 ### Entity Relationship Diagram (ERD)
 
-I used [drawDB](https://www.drawdb.app/) to create an Entity Relationship Diagram (ERD). The relationships between the tables are drawn. The About and ContactRequest tables are completely independent (they have no connection to any other table). A picture of the ERD is below.
+I used [diagrams](https://app.diagrams.net/) to create an Entity Relationship Diagram (ERD). The relationships between the models are drawn.
 
-![Image of Entity Relationship Diagram (ERD)](docs/images/ERD/TheBookWorm'sPlace_ERD_2025-06-20_small.png)
+Two of the models differ from the others:
+ - The Newsletter model is completely independent, it has no connection to any other model. 
+ - The ProcessedStripeEvent model belongs to the webhook flow but is not directly connected to the Order model with FK (Foreign Key.
+
+![Image of Entity Relationship Diagram (ERD)](docs/images/erd/bookish_nook_erd3.drawio.png)
+
+The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio.png
+
 
 ## 5. Agile Methodology
 [Back To The Top](#table-of-contents)
