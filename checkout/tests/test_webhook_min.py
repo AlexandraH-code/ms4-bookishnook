@@ -3,6 +3,7 @@ from django.urls import reverse
 import json
 from orders.models import Order
 
+
 class WebhookSmokeTests(TestCase):
     def setUp(self):
         self.order = Order.objects.create(status="pending", grand_total=100)

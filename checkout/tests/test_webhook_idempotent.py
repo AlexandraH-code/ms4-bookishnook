@@ -13,7 +13,10 @@ class WebhookIdempotencyTests(TestCase):
         self.order = Order.objects.create(status="pending", grand_total=123)
 
     def _event_payload(self):
-        """Minimum payload that your webhook code can handle, without it needing to call the Stripe API (pi is dict, not str)."""
+        """
+        Minimum payload that your webhook code can handle, without it needing to call the Stripe API (pi is dict, not str).
+        """
+        
         return {
             "id": "evt_test_123",
             "type": "checkout.session.completed",

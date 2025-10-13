@@ -6,7 +6,10 @@ from unittest.mock import patch
 
 @override_settings(STRIPE_WEBHOOK_SECRET="")  # so signature is not required in test
 class WebhookMiscTests(TestCase):
-    """ Ignore irrelevant Stripe events """
+    """
+    Ignore irrelevant Stripe events.
+    """
+    
     def test_non_checkout_event_is_ignored(self):
         event = {
             "id": "evt_xxx",
@@ -23,7 +26,10 @@ class WebhookMiscTests(TestCase):
 
 @override_settings(STRIPE_WEBHOOK_SECRET="")
 class WebhookUnknownOrderIdTests(TestCase):
-    """ Unknown order_id (no DB hit), return 200 without crashing """
+    """
+    Unknown order_id (no DB hit), return 200 without crashing.
+    """
+    
     @patch("checkout.views.stripe.checkout.Session.retrieve", return_value={"id": "cs_123"})
     def test_unknown_order_returns_200(self, _mock):
         event = {

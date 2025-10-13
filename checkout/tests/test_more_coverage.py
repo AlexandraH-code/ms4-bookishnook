@@ -18,6 +18,7 @@ class CheckoutExtraCoverageTests(TestCase):
         which in turn (with empty cart) redirects to cart:view.
         We follow the entire redirect chain and verify the end.
         """
+        
         res = self.client.get(reverse("checkout:create_session"), follow=True)
         # Check the redirect chain (2 hops)
         expected_chain = [
@@ -40,16 +41,20 @@ class CheckoutExtraCoverageTests(TestCase):
 
     def test_success_without_session_param_renders_ok(self):
         """
-       /checkout/success/ without session_id should still render a page (200).
+        /checkout/success/ without session_id should still render a page (200).
         We test status + that the correct template is used, instead of text content.
         """
+        
         res = self.client.get(reverse("checkout:success"))
         self.assertEqual(res.status_code, 200)
         self.assertTemplateUsed(res, "checkout/success.html")
 
 
 class WebhookEmailGuardTests(TestCase):
-    """Cover the per-order idempotence: if confirmation_sent_at is set, no email should be sent."""
+    """
+    Cover the per-order idempotence: if confirmation_sent_at is set, no email should be sent.
+    """
+    
     def setUp(self):
         self.order = Order.objects.create(
             status="paid", email="x@example.com",

@@ -7,7 +7,10 @@ from checkout.views import _apply_addresses, _finalize_paid
 
 class ApplyAddressesUnitTests(TestCase):
     def test_only_non_empty_values_are_saved(self):
-        """ _apply_addresses only sets non-empty fields """
+        """
+        _apply_addresses only sets non-empty fields.
+        """
+        
         o = Order.objects.create(status="pending", grand_total=0)
         data = {
             "email": "a@b.com",
@@ -35,7 +38,10 @@ class ApplyAddressesUnitTests(TestCase):
 
 
 class FinalizePaidUnitTests(TestCase):
-    """ _finalize_paid is idempotent and pulls layers once """
+    """
+    _finalize_paid is idempotent and pulls layers once.
+    """
+    
     def setUp(self):
         cat = Category.objects.create(name="C", slug="c")
         self.p = Product.objects.create(category=cat, name="P", price=100, stock=5, slug="p")

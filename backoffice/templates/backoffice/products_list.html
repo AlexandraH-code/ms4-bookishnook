@@ -57,6 +57,10 @@
             </div>
             <div class="small text-monospace text-break">{{ p.slug }}</div>
 
+            <div class="small text-muted">
+              Stock: {{ p.stock }}
+            </div>
+
             <div class="mt-2 d-flex align-items-center flex-wrap">
               {% if p.is_active %}
                 <span class="badge badge-success mr-2 mb-2">Active</span>
@@ -108,7 +112,14 @@
   <table class="table table-sm table-hover">
     <thead class="thead-light">
       <tr>
-        <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Active</th><th>Created</th><th></th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Active</th>
+        <th>Created</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -127,6 +138,7 @@
         </td>
         <td class="text-break">{{ p.category.name }}</td>
         <td>{{ p.price }}</td>
+        <td>{{ p.stock }}</td>
         <td>
           {% if p.is_active %}
             <span class="badge badge-success">Yes</span>

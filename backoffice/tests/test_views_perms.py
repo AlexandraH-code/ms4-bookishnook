@@ -5,22 +5,41 @@ from orders.models import Order
 
 
 User = get_user_model()
+"""
+Backoffice permissions and basic visibility tests.
+"""
 
 
 class BackofficePermTests(TestCase):
+    """
+    Verify that only staff can access backoffice and pages render expected content.
+    """
+    
     def setUp(self):
+        """
+        Create a staff user, a normal user, and a couple of orders to surface statuses.
+        """
+        
         self.staff = User.objects.create_user(username="staff", email="s@example.com", password="x", is_staff=True)
         self.user = User.objects.create_user(username="u", email="u@example.com", password="x")
         Order.objects.create(status="pending", grand_total=10)
         Order.objects.create(status="paid", grand_total=20)
 
     def test_non_staff_redirected(self):
+        """
+        Non-staff users are redirected when accessing backoffice endpoints.
+        """
+
         self.client.login(username="u", password="x")
         for name in ["backoffice:dashboard", "backoffice:orders_list", "backoffice:products_list"]:
             res = self.client.get(reverse(name))
             self.assertIn(res.status_code, (302, 301))
 
     def test_staff_can_access(self):
+        """
+        Staff user can open backoffice pages and sees basic order statuses.
+        """
+        
         self.client.login(username="staff", password="x")
         res = self.client.get(reverse("backoffice:dashboard"))
         self.assertEqual(res.status_code, 200)

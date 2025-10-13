@@ -12,19 +12,28 @@ class CartViewExtraTests(TestCase):
         self.p = Product.objects.create(category=cat, name="P1", price=99, stock=5, slug="p1")
 
     def test_view_cart_empty(self):
-        """Empty shopping cart should display the text 'Your cart is empty.'"""
+        """
+        Empty shopping cart should display the text 'Your cart is empty.'
+        """
+        
         res = self.client.get(reverse("cart:view"))
         self.assertContains(res, "Your cart is empty.")
 
     def test_add_to_cart_non_post_redirects(self):
-        """GET mot add ska bara redirecta och inte ändra vagnen."""
+        """
+        GET mot add ska bara redirecta och inte ändra vagnen.
+        """
+        
         url = reverse("cart:add", args=[self.p.id])
         res = self.client.get(url)
         self.assertRedirects(res, reverse("cart:view"))
         self.assertEqual(self.client.session.get("cart", {}), {})
 
     def test_update_cart_to_zero_removes_item(self):
-        """qty=0 ska ta bort varan från vagnen."""
+        """
+        qty=0 ska ta bort varan från vagnen.
+        """
+        
         # insert first
         self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 2})
         # update to 0
@@ -33,7 +42,10 @@ class CartViewExtraTests(TestCase):
         self.assertNotIn(str(self.p.id), self.client.session.get("cart", {}))
 
     def test_view_cart_totals_and_render(self):
-        """Display name + total cost (sum of subtotals)."""
+        """
+        Display name + total cost (sum of subtotals).
+        """
+        
         # add two different rows (same product twice for simplicity)
         self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 1})
         self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 2})
@@ -46,7 +58,10 @@ class CartViewExtraTests(TestCase):
         self.assertContains(res, expected_str)
 
     def test_messages_on_add_and_remove(self):
-        """Check that flash messages are set on add/remove."""
+        """
+        Check that flash messages are set on add/remove.
+        """
+        
         # add
         res = self.client.post(reverse("cart:add", args=[self.p.id]), {"qty": 1}, follow=True)
         messages = [m.message for m in get_messages(res.wsgi_request)]

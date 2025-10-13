@@ -177,30 +177,145 @@ Create a demand for book accessories and make money selling these products.
 ## 4. Database Models Overview And Entity Relationship Diagram (ERD)
 [Back To The Top](#table-of-contents)
 ### Database Models Overview
-Description of the models I use on the website.
+Description of the models that I use in my project.
 
-* User (django-allauth) – login with email.
-* Profile – OneToOne to User (name, phone, addresses, etc.).
-* Category – hierarki (parent/child) + slug, featured_order, image.
-* Product – belongs to Category; name, slug, price, image, is_active.
-* Order – connected to User (or nullable), totals, status, shipping/billing address, Stripe field.
-* OrderItem – line in an Order; product, quantity, price_each.
-* NewsletterSubscriber – e-mail, confirmed, confirm_token.
-* ContactMessage – from contact form; name, email, subject, message, created.
+- **App:** home
+    - **Model name:**
+        - NewsletterSubscriber
+- **App:** orders
+    - **Model names:**
+        - Order
+        - OrderItem
+        - ProcessedStripeEvent
+- **App:** products
+    - **Model names:**
+        - Category
+        - Product
+- **App:** profiles
+    - **Model names:**
+        - Profile
+        - Address
 
-- **User Model (Django built-in)** - (Right now I only use the username, email and password fields.)
-  - Handles authentication and user information.
-  - Fields (standard):
-    - username (CharField): Unique username for login
-    - email (EmailField): User’s email address
-    - password (CharField): Hashed password
-    - first_name, last_name (CharField): Optional names
-    - is_staff, is_superuser, is_active (BooleanField): Admin and access control flags
-    - date_joined (DateTimeField): When the user registered
-  - Relationships:
-    - One-to-many with BlogPost (a user can create many books if extended)
-    - One-to-many with Comment (user can write multiple comments)
-    - One-to-many with StarRating (user can submit multiple ratings)
+
+- **home**
+    - **NewsletterSubscriber**
+        - **Purpose:** Manages newsletter subscribers including double opt-in and unsubscribe.
+        - **Fields:**
+            - email (EmailField, unique): Subscriber's email address
+            - created_at (DateTime): When the record was created.
+            - confirmed (Boolean): If the email address has been confirmed.
+            - confirm_token (CharField, idx): Token for confirmation link.
+            - confirm_sent_at / confirmed_at (DateTime): Dispatch and confirmation time.
+            - unsubscribed (Boolean): Deregistered.
+            - unsubscribe_token (CharField, idx): Token for unsubscribe link.
+        - **Relations:** -    
+        - **Note:** _Supports double opt-in flow (submit/validate token)._
+
+
+- **orders**
+    - **Order**
+        - **Purpose:** Represents a placed order and its totals/status.
+        - **Fields:**
+            - created / updated (DateTime): Timestamps.
+            - email (EmailField, null=True): Customer's email (may reflect user's).
+            - total (Decimal): Subtotal (possibly excluding tax/shipping).
+            - shipping (Decimal): Shipping cost.
+            - tax_amount (Decimal): VAT/tax.
+            - grand_total (Decimal): Final amount.
+            - status (CharField): "pending" | "paid" | "cancelled".
+            - stripe_session_id (CharField, null=True): Reference to Stripe session.
+            - Shipping fields: full_name, phone, address_line1/2, postal_code, city, country (ISO2).
+            - Billing fields: billing_name, billing_line1/2, billing_postal, billing_city, billing_country.
+        - **Relations:**
+            - items (OrderItem*): Lines in the order.
+        - **Note:** _The status is updated via checkout/webhook. Total reflects cart at time of purchase._
+    - **OrderItem**
+        - **Purpose:** A single line in an order (snapshot of product + price at purchase).
+        - **Fields:**
+            - order (FK Order, CASCADE): Related orders.
+            - product (FK Product, PROTECT): Referenced product.
+            - name (CharField): Product name (copied for history).
+            - unit_price (Decimal): Price per piece (snapshot).
+            - qty (PositiveInteger): Quantity.
+            - subtotal (Decimal): The row total (qty × unit_price).
+        - **Relations:** product → Product, order → Order.
+    - **ProcessedStripeEvent**
+        - **Purpose:** Prevent duplicate side effects from Stripe (idempotence protection).
+        - **Fields:**
+            - event_id (Char, unique): The Stripe event ID.
+            - created_at (DateTime, auto_now_add): When the event was marked as processed.
+        - **Relations:** - (detached from other models; used by the webhook)
+
+
+- **products**
+    - **Category**
+        - **Purpose:** Hierarchical product categories (root + subcategories).
+        - **Fields:**
+            - name (CharField), slug (SlugField): Name/slug.
+            - parent (FK Category, null=True): For tree/nesting.
+            - is_active (Boolean): Shown/hidden
+            - is_featured (Boolean): If it should be displayed on the home page.
+            - featured_order (PositiveInteger): Sorting on the home page (lowest first).
+            - description (TextField): Description.
+            - image (ImageField, null=True): Category image (S3 in production).
+        - **Relations:**
+            - children (Reverse FK Category): Subcategories.
+            - products (Reverse FK Product): Products in the category.
+    - **Product**
+        - **Purpose:** Salable product in the store.
+        - **Fields:**
+            - category (FK Category, PROTECT): Category.
+            - name (CharField), slug (SlugField, unique): Name/unique slug (can be auto-slugged).
+            - description (Text): Description.
+            - price (Decimal): Price.
+            - image (ImageField, null=True): Product image (S3 in production).
+            - is_active (Boolean): Shown/hidden in lists.
+            - stock (PositiveInteger): Stock.
+            - created/updated (DateTime): Timestamps.
+        - **Relations:**
+            - category → Category, is used by OrderItem.
+
+
+- **profiles**
+    - **Profile**
+        - **Purpose:** Extended user information (customer data/newsletter).
+        - **Field:**
+            - user (OneToOne User): Connection to auth-user.
+            - full_name (CharField), phone (CharField): Contact.
+            - newsletter_opt_in (Boolean): Consent for the newsletter.
+        - **Relations:** 
+            - user → User.
+        - **Note:** _Often created/maintained via signal at User creation._
+    - **Address**
+        - **Purpose:** Saved addresses per user (e.g. shipping/billing).
+        - **Fields:**
+            - user (FK User, CASCADE): Owner.
+            - kind (CharField): Address Type (e.g. "shipping"|"billing").
+            - full_name, phone (CharField): Contact field.
+            - line1/line2 (CharField): Address lines.
+            - postal_code (CharField), city (CharField), country (CharField, ISO2): City/country.
+            - is_default (Boolean): Default address for selected type.
+        - **Relations:**
+            - user → User. Multiple addresses per user.
+
+
+- **User (Django auth.User)**
+    - **Purpose:** Built-in user model for authentication/permissions.
+    - **Fields (common and important):**
+        - username (Char, unique, required): Inloggnings-ID (if you have not changed to custom user).
+        - password (Char, required): Hashed password (Django PBKDF2/Argon2 etc.).
+        - email (Email): User's email (can be unique if set).
+        - first_name, last_name (Char): Name field (optional).
+        - is_active (Bool, default=True): If the account is active.
+        - is_staff (Bool): Access to Django admin.
+        - is_superuser (Bool): Full permissions.
+        - last_login (DateTime): Last login.
+        - date_joined (DateTime, auto): When the account was created.
+    - **Relations:**
+        - 1–1 → Profile (your app).
+        - 1–* → Address (one user can have multiple addresses (for example, different shipping and billing addresses)).
+
+
 
 ### Entity Relationship Diagram (ERD)
 

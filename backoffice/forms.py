@@ -12,7 +12,7 @@ class ProductForm(forms.ModelForm):
     Form for creating and editing `Product` instances.
 
     Fields:
-        category, name, slug, description, price, image, is_active
+        category, name, slug, description, price, image, stock, is_active
 
     Behavior:
         - Automatically generates a slug from `name` if not provided.
@@ -25,7 +25,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["category", "name", "slug", "description", "price", "image", "is_active"]
+        fields = ["category", "name", "slug", "description", "price", "image", "stock", "is_active"]
         widgets = {"description": forms.Textarea(attrs={"rows": 4})}
 
     def clean_slug(self):

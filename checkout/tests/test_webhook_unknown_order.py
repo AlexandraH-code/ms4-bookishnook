@@ -4,7 +4,9 @@ from django.urls import reverse
 
 
 class WebhookUnknownOrderTests(TestCase):
-    """If the webhook receives an unknown order_id, nothing should happen but 200 will be returned."""
+    """
+    If the webhook receives an unknown order_id, nothing should happen but 200 will be returned.
+    """
 
     def test_unknown_order_id(self):
         event = {

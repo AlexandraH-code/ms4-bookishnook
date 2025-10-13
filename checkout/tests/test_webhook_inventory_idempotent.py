@@ -5,8 +5,11 @@ from django.urls import reverse
 from products.models import Category, Product
 from orders.models import Order, OrderItem
 
+
 class WebhookInventoryIdempotentTests(TestCase):
-    """The same event twice should not draw stock more than once and only send an email."""
+    """
+    The same event twice should not draw stock more than once and only send an email.
+    """
 
     def setUp(self):
         c = Category.objects.create(name="C", slug="c")
