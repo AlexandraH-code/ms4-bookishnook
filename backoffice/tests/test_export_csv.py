@@ -16,7 +16,7 @@ class ExportCSVTests(TestCase):
         """
         No staff downloading CSV should get a 302 redirect.
         """
-        
+
         self.client.login(username="u", password="p")
         res = self.client.get(reverse("backoffice:orders_export_csv"))
         self.assertEqual(res.status_code, 302)
@@ -25,10 +25,9 @@ class ExportCSVTests(TestCase):
         """
         Staff gets 200 + Content-Disposition: attachment and column headings in the first row.
         """
-        
+
         self.client.login(username="s", password="p")
         res = self.client.get(reverse("backoffice:orders_export_csv"))
         self.assertEqual(res.status_code, 200)
         self.assertIn('attachment; filename="orders.csv"', res.get("Content-Disposition", ""))
-        # small sanity: first line should contain column names
         self.assertIn("id,email,status,total", res.content.decode("utf-8").splitlines()[0])

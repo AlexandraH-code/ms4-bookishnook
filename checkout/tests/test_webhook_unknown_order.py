@@ -2,6 +2,10 @@ import json
 from django.test import TestCase
 from django.urls import reverse
 
+"""
+Unknown order id path should be a no-op with 200 response.
+"""
+
 
 class WebhookUnknownOrderTests(TestCase):
     """
@@ -9,12 +13,15 @@ class WebhookUnknownOrderTests(TestCase):
     """
 
     def test_unknown_order_id(self):
+        """
+        Posting an event for non-existing order returns 200 without side effects.
+        """
+
         event = {
             "id": "evt_x",
             "type": "checkout.session.completed",
             "data": {"object": {"id": "cs_x", "metadata": {"order_id": "999999"}}},
         }
-        # Our view accepts unsigned in DEBUG/with empty secret
         with self.settings(STRIPE_WEBHOOK_SECRET=""):
             res = self.client.post(
                 reverse("checkout:webhook"),

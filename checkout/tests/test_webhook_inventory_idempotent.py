@@ -5,13 +5,21 @@ from django.urls import reverse
 from products.models import Category, Product
 from orders.models import Order, OrderItem
 
+"""
+Idempotency around inventory deduction when webhook repeats.
+"""
+
 
 class WebhookInventoryIdempotentTests(TestCase):
     """
-    The same event twice should not draw stock more than once and only send an email.
+    Stock should be decremented exactly once for the same webhook event.
     """
 
     def setUp(self):
+        """
+        Create product, order, and one order item with qty=2.
+        """
+
         c = Category.objects.create(name="C", slug="c")
         self.prod = Product.objects.create(category=c, name="P", slug="p", price=100, stock=5)
         self.order = Order.objects.create(status="pending", grand_total=100, email="buyer@example.com")
@@ -26,7 +34,6 @@ class WebhookInventoryIdempotentTests(TestCase):
                     "metadata": {"order_id": str(self.order.id)},
                     "customer_details": {"email": "buyer@example.com", "name": "Buyer",
                                          "address": {"line1":"L1","postal_code":"123","city":"C","country":"SE"}},
-                    # minimi-PI för att din vy ska hitta email om den vill
                     "payment_intent": {"charges":{"data":[{"billing_details":{"email":"buyer@example.com"}}]}},
                 }
             }
@@ -34,8 +41,11 @@ class WebhookInventoryIdempotentTests(TestCase):
 
     @patch("checkout.views.stripe.checkout.Session.retrieve", side_effect=Exception("skip external call"))
     def test_stock_deducted_once(self, _mock):
+        """
+        Post same event twice → stock reduced once and stays constant afterwards.
+        """
+
         with self.settings(STRIPE_WEBHOOK_SECRET=""):
-            # first delivery
             res1 = self.client.post(reverse("checkout:webhook"),
                                     data=json.dumps(self.event),
                                     content_type="application/json")
@@ -43,12 +53,11 @@ class WebhookInventoryIdempotentTests(TestCase):
             self.prod.refresh_from_db()
             self.order.refresh_from_db()
             self.assertEqual(self.order.status, "paid")
-            self.assertEqual(self.prod.stock, 3)  # 5 - 2
+            self.assertEqual(self.prod.stock, 3)
 
-            # repeat the same event-id → your code should protect via ProcessedStripeEvent
             res2 = self.client.post(reverse("checkout:webhook"),
                                     data=json.dumps(self.event),
                                     content_type="application/json")
             self.assertEqual(res2.status_code, 200)
             self.prod.refresh_from_db()
-            self.assertEqual(self.prod.stock, 3)  # unchanged
+            self.assertEqual(self.prod.stock, 3)

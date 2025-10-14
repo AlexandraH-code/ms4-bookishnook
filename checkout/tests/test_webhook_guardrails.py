@@ -5,16 +5,23 @@ from unittest.mock import patch
 import stripe
 import json
 
+"""
+Guardrails for Stripe webhook: signatures, event types, and debug network calls.
+"""
+
 
 class WebhookGuardrailTests(TestCase):
     """
-    Incorrect signature → 400
+    Verify signature errors become 400 and debug path avoids network calls.
     """
-    
+
     @override_settings(STRIPE_WEBHOOK_SECRET="whsec_dummy")
     @patch("stripe.Webhook.construct_event")
     def test_bad_signature_returns_400(self, mock_construct):
-        # simulate Stripe verification failing
+        """
+        If Stripe signature verification fails, return 400.
+        """
+
         mock_construct.side_effect = stripe.error.SignatureVerificationError(
             "bad", http_body="", sig_header=None
         )
@@ -29,11 +36,15 @@ class WebhookGuardrailTests(TestCase):
 
 class WebhookOtherEventTests(TestCase):
     """
-    Non-relevant event → 200 (no-op)
+    Non-target event types should be treated as no-ops.
     """
-    
+
     @override_settings(STRIPE_WEBHOOK_SECRET="")
     def test_non_checkout_event_is_noop(self):
+        """
+        Webhook returns 200 with no side effects for unrelated event types.
+        """
+
         event = {"type": "payment_intent.succeeded", "data": {"object": {}}}
         res = self.client.post(
             reverse("checkout:webhook"),
@@ -41,16 +52,20 @@ class WebhookOtherEventTests(TestCase):
             content_type="application/json",
         )
         self.assertEqual(res.status_code, 200)
-     
+
 
 class WebhookDebugPathTests(TestCase):
     """
-    DEBUG path: no network calls
+    In DEBUG (and empty secret), we should not hit Stripe network APIs.
     """
-    
+
     @override_settings(DEBUG=True, STRIPE_WEBHOOK_SECRET="")
     @patch("stripe.checkout.Session.retrieve")
     def test_debug_uses_raw_payload_no_network_calls(self, mock_retrieve):
+        """
+        Webhook should rely on raw payload only in debug path.
+        """
+
         o = Order.objects.create(status="pending", grand_total=100)
         event = {
             "type": "checkout.session.completed",

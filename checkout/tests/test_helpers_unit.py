@@ -4,13 +4,21 @@ from orders.models import Order, OrderItem
 from products.models import Category, Product
 from checkout.views import _apply_addresses, _finalize_paid
 
+"""
+Focused unit tests for _apply_addresses and _finalize_paid idempotency.
+"""
+
 
 class ApplyAddressesUnitTests(TestCase):
+    """
+    Ensure address helpers only write meaningful values to the model.
+    """
+
     def test_only_non_empty_values_are_saved(self):
         """
-        _apply_addresses only sets non-empty fields.
+        Empty strings/None should not overwrite existing nullable fields.
         """
-        
+
         o = Order.objects.create(status="pending", grand_total=0)
         data = {
             "email": "a@b.com",
@@ -39,24 +47,31 @@ class ApplyAddressesUnitTests(TestCase):
 
 class FinalizePaidUnitTests(TestCase):
     """
-    _finalize_paid is idempotent and pulls layers once.
+    _finalize_paid should be safe to call multiple times.
     """
-    
+
     def setUp(self):
+        """
+        Create product+order with two purchased units.
+        """
+
         cat = Category.objects.create(name="C", slug="c")
         self.p = Product.objects.create(category=cat, name="P", price=100, stock=5, slug="p")
         self.o = Order.objects.create(status="pending", grand_total=100, email="x@y.z")
         OrderItem.objects.create(order=self.o, product=self.p, name="P", unit_price=100, qty=2, subtotal=200)
 
     def test_finalize_paid_is_idempotent(self):
+        """
+        Second call to _finalize_paid must not re-deduct stock nor send another email.
+        """
+
         _finalize_paid(self.o)
         self.o.refresh_from_db(); self.p.refresh_from_db()
         self.assertEqual(self.o.status, "paid")
         self.assertEqual(self.p.stock, 3)  # 5 - 2
 
-        # Run again → no more stock deductions, but no crashes
         prev_outbox = len(mail.outbox)
         _finalize_paid(self.o)
         self.o.refresh_from_db(); self.p.refresh_from_db()
         self.assertEqual(self.p.stock, 3)
-        self.assertEqual(len(mail.outbox), prev_outbox)  # no extra emails in our implementation
+        self.assertEqual(len(mail.outbox), prev_outbox)

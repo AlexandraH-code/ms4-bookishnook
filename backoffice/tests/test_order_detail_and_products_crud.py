@@ -14,13 +14,13 @@ class BackofficeDetailAndCrudTests(TestCase):
     """
     Ensure order status transitions and product create/edit/delete flows work.
     """
-    
+
     @classmethod
     def setUpTestData(cls):
         """
         Seed staff user, category/product, and a pending order.
         """
-        
+
         cls.staff = User.objects.create_user(username="s", password="x", is_staff=True)
         cls.cat = Category.objects.create(name="Cat", slug="cat")
         cls.prod = Product.objects.create(category=cls.cat, name="P1", slug="p1", price=100, stock=10)
@@ -30,14 +30,14 @@ class BackofficeDetailAndCrudTests(TestCase):
         """
         Log in staff before each test.
         """
-        
+
         self.client.login(username="s", password="x")
 
     def test_order_detail_mark_paid_changes_status(self):
         """
         Posting 'mark_paid' transitions the order to PAID and redirects back.
         """
-        
+
         url = reverse("backoffice:order_detail", args=[self.order.id])
         res = self.client.post(url, {"action": "mark_paid"})
         self.assertRedirects(res, url)
@@ -48,7 +48,7 @@ class BackofficeDetailAndCrudTests(TestCase):
         """
         Orders list supports filtering by status and searching by email.
         """
-        
+
         Order.objects.create(email="x@example.com", status="paid", total=10, grand_total=10)
         Order.objects.create(email="y@example.com", status="processing", total=20, grand_total=20)
         url = reverse("backoffice:orders_list")
@@ -63,7 +63,7 @@ class BackofficeDetailAndCrudTests(TestCase):
         """
         Products list supports active filter and search results.
         """
-        
+
         Product.objects.create(category=self.cat, name="Searchable", slug="search", price=50, stock=1, is_active=False)
         url = reverse("backoffice:products_list")
         res = self.client.get(url, {"q": "Search"})
@@ -76,7 +76,7 @@ class BackofficeDetailAndCrudTests(TestCase):
         """
         Create → edit → delete product roundtrip with redirects and persisted changes.
         """
-        
+
         create_url = reverse("backoffice:product_create")
         res = self.client.post(create_url, {
             "category": self.cat.id,

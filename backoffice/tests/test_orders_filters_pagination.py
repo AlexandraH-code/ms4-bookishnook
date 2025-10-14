@@ -10,9 +10,7 @@ class BackofficeOrdersFiltersPaginationTests(TestCase):
     """
 
     def setUp(self):
-        # staff-user
         self.staff = User.objects.create_user(username="s", password="p", is_staff=True)
-        # 25 orders: 15 paid + 10 pending
         for i in range(15):
             Order.objects.create(status="paid", email=f"paid{i}@ex.com")
         for i in range(10):
@@ -22,20 +20,18 @@ class BackofficeOrdersFiltersPaginationTests(TestCase):
         """
         Filter status=paid shows the correct subset (all 15 on page 1).
         """
-        
+
         self.client.login(username="s", password="p")
         res = self.client.get(reverse("backoffice:orders_list"), {"status": "paid"})
         self.assertEqual(res.status_code, 200)
-        # First page shows max 20 but we have 15 paid → all are visible
         self.assertEqual(len(res.context["orders"]), 15)
 
     def test_search_by_email(self):
         """
         Searching for exact email returns that particular order item.
         """
-        
+
         self.client.login(username="s", password="p")
-        # Search for an exact email address we know exists
         target = "paid12@ex.com"
         res = self.client.get(reverse("backoffice:orders_list"), {"q": target})
         self.assertEqual(res.status_code, 200)
@@ -47,7 +43,7 @@ class BackofficeOrdersFiltersPaginationTests(TestCase):
         """
         Page 1 shows a maximum of 20 orders.
         """
-        
+
         self.client.login(username="s", password="p")
         res = self.client.get(reverse("backoffice:orders_list"))
         self.assertEqual(res.status_code, 200)
@@ -57,9 +53,8 @@ class BackofficeOrdersFiltersPaginationTests(TestCase):
         """
         Page 2 shows the remaining (25 total => 5 left).
         """
-        
+
         self.client.login(username="s", password="p")
         res = self.client.get(reverse("backoffice:orders_list"), {"page": 2})
         self.assertEqual(res.status_code, 200)
-        # 25 total → page 1 (20) + page 2 (5)
         self.assertEqual(len(res.context["orders"]), 5)

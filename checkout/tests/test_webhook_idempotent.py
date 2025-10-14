@@ -5,18 +5,29 @@ from django.core import mail
 from unittest.mock import patch
 from orders.models import Order
 
+"""
+Idempotency: same event twice should not duplicate emails/stock changes.
+"""
 
-@override_settings(STRIPE_WEBHOOK_SECRET="")  # let the webhook take unsigned events in test
+
+@override_settings(STRIPE_WEBHOOK_SECRET="")
 class WebhookIdempotencyTests(TestCase):
+    """
+    Posting the same JSON twice should be a no-op on the second call.
+    """
+
     def setUp(self):
-        # Minimal pending-order
+        """
+        Create a minimal pending order to be flipped to paid.
+        """
+
         self.order = Order.objects.create(status="pending", grand_total=123)
 
     def _event_payload(self):
         """
-        Minimum payload that your webhook code can handle, without it needing to call the Stripe API (pi is dict, not str).
+        Return a realistic checkout.session.completed payload with inline PI dict.
         """
-        
+
         return {
             "id": "evt_test_123",
             "type": "checkout.session.completed",
@@ -30,7 +41,7 @@ class WebhookIdempotencyTests(TestCase):
                         "address": {"line1": "Road 1", "postal_code": "111 22", "city": "Town", "country": "SE"},
                         "phone": "+46123456",
                     },
-                    # Make payment_intent a DICT so the code doesn't try to retrieve from Stripe
+
                     "payment_intent": {
                         "charges": {
                             "data": [
@@ -45,7 +56,7 @@ class WebhookIdempotencyTests(TestCase):
                             ]
                         }
                     },
-                    # If your code looks here sometimes:
+
                     "collected_information": {
                         "shipping_details": {
                             "name": "Buyer Name",
@@ -58,10 +69,13 @@ class WebhookIdempotencyTests(TestCase):
 
     @patch("stripe.checkout.Session.retrieve", side_effect=Exception("skip external call"))
     def test_event_processed_once_and_single_email(self, _mock_sess_retrieve):
+        """
+        Two identical posts → 200 both times; only one email and order paid once.
+        """
+
         url = reverse("checkout:webhook")
         payload = json.dumps(self._event_payload())
 
-        # Post the SAME event twice – only give ONE email
         res1 = self.client.post(url, data=payload, content_type="application/json")
         res2 = self.client.post(url, data=payload, content_type="application/json")
         self.assertEqual(res1.status_code, 200)
@@ -71,6 +85,5 @@ class WebhookIdempotencyTests(TestCase):
         self.assertEqual(self.order.status, "paid")
         self.assertEqual(self.order.email, "buyer@example.com")
 
-        # Exactly one dispatch (the webhook is idempotent)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("order", mail.outbox[0].subject.lower())

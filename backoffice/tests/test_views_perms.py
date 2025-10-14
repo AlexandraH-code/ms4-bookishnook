@@ -14,12 +14,12 @@ class BackofficePermTests(TestCase):
     """
     Verify that only staff can access backoffice and pages render expected content.
     """
-    
+
     def setUp(self):
         """
         Create a staff user, a normal user, and a couple of orders to surface statuses.
         """
-        
+
         self.staff = User.objects.create_user(username="staff", email="s@example.com", password="x", is_staff=True)
         self.user = User.objects.create_user(username="u", email="u@example.com", password="x")
         Order.objects.create(status="pending", grand_total=10)
@@ -39,7 +39,7 @@ class BackofficePermTests(TestCase):
         """
         Staff user can open backoffice pages and sees basic order statuses.
         """
-        
+
         self.client.login(username="staff", password="x")
         res = self.client.get(reverse("backoffice:dashboard"))
         self.assertEqual(res.status_code, 200)

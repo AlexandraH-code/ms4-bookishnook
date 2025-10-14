@@ -421,6 +421,13 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 [Back To The Top](#table-of-contents)
 ### User Story Prioritization - MoSCoW Method
 
+To use efficient time management and focus on important features during development, the MoSCoW methodology was used to prioritize stories.
+
+Each feature was classified as a **Must Have**, **Should Have**, **Could Have**, or **Won't Have (This Iteration)**, based on its importance to the project's core functionality, user experience, and technical feasibility.
+
+This methodology helped maintain a clear development plan and ensured that all critical e-commerce and user management features were implemented within the scope, with enhancements or optional functionality added.
+
+
 **Must Have**
 | User Story                                                                                      | Feature / Area   | Status |
 | ----------------------------------------------------------------------------------------------- | ---------------- | ------ |
@@ -437,6 +444,7 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 | As a customer, I can safely go to the checkout so that I can complete my purchase. | Shopping Cart And Checkout | ✅ Done |
 | As a customer, I can receive an order confirmation so that I know that my purchase has gone through. | Shopping Cart And Checkout | ✅ Done |
 
+---
 
 **Should Have**
 | User Story                                                                     | Feature / Area       | Status |
@@ -449,6 +457,7 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 | As a visitor to the website, I can add my email address so that I can receive a newsletter with information about new products, offers, etc. | Newsletter And Contact | ✅ Done |
 | As a visitor to the site, I would like to be able to fill out a contact form so that I can get in touch with the webshop owner. | Newsletter And Contact | ✅ Done |
 
+---
 
 **Could Have**
 | User Story                                                                             | Feature / Area      | Status              |
@@ -459,7 +468,7 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 | As the administrator of the webshop, I can edit product information so that I can keep it up to date. | Site Administration | ✅ Done |
 | As the administrator of the webshop, I can manage placed orders so that I can process customers' purchases. | Site Administration | ✅ Done |
 
-
+---
 
 **Won’t Have (This Iteration)**
 | User Story                                                                        | Feature / Area | Status                               |
@@ -472,17 +481,20 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 | As a registered user on the website, I would like to be able to edit my wish list so that I can remove products (or a wishlist) that I am no longer interested in. | Product Wishlist Functionality | 🚫 Deferred (planned future feature) |
 | As a registered user on the website, I want to be able to share my wishlist, for example via e-mail or social media, so that I can easily let others know what I want for example as a birthday present, Christmas present etc. | Product Wishlist Functionality | 🚫 Deferred (planned future feature) |
 
+---
 
 ### Kanban Workflow
 
-I have used a Kanban board to structure the work on the website. In the Kanban board, I have chosen to divide all tasks (issues) into three different stages:
+I have used a Kanban board to structure the work on the website. In the Kanban board, I have chosen to divide all tasks (issues) into four different stages:
 
-ToDo - Features that I plan to add to the website.
-Won’t Have This Iteration - Features that are not added in this version of the website, but may be added in a future version.
-In Progress - Features that I am currently working on.
-Done - Features that are complete and that work as they should.
+* **To Do** – Features or tasks planned for implementation.
+* **In Progress** – Currently being developed or tested.
+* **Done** – Completed and merged features.
+* **Won’t Have (This Iteration)** – Deferred features are considered outside the scope of the current version.
 
-Link to the project [Kanban Board](https://github.com/users/AlexandraH-code/projects/12/views/1) - add link to kanban board
+Link to the project **[Kanban Board](https://github.com/users/AlexandraH-code/projects/12/views/1)** - add link to kanban board
+
+---
 
 ## 6. Design Of The Website
 [Back To The Top](#table-of-contents)
@@ -749,6 +761,9 @@ The project uses two complementary Google Fonts:
 ## 8. Features Left To Implement
 [Back To The Top](#table-of-contents)
 In addition to the features that are currently added to the website, I have come up with some other features that could be added in the future. I have divided the features into Features Left To Implement - Site Visitors and Features Left To Implement - Administrator(s).
+
+---
+
 ### Features Left To Implement - Site Visitors
 ### Features Left To Implement - Administrator(s)
 
@@ -778,6 +793,16 @@ In addition to the features that are currently added to the website, I have come
 #### Test - View/Show Orders
 #### Test - Update Order Details
 ### Automated Testing
+
+**Test Style & Docstrings**
+All tests have short, descriptive docstrings (in English) that explain the purpose and most important assertions. The focus is on critical flows (cart → checkout → webhook → email), access/authorization, validation, and UI rendering.
+
+**Coverage**
+Total coverage ~93% (checkout ~88%, backoffice ~89%). Deliberately excluded are parts that require external network calls (Stripe) in production mode — these are tested via “debug/dev path” and mocking for idempotence and error handling.
+
+The Coverage report can be found here (open the file in a browser): /docs/coverage_report/index.html
+
+---
 
 ## 11. Bugs And Problems
 [Back To The Top](#table-of-contents)

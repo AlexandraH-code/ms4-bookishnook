@@ -14,19 +14,16 @@ class BackofficeAuthTests(TestCase):
 
     def test_dashboard_requires_staff(self):
         """
-        Anon → 302, not logged in staff → 302, staff → 200.
+        Anonymous → 302, not logged in staff → 302, staff → 200.
         """
-        
-        # Anonymous user → redirect (302) to login
+
         res = self.client.get(reverse("backoffice:dashboard"))
         self.assertEqual(res.status_code, 302)
 
-        # Logged in but not staff → still redirect (302)
         self.client.login(username="u", password="p")
         res = self.client.get(reverse("backoffice:dashboard"))
         self.assertEqual(res.status_code, 302)
 
-        # Staff → 200 OK
         self.client.login(username="s", password="p")
         res = self.client.get(reverse("backoffice:dashboard"))
         self.assertEqual(res.status_code, 200)
