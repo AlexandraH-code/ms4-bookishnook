@@ -5,6 +5,8 @@ Developer - Alexandra Holstensson
 
 ![Image Of The Site - Am I Responsive](docs/images/am_i_responsive/am_I_responsive_small.png)
 
+---
+
 ## [Table of Contents](#table-of-contents)
 1. [**About**](#1-about)
 2. [**User Goals**](#2-user-goals)
@@ -12,10 +14,17 @@ Developer - Alexandra Holstensson
     - [**Site Owner Goals**](#site-owner-goals)
 3. [**User Stories**](#3-user-stories)
     - [**User Stories - Site Visitors**](#user-stories---site-visitors)
+        - [**Epic 1: User Account Management**](#epic-1-user-account-management)
+        - [**Epic 2: Product Browsing And Search**](#epic-2-product-browsing-and-search)
+        - [**Epic 3: Shopping Cart And Checkout**](#epic-3-shopping-cart-and-checkout)
+        - [**Epic 4: Product Ratings And Reviews**](#epic-4-product-rating-and-reviews)
+        - [**Epic 5: Product Wishlist Functionality**](#epic-5-product-wishlist-functionality)
+        - [**Epic 6: Newsletter And Contact**](#epic-6-newsletter-and-contact)
     - [**User Stories - Administrator(s)**](#user-stories---administrators)
+        - [**Epic 7: Site Administration**](#epic-7-site-administration)
 4. [**Database Models Overview And Entity Relationship Diagram (ERD)**](#4-database-models-overview-and-entity-relationship-diagram-erd)
     - [**Database Models Overview**](#database-models-overview)
-        - [**Explanation of how the models are connected to each other**](#explanation-of-how-the-models-are-connected-to-each-other)
+        - [**Explanation Of How The Models Are Connected To Each Other**](#explanation-of-how-the-models-are-connected-to-each-other)
     - [**Entity Relationship Diagram (ERD)**](#entity-relationship-diagram-erd)
 5. [**Agile Methodology**](#5-agile-methodology)
     - [**User Story Prioritization - MoSCoW Method**](#user-story-prioritization---moscow-method)
@@ -39,7 +48,7 @@ Developer - Alexandra Holstensson
         - [**View/Show Products**](#viewshow-products)
         - [**Buy Product**](#buy-product)
         - [**View And Edit User Details**](#view-and-edit-user-details)
-        - [**View Orders and Order Details**](#view-orders-and-order-details)
+        - [**View Orders And Order Details**](#view-orders-and-order-details)
     - [**Existing Features - Administrator(s)**](#existing-features---administrators)
         - [**View/Show Products**](#viewshow-products-1)
         - [**Add Product**](#add-product)
@@ -64,7 +73,7 @@ Developer - Alexandra Holstensson
         - [**Test - View/Show Products**](#test---viewshow-products)
         - [**Test - Buy Product**](#test---buy-product)
         - [**Test - View And Edit User Details**](#test---view-and-edit-user-details)
-        - [**Test - View Orders and Order Details**](#test---view-orders-and-order-details)
+        - [**Test - View Orders And Order Details**](#test---view-orders-and-order-details)
     - [**Manual Testing - Administrator(s)**](#manual-testing---administrators)
         - [**Test - View/Show Products**](#test---viewshow-products-1)
         - [**Test - Add Product**](#test---add-product)
@@ -89,12 +98,16 @@ Developer - Alexandra Holstensson
     - [**Remote Deployment**](#remote-deployment)
 17. [**Credits**](#17-credits)
 
+--- 
+
 ## 1. About
 [Back To The Top](#table-of-contents)
 
 Bookish Nook is made as part (Milestone Project 4) of the Level 5 Diploma in Web Application Development course at Code Institute.
 
 Bookish Nook is a webshop that sells book accessories such as bookmarks, book sleeves, reading lights, bookends, stickers & sticky tabs, and smaller notebooks & pens.
+
+---
 
 ## 2. User Goals
 [Back To The Top](#table-of-contents)
@@ -110,6 +123,7 @@ Visitors/users can view and, if they want to, purchase book accessories.
 * Subscribe to newsletter (with double opt-in).
 * Contact the store via the contact form.
 
+---
 ### Site Owner Goals
 Create a demand for book accessories and make money selling these products.
 
@@ -118,6 +132,7 @@ Create a demand for book accessories and make money selling these products.
 * See dashboard for quick mode (latest orders, totals).
 * Switch the email list (Newsletter).
 * Run stable operations with S3 (media), Postgres and Heroku.
+---
 
 ## 3. User Stories
 [Back To The Top](#table-of-contents)
@@ -134,7 +149,7 @@ Create a demand for book accessories and make money selling these products.
 * **View Order History**
     * As a user, I can view my order history so that I can track my purchases.
 
-#### **Epic 2: Product Browsing and Search**
+#### **Epic 2: Product Browsing And Search**
 * **Display All Products**
     * As a customer, I can see all products so that I can browse the available items.
 * **Search For Products**
@@ -146,7 +161,7 @@ Create a demand for book accessories and make money selling these products.
 * **See Detailed Product Information**
     * As a customer, I can see detailed information about products so that I can make informed purchases.
 
-#### **Epic 3: Shopping Cart and Checkout**
+#### **Epic 3: Shopping Cart And Checkout**
 * **Adding Items To Cart**
     * As a customer, I can add products to my shopping cart so that I can purchase multiple items.
 * **Change The Quantity Of An Item**
@@ -156,16 +171,36 @@ Create a demand for book accessories and make money selling these products.
 * **Receive An Order Confirmation Sent Via Email**
     * As a customer, I can receive an order confirmation so that I know that my purchase has gone through.
 
-#### **Epic 4: Product Reviews**
-* **Leave Product Reviews**
-    * As a registered user on the website, I can leave reviews about products so that I can share my experiences.
+#### **Epic 4: Product Rating And Reviews**
+* **See Other Customers' Ratings**
+    * As a customer, I can see how other customers have rated a product so that I can see what they think about a product that I might be thinking of buying.
 * **Rate Products**
     * As a registered user, I can rate products so that I can give my opinion about them.
 * **Read Other Customers' Reviews**
     * As a customer, I can read other customers' reviews and ratings of products so that I can make informed decisions.
+* **Leave Product Reviews**
+    * As a registered user on the website, I can leave reviews about products so that I can share my experiences.
+
+#### **Epic 5: Product wishlist functionality**
+* **Add Products To Wishlist**
+    * As a registered user of the website, I would like to be able to add products that I like to my/a wishlist so that I can more easily see which products have interested me.
+* **Edit Wishlist**
+    * As a registered user on the website, I would like to be able to edit my wish list so that I can remove products (or a wishlist) that I am no longer interested in.
+* **Share Wishlist With Others**
+    * As a registered user on the website, I want to be able to share my wishlist, for example via e-mail or social media, so that I can easily let others know what I want for example as a birthday present, Christmas present etc.
+
+#### **Epic 6: Newsletter And Contact**
+* **Register To Receive Newsletters**
+    * As a visitor to the website, I can add my email address so that I can receive a newsletter with information about new products, offers, etc.
+* **Contact The Webshop Owner**
+    * As a visitor to the site, I would like to be able to fill out a contact form so that I can get in touch with the webshop owner.. 
+
+---
 
 ### User Stories - Administrator(s)
-#### **Epic 5: Site Administration**
+#### **Epic 7: Site Administration**
+* **View All Products**
+    * As the owner of the webshop, I can display a product list so that I can easily see all the webshop's products and their status.
 * **Add New Products**
     * As the administrator of the webshop, I can add new products so that I can expand the assortment.
 * **Update Product Details**
@@ -175,6 +210,7 @@ Create a demand for book accessories and make money selling these products.
 * **Manage Order Status**
     * As the owner of the webshop, I can manage placed orders so that I can process customers' purchases
 
+---
 ## 4. Database Models Overview And Entity Relationship Diagram (ERD)
 [Back To The Top](#table-of-contents)
 ### Database Models Overview
@@ -316,7 +352,9 @@ Description of the models that I use in my project.
         - 1–1 → Profile (your app).
         - 1–* → Address (one user can have multiple addresses (for example, different shipping and billing addresses)).
 
-#### Explanation of how the models are connected to each other
+---
+
+#### Explanation Of How The Models Are Connected To Each Other
 
 The database design of Bookish Nook supports the complete shopping flow, from product browsing to checkout and order management.
 
@@ -336,28 +374,104 @@ Together, these models form a consistent flow:
 User → Profile & Addresses → Products (via Category) → Cart → Order & OrderItems → ProcessedStripeEvent (webhook protection).
 This allows both customers and administrators to interact with the store efficiently, while maintaining data integrity and scalability.
 
+---
 
 ### Entity Relationship Diagram (ERD)
 
 I used [diagrams](https://app.diagrams.net/) to create an Entity Relationship Diagram (ERD). The relationships between the models are drawn.
 
-Two of the models differ from the others:
- - The Newsletter model is completely independent, it has no connection to any other model. 
- - The ProcessedStripeEvent model belongs to the webhook flow but is not directly connected to the Order model with FK (Foreign Key.
+The ERD illustrates how the models in Bookish Nook are connected:
+
+- **User (Django auth)**
+    - One-to-One → Profile (each user has one profile)
+    - One-to-Many → Address (each user can store multiple addresses)
+- **Profile**
+    - Extends the built-in User with extra information (full name, phone, newsletter opt-in).
+- **Address**
+    - Belongs to a User.
+    - Can represent both billing and shipping addresses (kind field).
+- **Category**
+    - Can have a parent category (self-referential relationship).
+    - One-to-Many → Product (each category can contain many products).
+- **Product**
+    - Belongs to a single Category.
+    - One-to-Many → OrderItem (a product can appear in many order items).
+- **Order**
+    - Contains customer details, shipping, billing, and totals.
+    - One-to-Many → OrderItem (each order contains one or more order items).
+- **OrderItem**
+    - Belongs to one Order.
+    - Linked to a Product (with product name/price stored as snapshot).
+- **NewsletterSubscriber**
+    - Independent model.
+    - Stores email, confirmation tokens, and unsubscribe status.
+- **ProcessedStripeEvent**
+    - Belongs to the webhook flow but is not directly connected to the Order model with FK (Foreign Key).
+---
+
+**Image of Entity Relationship Diagram (ERD)**
 
 ![Image of Entity Relationship Diagram (ERD)](docs/images/erd/bookish_nook_erd3.drawio.png)
 
 The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio.png
 
+---
 
 ## 5. Agile Methodology
 [Back To The Top](#table-of-contents)
 ### User Story Prioritization - MoSCoW Method
 
-Must have: Browse products, product details, shopping cart, checkout (Stripe), account (login/signup), order confirmation via email.
-Should have: Profile & order history, filter/sorting, double opt-in newsletter, backoffice CRUD for products/orders.
-Could have: Promotion section (“Bargain Corner”), product reviews, wish list.
-Won’t have (nu): Full review system and ratings with moderation.
+**Must Have**
+| User Story                                                                                      | Feature / Area   | Status |
+| ----------------------------------------------------------------------------------------------- | ---------------- | ------ |
+| As a new user, I can register for an account so that I can access personal features. | User Account Management  | ✅ Done |
+| As a registered user, I can log in and out so that I can access my account securely. | User Account Management  | ✅ Done |
+| As a user I can reset my password so that I can access my account again. | User Account Management | ✅ Done |
+| As a customer, I can see all products so that I can browse the available items. | Product Browsing And Search | ✅ Done |
+| As a customer, I can search for products so that I can find specific items. | Product Browsing And Search | ✅ Done |
+| As a customer, I can filter products by category so that I can narrow down my options. | Product Browsing And Search | ✅ Done |
+| As a customer, I can sort products by price or name so that I can organize the displayed items. | Product Browsing And Search | ✅ Done |
+| As a customer, I can see detailed information about products so that I can make informed purchases. | Product Browsing And Search | ✅ Done |
+| As a customer, I can add products to my shopping cart so that I can purchase multiple items. | Shopping Cart And Checkout | ✅ Done |
+| As a customer, I can change how many of a specific item I want to purchase so that I can change my order before placing it. | Shopping Cart And Checkout | ✅ Done |
+| As a customer, I can safely go to the checkout so that I can complete my purchase. | Shopping Cart And Checkout | ✅ Done |
+| As a customer, I can receive an order confirmation so that I know that my purchase has gone through. | Shopping Cart And Checkout | ✅ Done |
+
+
+**Should Have**
+| User Story                                                                     | Feature / Area       | Status |
+| ------------------------------------------------------------------------------ | -------------------- | ------ |
+
+| As a user, I can update my profile information so that my details are up to date. | User Account Management | ✅ Done |
+| As a user, I can view my order history so that I can track my purchases. | User Account Management | ✅ Done |
+| As a customer, I can filter products by category so that I can narrow down my options. | Product Browsing And Search | ✅ Done |
+| As a customer, I can sort products by price or name so that I can organize the displayed items. | Product Browsing And Search | ✅ Done |
+| As a visitor to the website, I can add my email address so that I can receive a newsletter with information about new products, offers, etc. | Newsletter And Contact | ✅ Done |
+| As a visitor to the site, I would like to be able to fill out a contact form so that I can get in touch with the webshop owner. | Newsletter And Contact | ✅ Done |
+
+
+**Could Have**
+| User Story                                                                             | Feature / Area      | Status              |
+| -------------------------------------------------------------------------------------- | ------------------- | ------------------- |
+| As the owner of the webshop, I can display a product list so that I can easily see all the webshop's products and their status. | Site Administration | ✅ Done |
+| As the administrator of the webshop, I can add new products so that I can expand the assortment. | Site Administration | ✅ Done |
+| As the administrator of the webshop, I can edit product information so that I can keep it up to date. | Site Administration | ✅ Done |
+| As the administrator of the webshop, I can edit product information so that I can keep it up to date. | Site Administration | ✅ Done |
+| As the administrator of the webshop, I can manage placed orders so that I can process customers' purchases. | Site Administration | ✅ Done |
+
+
+
+**Won’t Have (This Iteration)**
+| User Story                                                                        | Feature / Area | Status                               |
+| --------------------------------------------------------------------------------- | -------------- | ------------------------------------ |
+| As a customer, I can see how other customers have rated a product so that I can see what they think about a product that I might be thinking of buying. | Product Rating And Reviews | 🚫 Deferred (planned future feature) |
+| As a registered user, I can rate products so that I can give my opinion about them. | Product Rating And Reviews | 🚫 Deferred (planned future feature) |
+| As a customer, I can read other customers' reviews and ratings of products so that I can make informed decisions. | Product Rating And Reviews | 🚫 Deferred (planned future feature) |
+| As a registered user on the website, I can leave reviews about products so that I can share my experiences. | Product Rating And Reviews | 🚫 Deferred (planned future feature) |
+| As a registered user of the website, I would like to be able to add products that I like to my/a wishlist so that I can more easily see which products have interested me. | Product Wishlist Functionality | 🚫 Deferred (planned future feature) |
+| As a registered user on the website, I would like to be able to edit my wish list so that I can remove products (or a wishlist) that I am no longer interested in. | Product Wishlist Functionality | 🚫 Deferred (planned future feature) |
+| As a registered user on the website, I want to be able to share my wishlist, for example via e-mail or social media, so that I can easily let others know what I want for example as a birthday present, Christmas present etc. | Product Wishlist Functionality | 🚫 Deferred (planned future feature) |
+
 
 ### Kanban Workflow
 
