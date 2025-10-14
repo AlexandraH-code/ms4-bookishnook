@@ -1,11 +1,13 @@
 ---
 name: Bookish Nook issue template
-about: As a **role** I can **capability** so that **received benefit**.
+about: Template for Bookish Nook issues
 title: ''
 labels: ''
 assignees: ''
 
 ---
+
+As a **role** I can **capability** so that **received benefit**.
 
 * Acceptance Criteria:
 Acceptance criteria 1
