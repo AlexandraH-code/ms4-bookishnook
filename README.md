@@ -183,24 +183,24 @@ Create a demand for book accessories and make money selling these products.
 
 #### **Epic 5: Product wishlist functionality**
 * **Add Products To Wishlist**
-    * As a registered user of the website, I would like to be able to add products that I like to my/a wishlist so that I can more easily see which products have interested me.
+    * As a registered user of the website, I can add products that I like to my/a wishlist so that I can more easily see which products have interested me.
 * **Edit Wishlist**
-    * As a registered user on the website, I would like to be able to edit my wish list so that I can remove products (or a wishlist) that I am no longer interested in.
+    * As a registered user on the website, I can edit my wish list so that I can remove products (or a wishlist) that I am no longer interested in.
 * **Share Wishlist With Others**
-    * As a registered user on the website, I want to be able to share my wishlist, for example via e-mail or social media, so that I can easily let others know what I want for example as a birthday present, Christmas present etc.
+    * As a registered user on the website, I can hare my wishlist, for example via e-mail or social media, so that I can easily let others know what I want for example as a birthday present, Christmas present etc.
 
 #### **Epic 6: Newsletter And Contact**
 * **Register To Receive Newsletters**
     * As a visitor to the website, I can add my email address so that I can receive a newsletter with information about new products, offers, etc.
 * **Contact The Webshop Owner**
-    * As a visitor to the site, I would like to be able to fill out a contact form so that I can get in touch with the webshop owner.. 
+    * As a visitor to the site, I can fill out a contact form so that I can get in touch with the webshop owner.
 
 ---
 
 ### User Stories - Administrator(s)
 #### **Epic 7: Site Administration**
 * **View All Products**
-    * As the owner of the webshop, I can display a product list so that I can easily see all the webshop's products and their status.
+    * As the administrator of the webshop, I can display a product list so that I can easily see all the webshop's products and their status.
 * **Add New Products**
     * As the administrator of the webshop, I can add new products so that I can expand the assortment.
 * **Update Product Details**
@@ -208,7 +208,7 @@ Create a demand for book accessories and make money selling these products.
 * **Delete Products**
     * As the administrator of the webshop, I can delete products so that I can remove products from the webshop that are no longer sold.
 * **Manage Order Status**
-    * As the owner of the webshop, I can manage placed orders so that I can process customers' purchases
+    * As the administrator of the webshop, I can manage placed orders so that I can process customers' purchases
 
 ---
 ## 4. Database Models Overview And Entity Relationship Diagram (ERD)
@@ -419,14 +419,14 @@ The image of the ERD can be found here: docs/images/erd/bookish_nook_erd3.drawio
 
 ## 5. Agile Methodology
 [Back To The Top](#table-of-contents)
+
+While the development process primarily followed an iterative and practical workflow, the user stories and task structure are presented below using the MoSCoW and Kanban methods to clearly document prioritization and progress. These reflect the project’s actual feature planning and implementation order.
+
 ### User Story Prioritization - MoSCoW Method
 
-To use efficient time management and focus on important features during development, the MoSCoW methodology was used to prioritize stories.
+I have used the MoSCoW method to prioritize user stories/features.
 
 Each feature was classified as a **Must Have**, **Should Have**, **Could Have**, or **Won't Have (This Iteration)**, based on its importance to the project's core functionality, user experience, and technical feasibility.
-
-This methodology helped maintain a clear development plan and ensured that all critical e-commerce and user management features were implemented within the scope, with enhancements or optional functionality added.
-
 
 **Must Have**
 | User Story                                                                                      | Feature / Area   | Status |
@@ -492,7 +492,7 @@ I have used a Kanban board to structure the work on the website. In the Kanban b
 * **Done** – Completed and merged features.
 * **Won’t Have (This Iteration)** – Deferred features are considered outside the scope of the current version.
 
-Link to the project **[Kanban Board](https://github.com/users/AlexandraH-code/projects/12/views/1)** - add link to kanban board
+🔗 View the live Kanban board on GitHub: [Bookish Nook Project Board](https://github.com/users/AlexandraH-code/projects/13)
 
 ---
 
@@ -505,22 +505,26 @@ The website's pages consist of three different parts: header, main (where the ma
 I have chosen to structure my website with the following pages:
 - **Home Page:**
     - Home page that contains a large hero image with a button that says "See All Products". Below the hero image you can see images/links to four of the website's product categories.
-- **Sign in:**
-    - Sign in contains a form with fields for email address and password and a Sign in button. The page also has links to Forgot password (if you have forgotten your password) and Create account (if you do not have an account yet). The page is displayed as a modal when you click Sign in in the menu.
-- **Create account:**
-    - Create account contains a form with fields for email address, password, password confirmation and a Sign up button. The page also contains a Sign in link (if you have already registered an account on the website). The page is displayed as a modal when you click Sign in in the menu.
-- **My Account:**
-    - On the My Account page you can change your user details, change your password, manage addresses and view any orders.
-- **Logout:**
-    - Logout contains a Log out button.
-- **Backoffice:**
-    - On the Backoffice page, you can see the number of orders and a list of recently placed orders. There are also buttons that go to pages where an administrator can view and manage orders and view and manage products. There is also a button that goes to Django Admin.
+- **All Products Page:**
+    - Page that lists all available products.
+- **Product Detail Page:**
+    - A page that displays detailed information about a specific product. You can get to the product details page by clicking on a product on the page that lists all available products.
 - **About Us:**
     - A page that contains information about the website.
 - **Contact Us:** 
     - Contains a contact form that the visitor can fill out if they want to get in touch with the website owner.
 - **FAQ:**
     - A page with frequently asked questions that have been asked to the website owner.
+- **Create account:**
+    - Create account contains a form with fields for email address, password, password confirmation and a Sign up button. The page also contains a Sign in link (if you have already registered an account on the website). The page is displayed as a modal when you click Sign in in the menu.
+- **Sign in:**
+    - Sign in contains a form with fields for email address and password and a Sign in button. The page also has links to Forgot password (if you have forgotten your password) and Create account (if you do not have an account yet). The page is displayed as a modal when you click Sign in in the menu.
+- **Logout:**
+    - Logout contains a Log out button.
+- **My Account:**
+    - On the My Account page you can change your user details, change your password, manage addresses and view any orders.
+- **Backoffice:**
+    - On the Backoffice page, you can see the number of orders and a list of recently placed orders. There are also buttons that go to pages where an administrator can view and manage orders and view and manage products. There is also a button that goes to Django Admin.
 
 The pages above can be accessed by clicking on one of the links in the menu bar at the top of the page or in the footer at the bottom of the page.. On small screens (smaller than 992 pixels) the menu is collapsed in the upper left corner. 
 
@@ -738,6 +742,8 @@ The project uses two complementary Google Fonts:
 
 ## 7. Existing Features
 [Back To The Top](#table-of-contents)
+
+
 ### Existing Features - Site Visitors
 [Back To The Top](#table-of-contents)
 #### Navigation And Footer
@@ -775,6 +781,9 @@ In addition to the features that are currently added to the website, I have come
 ## 10. Testing
 [Back To The Top](#table-of-contents)
 ### User Story Testing
+
+---
+
 ### Manual Testing - Site Visitors
 #### Test - Navigation And Footer
 #### Test - Home Page
@@ -785,6 +794,9 @@ In addition to the features that are currently added to the website, I have come
 #### Test - Buy Product
 #### Test - View And Edit User Details
 #### Test - View Orders and Order Details
+
+---
+
 ### Manual Testing - Administrator(s)
 #### Test - View/Show Products
 #### Test - Add Product
@@ -792,10 +804,22 @@ In addition to the features that are currently added to the website, I have come
 #### Test - Delete Product
 #### Test - View/Show Orders
 #### Test - Update Order Details
+
+---
+
 ### Automated Testing
 
 **Test Style & Docstrings**
-All tests have short, descriptive docstrings (in English) that explain the purpose and most important assertions. The focus is on critical flows (cart → checkout → webhook → email), access/authorization, validation, and UI rendering.
+
+All tests have short, descriptive docstrings that explain the purpose and most important assertions. The focus is on critical flows (cart → checkout → webhook → email), access/authorization, validation, and UI rendering.
+
+I have chosen to divide the tests so that they are located in a tests folder in each app.
+
+**Run test with**
+- ```python manage.py test backoffice.tests cart.tests checkout.tests home.tests orders.tests products.tests profiles.tests```
+or 
+- the entire suite via 
+```python manage.py test```
 
 **Coverage**
 Total coverage ~93% (checkout ~88%, backoffice ~89%). Deliberately excluded are parts that require external network calls (Stripe) in production mode — these are tested via “debug/dev path” and mocking for idempotence and error handling.
