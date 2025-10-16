@@ -1591,20 +1591,175 @@ The website has been tested in the browsers below. The website works correctly i
 
 **Product Images And Product Descriptions:**
 
-| Page | File title on the site | Downloaded From | Photographer/Owner |
-|------|------------------------|-----------------|--------------------|
-| Home page | books-1614215_1280.jpg | [Pixabay](https://pixabay.com/illustrations/books-shelf-library-book-shelf-1614215/) | myrfa |
-| Navbar logo | books-441866_640_no_background_small.png | [Pixabay](https://pixabay.com/photos/books-training-school-literature-441866/) | Hermann | 
-| Favicon | favicon.ico | [Pixabay](https://pixabay.com/photos/books-training-school-literature-441866/) | Hermann |
+**Bookmarks -> Magnetic Bookmarks**
 
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Magnetic Bookmarks | img-13-5307.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/classics-bookmark-collection-birds-near-a-mountain-stream-dubbel.html) | Bokvännen |
+| Bookmarks -> Magnetic Bookmarks | 9781441328236.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/i-clips-black-cats-magnetbokmarken.html) | Bokvännen |
+| Bookmarks -> Magnetic Bookmarks | img-13-5313.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/classics-bookmark-collection-the-great-wave-dubbelt-magnetbokmar.html) | Bokvännen |
+| Bookmarks -> Magnetic Bookmarks | 180019277-origpic-dc1003.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/libri-x-tre-katter-magnetbokmarken-3-st-pa-kort-lilacerise.html) | Bokvännen |
+
+
+**Bookmarks -> Bookmark With Tassel**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Bookmark With Tassel | 9781441328182.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/book-nerd-floral-bokmarke-med-tofs.html) | Bokvännen |
+| Bookmarks -> Bookmark With Tassel | 193437936-origpic-57e21c.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/book-nerd-floral-bokmarke-med-tofs.html) | Bokvännen |
+| Bookmarks -> Bookmark With Tassel | 172260105-origpic-87cd17.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/drink-good-coffee-read-good-books-bokmarke.html) | Bokvännen |
+| Bookmarks -> Bookmark With Tassel | 17758946.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/keep-calm-and-read-on-bokmarke-med-tofs-och-parla.html) | Bokvännen |
+
+
+**Bookmarks -> Bookmark With Elastic Band**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Bookmark With Elastic Band | 138444.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/a-booklover-never-goes-to-bed-alone-bokmarke-med-resarband.html) | Bokvännen |
+| Bookmarks -> Bookmark With Elastic Band | 138430.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/dinosaurs-didnt-read-bokmarke-med-resarband.html) | Bokvännen |
+| Bookmarks -> Bookmark With Elastic Band | 138450.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/just-one-more-page-bokmarke-med-resarband.html) | Bokvännen |
+| Bookmarks -> Bookmark With Elastic Band | 138384.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/so-many-books-bokmarke-med-resarband.html) | Bokvännen |
+
+
+**Bookmarks -> Metal Bookmark**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Metal Bookmark | 9781441340825.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/sleepy-owl-curled-up-corners-bokmarke.html) | Bokvännen |
+| Bookmarks -> Metal Bookmark | 179802971-origpic-578662.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/sleepy-owl-curled-up-corners-bokmarke.html) | Bokvännen |
+| Bookmarks -> Metal Bookmark | BKS8910_1_1024x.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/david-howell-co-lyxbokmarke-william-morris-cray.html) | Bokvännen |
+| Bookmarks -> Metal Bookmark | Hamlet_BM1.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/literary-emporium-hamlet-to-read-or-not-to-read-brass-bookmark.html) | Bokvännen |
+
+
+**Bookmarks -> Wooden Bookmark**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Wooden Bookmark| BM_Books.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/bumble-birch-books-because-reality-is-overrated-bokmarke-i-tra-m.html) | Bokvännen |
+| Bookmarks -> Wooden Bookmark| 215786639-origpic-af087f.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/fly-paper-products-bee-quietim-reading-bokmarke-i-tra.html) | Bokvännen |
+| Bookmarks -> Wooden Bookmark| 215051445-origpic-a6068d.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/fly-paper-products-books-are-windows-into-other-worlds-bokmarke.html) | Bokvännen |
+| Bookmarks -> Wooden Bookmark| 1559233794.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/fly-paper-products-book-lovers-never-go-to-bed-alone-bokmarke-i.html) | Bokvännen |
+
+
+**Bookmarks -> Fabric Bookmark**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Fabric Bookmark | img-13-2856.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/laskompis-book-tails-bookmark-black-cat-plyschbokmarke-katt.htmll) | Bokvännen |
+| Bookmarks -> Fabric Bookmark | img-13-2860.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/laskompis-book-tails-bookmark-dragon-plyschbokmarke-drake.html) | Bokvännen |
+| Bookmarks -> Fabric Bookmark | product_thumb.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/laskompis-lilla-apa-bokmarke-av-tyg.html) | Bokvännen |
+| Bookmarks -> Fabric Bookmark | IMG_4657.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/laskompis-lilla-varg-bokmarke-av-tyg.html) | Bokvännen |
+
+
+**Bookmarks -> Bookmark In Vegan Leather**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookmarks -> Bookmark In Vegan Leather | 180002457-origpic-afe689.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/artisan-create-the-life-you-love-bokmarke.html) | Bokvännen |
+| Bookmarks -> Bookmark In Vegan Leather | img-13-5405.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/ssshhh-bookmark-collection-im-reading-bokmarke-i-vegan-leather.html) | Bokvännen |
+| Bookmarks -> Bookmark In Vegan Leather | img-13-5410.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/va-bookmark-collection-morris-tulip-willow-bokmarke-i-vegan-leat.html) | Bokvännen |
+| Bookmarks -> Bookmark In Vegan Leather | img-13-5411.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/va-bookmark-collection-sundour-pheasant-bokmarke-i-vegan-leather.htmll) | Bokvännen |
+
+---
+---
+
+**Book Sleeves** 
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Book Sleeves | 671e652d82cad.jpg | [Power of books](https://www.powerofbooks.se/products/vaskor/book-sleeve-pink) | Power of books |
+| Book Sleeves | 671e65058cac9.jpg | [Power of books](https://www.powerofbooks.se/products/vaskor/book-sleeve-black) | Power of books |
+| Book Sleeves | 671933123254f.jpg | [Power of books](https://www.powerofbooks.se/products/vaskor/book-sleeve-orange-blue) | Power of books |
+| Book Sleeves | 6719336fdb79d.jpg | [Power of books](https://www.powerofbooks.se/products/vaskor/book-sleeve-orange-purple) | Power of books |
+
+---
+---
+
+**Reading Lights**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Reading Lights | img-13-5797.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/laslampor/book-lover-s-reading-light-floral.html) | Bokvännen |
+| Reading Lights | DBL-1003EU_6.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/laslampor/designworks-ink-uppladdningsbar-led-laslampa-med-flera-ljustempe.html) | Bokvännen |
+| Reading Lights | 141121_5.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/laslampor/super-night-dream-book-lovers-never-goes-to-bed-alone-uppladdnin.html) | Bokvännen |
+| Reading Lights | 083415.jpg | [Bokvännen](https://www.bokvannen.se/sasongsaktuellt-vinter/laslampor/libri-x-uppladdningsbar-led-laslampa-med-touchstrombrytare-vit.html) | Bokvännen |
+
+
+---
+---
+
+**Pens & Notebooks**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Pens & Notebooks (pen)| img-13-3587.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/skrivbocker-pennor-kort-brevpapper/pennor/bookaroo-kulpenna-forest-green.html) | Bokvännen |
+| Pens & Notebooks (pen)| img-13-3590.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/skrivbocker-pennor-kort-brevpapper/pennor/bookaroo-kulpenna-gold.html) | Bokvännen |
+| Pens & Notebooks (pen) | 168221_1.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/skrivbocker-pennor-kort-brevpapper/pennor/be-curious-cat-gelpenna-med-suddbart-black.html) | Bokvännen |
+| Pens & Notebooks (pen) | 168187_1.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/skrivbocker-pennor-kort-brevpapper/pennor/erasable-bee-different-gelpenna-med-svart-suddbart-black.html) | Bokvännen |
+| Pens & Notebooks (pens) | 220880839-origpic-21a62.jpg | [Bokvännen](https://www.bokvannen.se/sasongsaktuellt-host/pennor/erasable-farm-sweet-farm-set-med-4-gelpennor-suddbart-black-ko-g.html) | Bokvännen |
+| Pens & Notebooks (notebook) | Skarmavbild2024-10-1.jpg | [Bokligheter](https://bokligheter.se/products/anteckningsblock-notes-from-a-reader?collection=pennor-block) | Bokligheter |
+| Pens & Notebooks (notebook) | Skarmavbild2024-10-11kl.13.38.jpg | [Bokligheter](https://bokligheter.se/products/anteckningsblock-its-a-good-day-to-relax-with-a-wonderful-book?collection=pennor-block) | Bokligheter |
+| Pens & Notebooks (notebook) | 6779435ca9b9f.jpg | [Power of books](https://www.powerofbooks.se/products/kopia-anteckningsblock) | Power of books |
+| Pens & Notebooks (notebook and pen) | 671e6a2babb67.jpg | [Power of books](https://www.powerofbooks.se/products/anteckningsblock-set-small) | Power of books |
+
+
+---
+---
+
+**Bookends**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Bookends | 209790207-origpic-0245c8.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokstod-annat-for-bokhyllan/balvi-bookend-bookshop-humorhojande-bokstod-i-svart-plat.html) | Bokvännen |
+| Bookends | bookend-fishing-cat-black-metal-2.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokstod-annat-for-bokhyllan/balvi-bookend-fishing-cat-humorhojande-bokstod-i-svart-plat.html) | Bokvännen |
+| Bookends | bookend-teckel-black-metal-275.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokstod-annat-for-bokhyllan/balvi-bookend-teckeltax-humorhojande-bokstod-i-svart-plat.html) | Bokvännen |
+| Bookends | 178757933-origpic-4569b9.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokstod-annat-for-bokhyllan/libri-x-siluett-katt-bokstod-i-plat-set-om-tva-stycken.html) | Bokvännen |
+
+
+---
+---
+
+**Stickers & Sticky Tabs**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Stickers & Sticky Tabs | yhst-137970348157658_26.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/pussel-pyssel-handarbete/pyssel-knep-knap/stickersbocker-etiketter/a-nice-cup-of-tea-i-love-tea-stickersbok-med-24-klistermarken.html) | Bokvännen |
+| Stickers & Sticky Tabs | Bunches_of_Botanicals_A_Blooming_Sticker_Book.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/bunches-of-botanicals-a-blooming-sticker-book-stickersbok-med-me.html) | Bokvännen |
+| Stickers & Sticky Tabs | Fly_Paper_Products_Fairy_Tail_Cat.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/hemma/termosar-flaskor-utflykt/vinylstickers/fly-paper-products-fairy-tail-cat-vinyl-sticker.html) | Bokvännen |
+| Stickers & Sticky Tabs | Fly_Paper_Products_Read_More_Books.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/fly-paper-products-read-more-books-vinyl-sticker.html) | Bokvännen |
+| Stickers & Sticky Tabs | Bookaroo - Sticky Tabs Blue for books, notebooks and journals.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/bookaroo-sticky-tabs-blue-for-books-notebooks-and-journals-paket.html) | Bokvännen |
+| Stickers & Sticky Tabs | Bookaroo_Sticky_Tabs_Pastel_for_books_notebooks_and_journals.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/bookaroo-sticky-tabs-pastel-for-books-notebooks-and-journals-pak.html) | Bokvännen |
+| Stickers & Sticky Tabs | Bookaroo_Sticky_Tabs_Pink_for_books_notebooks_and_journals.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/bookaroo-sticky-tabs-pink-for-books-notebooks-and-journals-paket.html) | Bokvännen |
+| Stickers & Sticky Tabs | Bookaroo_Sticky_Tabs_Mono_for_books_notebooks_and_journals.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/bookaroo-sticky-tabs-mono-for-books-notebooks-and-journals-paket.html) | Bokvännen |
+
+
+---
+---
+
+
+**Category Images For The Home Page:**
+
+| Product category | File title on the site | Downloaded From | Photographer/Owner |
+|------|------------------------|-----------------|--------------------|
+| Book Sleeves | 671e65058cac9.jpg | [Power of books](https://www.powerofbooks.se/products/vaskor/book-sleeve-black) | Power of books |
+| Bookends | bookend-fishing-cat-black-metal-2.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokstod-annat-for-bokhyllan/balvi-bookend-fishing-cat-humorhojande-bokstod-i-svart-plat.html) | Bokvännen |
+| Bookmarks | 138444.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/bokmarken/a-booklover-never-goes-to-bed-alone-bokmarke-med-resarband.html) | Bokvännen |
+| Pens & Notebooks | 671e6a2babb67.jpg | [Power of books](https://www.powerofbooks.se/products/anteckningsblock-set-small) | Power of books |
+| Reading Lights | img-13-5797.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/laslampor/book-lover-s-reading-light-floral.html) | Bokvännen |
+| Stickers & Sticky Tabs | Fly_Paper_Products_Read_More_Books.jpg | [Bokvännen](https://www.bokvannen.se/sortiment-efter-kategori/bokstod-lastillbehor-bokmarken/sticky-notes-etiketter/fly-paper-products-read-more-books-vinyl-sticker.html) | Bokvännen |
+
+---
+---
 
 **Other Images:**
 
 | Page/function | File title on the site | Downloaded From | Photographer/Owner |
 |------|------------------------|-----------------|--------------------|
-| Home Page - hero image | books-1614215_1280.jpg | [Pixabay](https://pixabay.com/illustrations/books-shelf-library-book-shelf-1614215/) | myrfa |
-| Placeholder image | books-441866_640_no_background_small.png | [Pixabay](https://pixabay.com/photos/books-training-school-literature-441866/) | Hermann | 
+| Home Page - hero image | hero.jpg | [Pixabay](https://pixabay.com/photos/book-mason-jar-glass-coffee-mug-4952219/) | mepsita |
+| Placeholder image | placeholder.jpg | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg ) | Wikimedia Commons |
 
+---
+---
 
 **Icons - Banner And Footer:**
 
@@ -1612,3 +1767,7 @@ The website has been tested in the browsers below. The website works correctly i
 |------|------|
 | Facebook | [FontAwesome](https://fontawesome.com/icons/square-facebook?f=classic&s=brands ) |
 | Instagram | [FontAwesome](https://fontawesome.com/icons/square-instagram?f=classic&s=brands) |
+| Other icons | [FontAwesome](https://fontawesome.com)
+
+---
+---
