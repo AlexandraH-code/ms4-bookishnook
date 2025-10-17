@@ -3,13 +3,21 @@
 
 {% block title %}{{ product.name }} – Bookish Nook{% endblock %}
 
+{% block extra_head %}
+  {% if product.image %}
+    <link rel="preload" as="image" href="{{ product.image.url }}">
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-6 mb-3">
     {% if product.image %}
-      <img src="{{ product.image.url }}" class="img-fluid rounded product-hero-img" alt="{{ product.name }}">
+      <img src="{{ product.image.url }}" class="img-fluid rounded product-hero-img" alt="{{ product.name }}"
+           loading="eager" width="1200" height="1200">
     {% else %}
-      <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid rounded product-hero-img" alt="{{ product.name }}">
+      <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid rounded product-hero-img" alt="{{ product.name }}"
+           loading="eager" width="1200" height="1200">
     {% endif %}
   </div>
   <div class="col-md-6">
@@ -20,7 +28,9 @@
     <form action="{% url 'cart:add' product.id %}" method="post" class="mt-3">
       {% csrf_token %}
       <div class="form-inline">
-        <input type="number" name="qty" value="1" min="1" max="{{ product.stock }}" class="form-control mr-2" style="width:100px">
+        <label for="qty-detail" class="sr-only">Quantity</label>
+        <input id="qty-detail" type="number" name="qty" value="1" min="1" max="{{ product.stock }}"
+               class="form-control mr-2" style="width:100px" aria-label="Quantity">
         <button class="btn bn-btn-primary" {% if product.stock == 0 %}disabled{% endif %}>
           {% if product.stock == 0 %}Out of stock{% else %}Add to cart{% endif %}
         </button>
@@ -31,15 +41,15 @@
 
 {% if related %}
 <hr class="my-4">
-<h3 class="mb-3">You may also like</h3>
+<h2 class="mb-3">You may also like</h2>
 <div class="row">
   {% for p in related %}
   <div class="col-md-3 col-6 mb-4">
     <a href="{{ p.get_absolute_url }}" class="bn-card d-block text-center">
       {% if p.image %}
-        <img src="{{ p.image.url }}" class="img-fluid bn-card-img" alt="{{ p.name }}">
+        <img src="{{ p.image.url }}" class="img-fluid bn-card-img" alt="{{ p.name }}" loading="lazy" width="400" height="400">
       {% else %}
-        <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ p.name }}">
+        <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ p.name }}" loading="lazy" width="400" height="400">
       {% endif %}
       <h6 class="mt-2">{{ p.name }}</h6>
       <div class="text-muted">{{ p.price }} SEK</div>

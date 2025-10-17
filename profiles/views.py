@@ -12,7 +12,6 @@ address CRUD, and viewing past orders.
 """
 
 
-# Create your views here.
 @login_required
 def dashboard(request):
     """

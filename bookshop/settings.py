@@ -14,28 +14,10 @@ import os
 import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
-from email.utils import formataddr
 
 # --- Paths ---
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env", override=False)
-
-
-# (optional) For backward compatibility: try reading env.py if you still have it
-# try:
-#     from .env import *  # avoid if you don't need it anymore
-# except Exception:
-#     pass
-
-# if os.path.isfile('env.py'):
-  #   import env
-    
-# try:
-    # from dotenv import load_dotenv
-    # load_dotenv()
-# except Exception:
-    # pass
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -52,7 +34,7 @@ DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 def env_list(name: str, default: str = ""):
     vals = []
     for p in os.getenv(name, default).split(","):
-        p = p.strip().strip('"').strip("'").rstrip("/")  # trim + ta bort trailing /
+        p = p.strip().strip('"').strip("'").rstrip("/") 
         if p:
             vals.append(p)
     return vals
@@ -69,8 +51,8 @@ else:
 
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,7 +79,6 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'orders',
-    # 'profiles',
     'backoffice',
     'profiles.apps.ProfilesConfig',
 ]
@@ -125,7 +106,7 @@ ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_GENERATE = False
 
-# Email verification (change to "mandatory" if you want to require confirmation)
+# Email verification
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Rate limiting (replaces ACCOUNT_LOGIN_ATTEMPTS_*)
@@ -135,13 +116,8 @@ ACCOUNT_RATE_LIMITS = {
     # "email_confirmation": "5/h",
 }
 
-# UI hints (optional)
+# UI hints
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Bookish Nook] "
-
-# Form & template hints (not needed if you are running standard)
-# ACCOUNT_FORMS = { ... }
-# ACCOUNT_ADAPTER = "..."
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -181,21 +157,6 @@ WSGI_APPLICATION = 'bookshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASES = {
-    # "default": dj_database_url.config(
-        # default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3"),
-        # conn_max_age=600,
-        # ssl_require=os.environ.get("DB_SSL_REQUIRE", "false").lower() == "true"
-    # )
-# }
-
 
 default_sqlite = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
 DATABASES = {
@@ -205,16 +166,6 @@ DATABASES = {
         ssl_require=os.getenv("DB_SSL_REQUIRE", "false").lower() == "true",
     )
 }
-
-
-# DATABASES = {
-    # "default": dj_database_url.parse(
-        # os.getenv("DATABASE_URL", "sqlite:///" + str(BASE_DIR / "db.sqlite3")),
-        # conn_max_age=600,
-        # ssl_require=os.getenv("DB_SSL_REQUIRE", "false").lower() == "true",
-    # )
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -265,17 +216,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe
-# STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
-# STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-# STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WH_SECRET")
-
 STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 # Email
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@bookishnook.local")  # for bug reports
-DEFAULT_FROM_NAME = "Bookish Nook"  # <— we control the name here (no .env mess up)
+DEFAULT_FROM_NAME = "Bookish Nook" 
 
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "")
@@ -335,7 +282,6 @@ LOGGING = {
         "level": "INFO",
     },
     "loggers": {
-        # valfritt: höj nivån för just checkout-modulen om du vill
         "checkout": {"handlers": ["console"], "level": "INFO", "propagate": True},
     },
 }

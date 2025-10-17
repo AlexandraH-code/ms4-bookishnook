@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings
+# from django.conf import settings
 from products.models import Product
 
 """
@@ -13,7 +13,6 @@ Includes:
 """
 
 
-# Create your models here.
 class Order(models.Model):
     """
     Represents a single customer order.
@@ -88,7 +87,7 @@ class Order(models.Model):
         """
         Human-readable representation used in admin/console.
         """
-       
+
         return f"Order #{self.id} ({self.status})"
 
 
@@ -116,7 +115,7 @@ class OrderItem(models.Model):
         """
         Readable summary of the purchased quantity and title.
         """
-        
+
         return f"{self.name} x {self.qty}"
 
 

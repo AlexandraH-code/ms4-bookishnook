@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_head %}
+  <link rel="preload" as="image" href="{% static 'images/hero.jpg' %}">
+{% endblock %}
+
 {% block content %}
 <section class="bn-hero">
   <div class="bn-hero__overlay">
@@ -13,26 +17,23 @@
 <div class="container mb-5">
   <h2 class="text-center mt-4 mb-4 bn-section-title">Explore Our Categories</h2>
 
-  <!--<p class="text-muted small">Featured count: {{ featured_categories|length }}</p>  {# <-- tillfällig debug #}-->
-
   <div class="row">
     {% for cat in featured_categories %}
       <div class="col-md-3 col-6 mb-4">
         <a href="{{ cat.get_absolute_url }}" class="bn-card d-block text-center">
           {% if cat.image %}
-            <img src="{{ cat.image.url }}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+            <img src="{{ cat.image.url }}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
           {% else %}
-            {# Fallback till statisk bild baserat på slug (valfritt) #}
             {% if cat.slug == "bookmarks" %}
-              <img src="{% static 'images/bookmarks.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+              <img src="{% static 'images/bookmarks.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
             {% elif cat.slug == "book-sleeves" %}
-              <img src="{% static 'images/book_sleeve.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+              <img src="{% static 'images/book_sleeve.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
             {% elif cat.slug == "pens-notebooks" %}
-              <img src="{% static 'images/pen_and_notebook.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+              <img src="{% static 'images/pen_and_notebook.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
             {% elif cat.slug == "stickers" %}
-              <img src="{% static 'images/sticker.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+              <img src="{% static 'images/sticker.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
             {% else %}
-              <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}">
+              <img src="{% static 'images/placeholder.jpg' %}" class="img-fluid bn-card-img" alt="{{ cat.name }}" loading="lazy" width="400" height="400">
             {% endif %}
           {% endif %}
           <h5 class="mt-2 bn-link">{{ cat.name }}</h5>

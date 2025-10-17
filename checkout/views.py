@@ -1,8 +1,8 @@
 import stripe
 import logging
 import json
-import os
-import orders.utils as order_utils
+# import os
+# import orders.utils as order_utils
 
 from products.models import Product
 from orders.models import Order, OrderItem, ProcessedStripeEvent
@@ -13,7 +13,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.db import transaction, IntegrityError
+from django.db import transaction
 from django.utils import timezone
 from orders.utils import send_order_confirmation as _send_order_confirmation
 send_order_confirmation = _send_order_confirmation
@@ -54,7 +54,7 @@ def _to_cents(dec: Decimal) -> int:
     Returns:
         int: Amount in öre (cents) as an integer suitable for Stripe's `unit_amount`.
     """
-    # SEK in ören; always Decimal in, round halves up
+
     return int((dec * 100).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
 
 
@@ -266,7 +266,7 @@ def _finalize_paid(order):
             pk=order.pk, confirmation_sent_at__isnull=True
         ).update(confirmation_sent_at=timezone.now())
 
-    if rows == 1:  # we won the race → send
+    if rows == 1:
         send_order_confirmation(order, customer_email=order.email, customer_name=order.full_name)
         sent_now = True
 
@@ -616,7 +616,6 @@ def stripe_webhook(request):
             charges = (pi_from_payload.get("charges") or {}).get("data") or []
         elif pi_dict:
             charges = (pi_dict.get("charges") or {}).get("data") or []
-        # no network calls here in DEBUG
 
         ch0 = charges[0] if charges else {}
         billing_details_pi = ch0.get("billing_details") or {}
@@ -652,7 +651,7 @@ def stripe_webhook(request):
 
         # ---- Save only provided fields ----
         to_update = []
-        
+
         def setif(attr, val):
             if val not in (None, "") and getattr(order, attr) != val:
                 setattr(order, attr, val)

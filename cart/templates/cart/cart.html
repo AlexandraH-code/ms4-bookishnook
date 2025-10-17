@@ -19,11 +19,13 @@
 
           <div class="bn-cart-meta">
             <div>
+              <label for="qty-m-{{ forloop.counter }}" class="sr-only">Quantity</label>
               <div class="small text-muted">Qty</div>
               <form method="post" action="{% url 'cart:update' it.product.id %}" class="form-inline mt-1">
                 {% csrf_token %}
-                <input type="number" name="qty" min="0" value="{{ it.qty }}" class="form-control mr-2" style="width:90px">
-                <button class="btn btn-sm bn-btn-primary">Update</button>
+                <input id="qty-m-{{ forloop.counter }}" type="number" name="qty" min="0" value="{{ it.qty }}"
+                       class="form-control mr-2" style="width:90px" aria-label="Quantity">
+                <button class="btn btn-sm bn-btn-primary" type="submit">Update</button>
               </form>
             </div>
 
@@ -31,7 +33,7 @@
               <div class="small text-muted invisible">Remove</div>
               <form method="post" action="{% url 'cart:remove' it.product.id %}" class="mt-1">
                 {% csrf_token %}
-                <button class="btn btn-sm btn-outline-danger">Remove</button>
+                <button class="btn btn-sm btn-outline-danger" type="submit" aria-label="Remove {{ it.product.name }}">Remove</button>
               </form>
             </div>
 
@@ -44,8 +46,6 @@
               <div class="small text-muted">Subtotal</div>
               <div class="nowrap mt-1">{{ it.subtotal|currency }}</div>
             </div>
-
-
           </div>
         </div>
       {% endfor %}
@@ -73,8 +73,10 @@
               <td>
                 <form method="post" action="{% url 'cart:update' it.product.id %}" class="form-inline">
                   {% csrf_token %}
-                  <input type="number" name="qty" min="0" value="{{ it.qty }}" class="form-control mr-2" style="width:90px">
-                  <button class="btn btn-sm bn-btn-primary">Update</button>
+                  <label for="qty-d-{{ forloop.counter }}" class="sr-only">Quantity</label>
+                  <input id="qty-d-{{ forloop.counter }}" type="number" name="qty" min="0" value="{{ it.qty }}"
+                         class="form-control mr-2" style="width:90px" aria-label="Quantity">
+                  <button class="btn btn-sm bn-btn-primary" type="submit">Update</button>
                 </form>
               </td>
               <td class="text-right"><span class="nowrap">{{ it.product.price|currency }}</span></td>
@@ -82,7 +84,7 @@
               <td>
                 <form method="post" action="{% url 'cart:remove' it.product.id %}">
                   {% csrf_token %}
-                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                  <button class="btn btn-sm btn-outline-danger" type="submit" aria-label="Remove {{ it.product.name }}">Remove</button>
                 </form>
               </td>
             </tr>

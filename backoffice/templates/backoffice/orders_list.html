@@ -3,17 +3,17 @@
 {% block backoffice_content %}
 <div class="sticky-top" style="z-index: 1010;">
   <div class="bg-white border rounded p-2 mb-2 shadow-sm">
-    <form class="form-inline mb-3">
-      <input class="form-control mr-2" type="text" name="q" placeholder="Search id/email" value="{{ q }}">
-        <select name="status" class="form-control mr-2">
+    <form class="form-inline mb-3" method="get">
+      <label for="q-orders" class="sr-only">Search id/email</label>
+      <input id="q-orders" class="form-control mr-2" type="text" name="q" placeholder="Search id/email" value="{{ q }}">
+      <label for="status" class="sr-only">Status</label>
+      <select id="status" class="form-control mr-2" name="status">
         <option value="">All statuses</option>
         {% for val,label in statuses %}
-            <option value="{{ val }}" {% if status == val %}selected{% endif %}>
-            {{ label }}
-            </option>
+          <option value="{{ val }}" {% if status == val %}selected{% endif %}>{{ label }}</option>
         {% endfor %}
-        </select>
-      <button class="btn bn-btn-primary">Filter</button>
+      </select>
+      <button class="btn bn-btn-primary" type="submit">Filter</button>
     </form>
   </div>
 </div>
@@ -56,7 +56,6 @@
 {% if page_obj.paginator.num_pages > 1 %}
 <nav aria-label="Pagination" class="my-3">
   <ul class="pagination pagination-sm flex-wrap">
-    {# Prev #}
     <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
       {% if page_obj.has_previous %}
         <a class="page-link"
@@ -65,8 +64,6 @@
         <span class="page-link">‹</span>
       {% endif %}
     </li>
-
-    {# Numbers #}
     {% for p in elided_range %}
       {% if p == '…' or p == '...' %}
         <li class="page-item disabled"><span class="page-link">…</span></li>
@@ -77,8 +74,6 @@
         </li>
       {% endif %}
     {% endfor %}
-
-    {# Next #}
     <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
       {% if page_obj.has_next %}
         <a class="page-link"
@@ -91,8 +86,6 @@
 </nav>
 {% endif %}
 
-
-
 <div class="table-responsive d-none d-md-block">
   <table class="table table-sm table-hover">
     <thead class="thead-light">
@@ -102,23 +95,23 @@
     </thead>
     <tbody>
       {% for o in orders %}
-          <tr class="order-row-{{ o.status|lower }}">
+        <tr class="order-row-{{ o.status|lower }}">
           <td>#{{ o.id }}</td>
           <td>{{ o.email }}</td>
           <td>
-          <span class="badge badge-{{ o.status|status_badge }}">
+            <span class="badge badge-{{ o.status|status_badge }}">
               <i class="{{ o.status|status_icon }}"></i>
               {{ o.status|capfirst }}
-          </span>
+            </span>
           </td>
           <td>{{ o.grand_total }}</td>
           <td>{{ o.created|date:"Y-m-d H:i" }}</td>
           <td>
-              <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'backoffice:order_detail' o.id %}">Open</a>
           </td>
-          </tr>
+        </tr>
       {% empty %}
-          <tr><td colspan="6" class="text-muted">No matches.</td></tr>
+        <tr><td colspan="6" class="text-muted">No matches.</td></tr>
       {% endfor %}
     </tbody>
   </table>
@@ -128,7 +121,6 @@
 {% if page_obj.paginator.num_pages > 1 %}
 <nav aria-label="Pagination" class="my-3">
   <ul class="pagination pagination-sm flex-wrap">
-    {# Prev #}
     <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
       {% if page_obj.has_previous %}
         <a class="page-link"
@@ -137,8 +129,6 @@
         <span class="page-link">‹</span>
       {% endif %}
     </li>
-
-    {# Numbers #}
     {% for p in elided_range %}
       {% if p == '…' or p == '...' %}
         <li class="page-item disabled"><span class="page-link">…</span></li>
@@ -149,8 +139,6 @@
         </li>
       {% endif %}
     {% endfor %}
-
-    {# Next #}
     <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
       {% if page_obj.has_next %}
         <a class="page-link"

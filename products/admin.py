@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Category, Product
 
 
-# Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "is_featured", "featured_order", "is_active")

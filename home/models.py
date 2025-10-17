@@ -6,7 +6,6 @@ Models for newsletter subscription with double opt-in and unsubscribe tokens.
 """
 
 
-# Create your models here.
 class NewsletterSubscriber(models.Model):
     """
     Represents a single newsletter subscription with double opt-in.

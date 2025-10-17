@@ -7,7 +7,6 @@ Product catalog models: Category (supports nesting) and Product.
 """
 
 
-# Create your models here.
 class Category(models.Model):
     """
     Hierarchical category for products.

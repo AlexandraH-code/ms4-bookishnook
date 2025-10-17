@@ -149,7 +149,7 @@ footer .bn-h5 { margin-bottom:.5rem; }
 .bn-card .bn-link:hover {
   color: #3E2A20;
   text-decoration: underline;
-}}
+}
 
 .bn-card {
   background: #fff;
@@ -194,6 +194,9 @@ footer .bn-h5 { margin-bottom:.5rem; }
   overflow: hidden; /* rounded corners for zebra rows */
 }
 
+.text-muted, .small.text-muted { color: #6c757d !important; } /* or#5c636a */
+
+
 /* === MODALS FOR ACCOUNT CREATION AND LOGIN === */
 #authModal .modal-content { border-radius: .75rem; overflow: hidden; }
 #authModal .close { position: absolute; right: .25rem; top: .25rem; z-index: 10; }
@@ -201,6 +204,10 @@ footer .bn-h5 { margin-bottom:.5rem; }
 
 /* === BACKOFFICE CSS === */
 .badge { border-radius: .5rem; padding: .35em .6em; font-weight: 600; }
+
+.badge-success   { background-color:#198754 !important; } /* darker green */
+.badge-info      { background-color:#0dcaf0 !important; }
+.badge-primary   { background-color:#0d6efd !important; }
 
 /* Order detail card background by status */
 .order-card-pending   { background-color: #f8f9fa; }   /* light grey */
@@ -288,7 +295,10 @@ footer .bn-h5 { margin-bottom:.5rem; }
 /* Mobile product cards */
 .product-card-mobile { width: 100%; max-width: 560px; }
 .product-card-mobile .card-body { padding: .75rem; }
-.text-break   { word-break: break-word; }
+.text-break {
+  word-break: normal;          
+  overflow-wrap: anywhere;     
+}
 .text-truncate{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Air between buttons everywhere */
@@ -305,7 +315,9 @@ footer .bn-h5 { margin-bottom:.5rem; }
 /* Theme pagination to match outline-secondary */
 .bo-pagination .page-link { border-color:#6c757d; color:#6c757d; }
 .bo-pagination .page-item.active .page-link {
-  background:#6c757d; border-color:#6c757d; color:#fff;
+  background: #6c757d;
+  border-color: #5f676d;
+  color: #fff;
 }
 .bo-pagination .page-item.disabled .page-link { color:#999; border-color:#ced4da; }
 
@@ -322,9 +334,9 @@ footer .bn-h5 { margin-bottom:.5rem; }
 
 
 /* BACKOFFICE - product_form */ 
-/* Header size & air */ 
+/* Header */ 
 .bn-admin-title { font-size: 1.35rem; }
-.page-title     { font-size: 1.1rem;  } /* smaller than Backoffice-h1 */
+.page-title     { font-size: 1.1rem;  } 
 
 
 /* ==== lINKS – follow the color theme ==== */
@@ -452,7 +464,10 @@ main {
 .nowrap { white-space: nowrap; }
 
 /* Only allow product names to be broken, not numbers */
-.break { word-break: break-word; overflow-wrap: anywhere; }
+.break { 
+  word-break: normal;
+  overflow-wrap: anywhere;
+  overflow-wrap: anywhere; }
 
 /* CART */
 /* table wrapper */
@@ -555,7 +570,8 @@ main {
 
   .bn-checkout-table .break {
     display: block;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: anywhere;
     hyphens: auto;
     text-overflow: ellipsis;
   }
@@ -587,10 +603,7 @@ main {
 }
 
 
-/* Added */
-
-/* Gör justeringar bara på produktsidan: ge wrapper-klassen "products-search" i templaten */
-@media (max-width: 575.98px){ /* Mobil */
+@media (max-width: 575.98px){ /* Mobile */
   .products-search .input-group{ flex-wrap: wrap; }
   .products-search .input-group > .form-control{ flex: 1 1 100%; min-width: 0; }
   .products-search .input-group-append{ flex: 0 0 100%; }
@@ -598,9 +611,9 @@ main {
     width: 100%;
     margin-top: .5rem;
     padding: .375rem .75rem;
-    font-size: .875rem; /* lite mindre knapp */
+    font-size: .875rem; 
   }
-  .bn-card .btn{ margin-bottom: .5rem; } /* space under View-knappen */
+  .bn-card .btn{ margin-bottom: .5rem; } 
 }
 
 @media (min-width: 576px) and (max-width: 991.98px){ /* Tablet */
@@ -612,19 +625,15 @@ main {
   .products-search .input-group{ max-width: 520px; } 
 }
 
-@media (min-width: 992px) {
-  .products-search .input-group > .form-control {
-    margin-right: 0.5rem; 
-  }
-  .products-search .input-group { 
-    max-width: 520px; 
-  }
-}
-
 .products-search .input-group-append .btn {
   margin-left: 0 !important;
 }
 
+
+@media (min-width: 992px){
+  .products-search .form-control { margin-right: .5rem; min-width: 0; }
+  .products-search { max-width: 560px; }
+}
 
 /* */
 

@@ -7,7 +7,6 @@ Views for browsing products and categories.
 """
 
 
-# Create your views here.
 def _resolve_category_by_path(slug_path: str):
     """
     Resolve a nested category from a slug path like "bookmarks/leather".
@@ -74,7 +73,6 @@ def product_list(request, slug_path=None):
         sort = "name"
     products = products.order_by(sort)
 
-    # (If you need to show all root categories in the page filter/menu:)
     categories = Category.objects.filter(parent__isnull=True, is_active=True).order_by("name")
 
     context = {

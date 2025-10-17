@@ -9,17 +9,14 @@ from .models import NewsletterSubscriber
 from .utils import send_newsletter_confirmation
 
 
-# Register your models here.
 @admin.action(description="Export selected to CSV")
 def export_subscribers_csv(modeladmin, request, queryset):
-    # Gör filnamn med tidsstämpel
     ts = timezone.now().strftime("%Y%m%d_%H%M%S")
     filename = f"newsletter_subscribers_{ts}.csv"
 
-    # Excel-vänligt: UTF-8 med BOM
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
-    response.write("\ufeff")  # BOM för Excel
+    response.write("\ufeff")  # BOM for Excel
 
     writer = csv.writer(response)
     # Header
@@ -57,7 +54,6 @@ def resend_confirmation(modeladmin, request, queryset):
     for sub in queryset:
         if not sub.confirmed and not sub.unsubscribed:
             try:
-                # Skicka mailet igen
                 send_newsletter_confirmation(sub, request)
                 count += 1
             except Exception as e:
@@ -91,7 +87,6 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
     )
     actions = [export_subscribers_csv, export_all_confirmed_csv, resend_confirmation]
 
-    # --- 1) Egna admin-URL:er för "confirm-now" ---
     def get_urls(self):
         urls = super().get_urls()
         custom = [
@@ -103,7 +98,6 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
         ]
         return custom + urls
 
-    # --- 2) Själva bekräftelse-vyn ---
     def confirm_now_view(self, request, pk: int):
         sub = get_object_or_404(NewsletterSubscriber, pk=pk)
         if sub.unsubscribed:
@@ -120,7 +114,6 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
 
         return redirect("admin:home_newslettersubscriber_change", pk)
 
-    # --- 3) Knapp i listvy + detaljvy ---
     @admin.display(description="Confirm now")
     def confirm_now_button(self, obj):
         if obj.unsubscribed:
@@ -131,5 +124,4 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
         return format_html('<a class="button" href="{}">Confirm now</a>', url)
 
     class Media:
-        # Lite styling för att få länken att se ut som admin-knapp
         css = {"all": ("admin/css/widgets.css",)}

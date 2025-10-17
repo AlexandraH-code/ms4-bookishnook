@@ -93,7 +93,6 @@
         {% csrf_token %}
         {% for val,label in statuses %}
             {% if val != order.status %}
-            {# välj outline-färg baserat på status_badge #}
             {% with color=val|status_badge icon=val|status_icon %}
                 <button name="action" value="mark_{{ val }}"
                         class="btn btn-sm btn-outline-{{ color }} mr-2 mb-2">

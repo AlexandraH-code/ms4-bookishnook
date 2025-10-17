@@ -22,7 +22,6 @@ Includes:
 """
 
 
-# Create your views here.
 def index(request):
     """
     Minimal index view (alias of the homepage template).

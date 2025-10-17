@@ -3,7 +3,7 @@ Developer - Alexandra Holstensson
 
 [Link to the project - Heroku](https://bookish-nook-157d2cfc4403.herokuapp.com/)
 
-![Image Of The Site - Am I Responsive](docs/images/am_i_responsive/am_I_responsive_small.png)
+![Image Of The Site - Am I Responsive](docs/images/am_i_responsive/am_i_responsive.png)
 
 ---
 
@@ -726,8 +726,6 @@ The color palette was chosen to create a cozy, book-inspired atmosphere with war
 > **Design rationale:**  
 > The deep brown provides a strong, warm foundation, while cream ensures a light and comfortable background for reading. Sage green and rose pink were introduced as *accent colors* — sage conveys calmness and nature, while rose adds a soft, welcoming warmth. These subtle contrasts prevent the design from feeling flat and reinforce the cozy “book nook” aesthetic.
 
-[ColorMagic's ContastChecker](https://colormagic.app/contrast-checker)
-
 ---
 
 ### Fonts
@@ -1298,16 +1296,18 @@ In addition to the features that are currently added to the website, I have come
 ## 9. Technologies Used
 [Back To The Top](#table-of-contents)
 ### Languages
+
 - [HTML5](https://en.wikipedia.org/wiki/HTML) - Used to create the foundation of all subpages on the website.
 - [CSS](https://en.wikipedia.org/wiki/CSS) - Used to style the website and to get content to end up in the right place.
 - [JavaScript](https://en.wikipedia.org/wiki/JavaScript) - Scripting language used to achieve the star rating and "reply to comment" form on the Book Detail page.
 - [Python3](https://en.wikipedia.org/wiki/Python_(programming_language)) - Programming language that (together with Django) was used to create the website.
+
+---
+
 ### Programs And Other Resoures
 - [Django](https://www.djangoproject.com/) - a high-level Python web framework that was used to create the website/web application.
 - [PostgreSQL](https://www.postgresql.org/) - The database used on the website is a PostgreSQL database.
 - [Bootstrap, v4.6](https://getbootstrap.com/) - Used Boostrap to structure the pages and used some Bootstrap elements to style the site.
-    - [Navbar](https://getbootstrap.com/docs/5.3/components/navbar/#nav) - Used a Bootstrap navbar as a template, but adapted it to my website.
-    - [Buttons](https://getbootstrap.com/docs/5.3/components/buttons/) - I started with Bootstrap buttons but customized colors and so on to fit my site.
 - [Heroku](https://www.heroku.com/) - The website is deployed to Heroku.
 - [Visual Studio Code](https://code.visualstudio.com/) - Program used to code the website.
 - [Git](https://git-scm.com/) - Mainly used to save the website to GitHub.
@@ -1321,7 +1321,6 @@ In addition to the features that are currently added to the website, I have come
 - [Site24x7's JavaScript validator](https://www.site24x7.com/tools/javascript-validator.html) - Used to validate the JavaScript code.
 - [JShint](https://jshint.com/) - Used to validate the JavaScript Code.
 - [Fontawesome](https://fontawesome.com/) - For all the icons)
-- [ColorMagic Contrast Checker](https://colormagic.app/contrast-checker) - Was used to check the constrast of the colors that I have chosen
 - [Google Fonts](https://fonts.google.com/) - Was used to download the fonts that I have chosen to use (Playfair Display and Lato)
 - [Google Transate](https://translate.google.com/) - Was used to translate text for accuracy.
 - [diagrams](https://app.diagrams.net/) - Was used to create the Entity Relationship Diagram
@@ -1329,6 +1328,9 @@ In addition to the features that are currently added to the website, I have come
 - [W3Schools CSS Tutorial](https://www.w3schools.com/css/default.asp) - Used to check things related to CSS.
 - [W3Scools Python Tutorial](https://www.w3schools.com/python/default.asp) - Used to check things related to Python.
 - [Django Documentation](https://docs.djangoproject.com/en/5.2/) - Used to check things related to Python. 
+- [chatGPT](https://chatgpt.com/) - Got help with the modals for creating an account and logging in.
+
+---
 
 ## 10. Testing
 [Back To The Top](#table-of-contents)
@@ -1496,21 +1498,221 @@ In addition, automated tests were implemented and passed for key views and forms
 
 ## 13. Lighthouse Testing
 [Back To The Top](#table-of-contents)
+
+
 ### Desktop
-Lägg till alla sidor som har testats i Lighthouse
+
 <details>
   <summary>Home Page</summary>
 
-  ![Home Page](docs/images/lighthouse/desktop/home.png)
+  ![Home Page](docs/images/lighthouse/desktop/home_page_2.png)
 </details>
 
+<details>
+  <summary>All Products</summary>
+
+  ![All Products](docs/images/lighthouse/desktop/all_products_2.png)
+</details>
+
+<details>
+  <summary>Product Details</summary>
+
+  ![Product Details](docs/images/lighthouse/desktop/product_details_2.png)
+</details>
+
+<details>
+  <summary>Your Cart</summary>
+
+  ![Your Cart](docs/images/lighthouse/desktop/your_cart_2.png)
+</details>
+
+<details>
+  <summary>Checkout</summary>
+
+  ![Checkout](docs/images/lighthouse/desktop/checkout.png)
+</details>
+
+<details>
+  <summary>Checkout Success</summary>
+
+  ![Checkou Success](docs/images/lighthouse/desktop/checkout_success.png)
+</details>
+
+<details>
+  <summary>About Us</summary>
+
+  ![About Us](docs/images/lighthouse/desktop/about_us.png)
+</details>
+
+<details>
+  <summary>Contact</summary>
+
+  ![Contact](docs/images/lighthouse/desktop/contact.png)
+</details>
+
+<details>
+  <summary>FAQ</summary>
+
+  ![FAQ](docs/images/lighthouse/desktop/faq.png)
+</details>
+
+<details>
+  <summary>My Account</summary>
+
+  ![My Account](docs/images/lighthouse/desktop/my_account.png)
+</details>
+
+<details>
+  <summary>My Account - Orders</summary>
+
+  ![My Account - Orders](docs/images/lighthouse/desktop/my_orders.png)
+</details>
+
+<details>
+  <summary>My Account - Edit Profile</summary>
+
+  ![My Account - Edit Profile](docs/images/lighthouse/desktop/edit_profile_2.png)
+</details>
+
+<details>
+  <summary>My Account - Addresses</summary>
+
+  ![My Account - Addresses](docs/images/lighthouse/desktop/my_addresses.png)
+</details>
+
+<details>
+  <summary>Backoffice - Dashboard</summary>
+
+  ![Backoffice - Dashboard](docs/images/lighthouse/desktop/backoffice_dashboard.png)
+</details>
+
+<details>
+  <summary>Backoffice - Orders</summary>
+
+  ![Backoffice - Orders](docs/images/lighthouse/desktop/backoffice_orders_2.png)
+</details>
+
+<details>
+  <summary>Backoffice - Products</summary>
+
+  ![Backoffice - Products](docs/images/lighthouse/desktop/backoffice_products_2.png)
+</details>
+
+<details>
+  <summary>Backoffice - New Product</summary>
+
+  ![Backoffice - New Product](docs/images/lighthouse/desktop/backoffice_new_product.png)
+</details>
+
+---
+---
+
 ### Mobile
-Lägg till alla sidor som har testats i Lighthouse
+
 <details>
   <summary>Home Page</summary>
 
-  ![Home Page](docs/images/lighthouse/desktop/home.png)
+  ![Home Page](docs/images/lighthouse/mobile/home_page_2.png)
+</details>
+
+<details>
+  <summary>All Products</summary>
+
+  ![All Products](docs/images/lighthouse/mobile/all_products_2.png)
+</details>
+
+<details>
+  <summary>Product Details</summary>
+
+  ![Product Details](docs/images/lighthouse/mobile/product_details_2.png)
+</details>
+
+<details>
+  <summary>Your Cart</summary>
+
+  ![Your Cart](docs/images/lighthouse//mobile/your_cart_2.png)
+</details>
+
+<details>
+  <summary>Checkout</summary>
+
+  ![Checkout](docs/images/lighthouse/mobile/checkout.png)
+</details>
+
+<details>
+  <summary>Checkout Success</summary>
+
+  ![Checkou Success](docs/images/lighthouse/mobile/checkout_success.png)
+</details>
+
+<details>
+  <summary>About Us</summary>
+
+  ![About Us](docs/images/lighthouse/mobile/about_us.png)
+</details>
+
+<details>
+  <summary>Contact</summary>
+
+  ![Contact](docs/images/lighthouse/mobile/contact.png)
+</details>
+
+<details>
+  <summary>FAQ</summary>
+
+  ![FAQ](docs/images/lighthouse/mobile/faq.png)
+</details>
+
+<details>
+  <summary>My Account</summary>
+
+  ![My Account](docs/images/lighthouse/mobile/my_account.png)
+</details>
+
+<details>
+  <summary>My Account - Orders</summary>
+
+  ![My Account - Orders](docs/images/lighthouse/mobile/my_orders.png)
+</details>
+
+<details>
+  <summary>My Account - Edit Profile</summary>
+
+  ![My Account - Edit Profile](docs/images/lighthouse/mobile/edit_profile_2.png)
+</details>
+
+<details>
+  <summary>My Account - Addresses</summary>
+
+  ![My Account - Addresses](docs/images/lighthouse/mobile/my_addresses.png)
+</details>
+
+<details>
+  <summary>Backoffice - Dashboard</summary>
+
+  ![Backoffice - Dashboard](docs/images/lighthouse/mobile/backoffice_dashboard.png)
+</details>
+
+<details>
+  <summary>Backoffice - Orders</summary>
+
+  ![Backoffice - Orders](docs/images/lighthouse/mobile/backoffice_orders_2.png)
+</details>
+
+<details>
+  <summary>Backoffice - Products</summary>
+
+  ![Backoffice - Products](docs/images/lighthouse/mobile/backoffice_products_2.png)
+</details>
+
+<details>
+  <summary>Backoffice - New Product</summary>
+
+  ![Backoffice - New Product](docs/images/lighthouse/mobile/backoffice_new_product.png)
 </details> 
+
+---
+---
 
 ## 14. Device Testing
 [Back To The Top](#table-of-contents)
