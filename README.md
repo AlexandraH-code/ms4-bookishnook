@@ -1328,7 +1328,7 @@ In addition to the features that are currently added to the website, I have come
 - [W3Schools CSS Tutorial](https://www.w3schools.com/css/default.asp) - Used to check things related to CSS.
 - [W3Scools Python Tutorial](https://www.w3schools.com/python/default.asp) - Used to check things related to Python.
 - [Django Documentation](https://docs.djangoproject.com/en/5.2/) - Used to check things related to Python. 
-- [chatGPT](https://chatgpt.com/) - Got help with the modals for creating an account and logging in.
+- [chatGPT](https://chatgpt.com/) - Got help with the scripts for newsletter and modals for creating an account and logging in.
 
 ---
 
@@ -1470,17 +1470,11 @@ The CSS file went through [the W3C CSS Validator](https://jigsaw.w3.org/css-vali
 ### JavaScript
 
 The JavaScript code in this project was validated using [JSHint](https://jshint.com/). 
-No critical errors were found. Some warnings were reported due to the use of ES6 syntax, including:
-const and let declarations
-Arrow functions (=>)
-
-These are standard features in modern JavaScript and are fully supported in all modern browsers.
-To suppress these warnings, the following directive can be added at the top of JavaScript files:
-/* jshint esversion: 6 */
+No critical errors were found.
 
 The JavaScript functionality in the project includes:
-- A script to toggle the visibility of reply forms for comments on the book detail page.
-- A script to handle interactive star rating submission for books.
+    - A newsletter script
+    - Scripts for modals for create account and login
 
 These scripts were written with support from ChatGPT (OpenAI).
 
@@ -1492,7 +1486,7 @@ Python code was checked using `flake8` to ensure compliance with PEP 8 standards
 Minor style warnings (e.g. line length) were adjusted or ignored when not critical.  
 All functional code passes validation and runs without syntax errors.
 
-In addition, automated tests were implemented and passed for key views and forms.
+In addition, a variety of automated tests have been performed.
 
 ---
 

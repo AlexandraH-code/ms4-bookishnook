@@ -34,7 +34,7 @@ DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 def env_list(name: str, default: str = ""):
     vals = []
     for p in os.getenv(name, default).split(","):
-        p = p.strip().strip('"').strip("'").rstrip("/") 
+        p = p.strip().strip('"').strip("'").rstrip("/")
         if p:
             vals.append(p)
     return vals
@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_countries',
 
-    
+
     # Third-party apps
     'crispy_forms',
     'crispy_bootstrap4',
@@ -141,11 +141,11 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # Required by allauth
+                'django.template.context_processors.request',  # Required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'bookshop.context_processors.cart_count',  # For the cart app
-                'bookshop.context_processors.nav_categories',  # For subcategories in navbar         
+                'bookshop.context_processors.nav_categories',  # For subcategories in navbar
             ],
         },
     },
@@ -222,7 +222,7 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 # Email
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@bookishnook.local")  # for bug reports
-DEFAULT_FROM_NAME = "Bookish Nook" 
+DEFAULT_FROM_NAME = "Bookish Nook"
 
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "")
@@ -249,10 +249,10 @@ if USE_AWS:
 
     # locations
     STATIC_LOCATION = "static"
-    MEDIA_LOCATION  = "media"
+    MEDIA_LOCATION = "media"
 
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-    MEDIA_URL  = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
 
     STORAGES = {
         "staticfiles": {
