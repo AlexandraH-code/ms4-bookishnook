@@ -1463,7 +1463,7 @@ All HTML templates were validated using [the W3C Markup Validation Service](http
 
 The CSS file went through [the W3C CSS Validator](https://jigsaw.w3.org/css-validator/) without showing any errors. 
 
-![Image of CSS validation](docs/images/validation/css/css_validated_small.png)
+![Image of CSS validation](docs/images/validation/css/validation_css.png)
 
 ---
 
